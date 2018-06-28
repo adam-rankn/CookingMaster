@@ -30,7 +30,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintBottom_toTopOf="@+id/btn_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -41,12 +41,12 @@
         android:layout_height="61dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:text="MAIN"
+        android:text="SEARCH"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/btn_main"
         android:layout_width="110dp"
         android:layout_height="61dp"
         android:layout_marginBottom="8dp"
