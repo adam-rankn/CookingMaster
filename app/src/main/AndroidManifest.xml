@@ -25,7 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.RecipeBookActivity" />
-        <activity android:name=".Activities.AddRecipeActivity"></activity>
+        <activity android:name=".Activities.AddRecipeActivity" />
+        <activity android:name=".Activities.RecipeBookLayoutAdapter"></activity>
     </application>
 
 </manifest>

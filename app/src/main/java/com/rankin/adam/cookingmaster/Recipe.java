@@ -12,6 +12,11 @@ public class Recipe {
     private String Time;
     private ArrayList<Ingredient> IngredientList;
 
+
+    public Recipe(String name) {
+        Name = name;
+    }
+
     public String getName() {
         return Name;
     }
