@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         cookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent cookIntent = new Intent(MainActivity.this, Activity.class);
-                //startActivity(cookIntent);
+                Intent cookIntent = new Intent(MainActivity.this, CookingActivity.class);
+                startActivity(cookIntent);
             }
         });
 

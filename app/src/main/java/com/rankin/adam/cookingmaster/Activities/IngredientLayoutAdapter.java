@@ -1,6 +1,5 @@
 package com.rankin.adam.cookingmaster.Activities;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,31 +9,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.rankin.adam.cookingmaster.Ingredient;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.Recipe;
 
 import java.util.ArrayList;
 
+/**
+ * Created by Adam on 10-Jul-18.
+ */
+
+public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayoutAdapter.ViewHolder> {
+
+    private ArrayList<Ingredient> ingredientList;
 
 
-
-
-
-public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayoutAdapter.ViewHolder>{
-
-    private ArrayList<Recipe> recipeList;
-    private Context recipeBookContext;
-    private int RECIPE_EDIT_FLAG = 1;
-
-
-    public RecipeBookLayoutAdapter(ArrayList<Recipe> recipeList, Context context) {
-        this.recipeList = new ArrayList<>();
-        this.recipeList.addAll(recipeList);
-        this.recipeBookContext = context;
+    public IngredientLayoutAdapter(ArrayList<Ingredient> ingredientList, Context context) {
+        this.ingredientList = new ArrayList<>();
+        this.ingredientList.addAll(ingredientList);
     }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -51,31 +45,30 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
 
         @Override
         public void onClick(View view) {
-            Intent viewRecipeIntent = new Intent(recipeBookContext, ViewRecipeActivity.class);
-            //viewRecipeIntent.putExtra("Mode",RECIPE_EDIT_FLAG);
-            ((Activity)recipeBookContext).startActivity(viewRecipeIntent);
+
 
         }
     }
 
     @Override
-    public RecipeBookLayoutAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public IngredientLayoutAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout
                 .recipe_book_row_layout, parent, false);
-        return new RecipeBookLayoutAdapter.ViewHolder(inflatedView);
+        return new IngredientLayoutAdapter.ViewHolder(inflatedView);
     }
 
     @Override
-    public void onBindViewHolder(RecipeBookLayoutAdapter.ViewHolder holder, final int position) {
-        final Recipe recipe =recipeList.get(position);
-        String name = recipe.getName();
-
-        holder.recipeName.setText(name);
+    public void onBindViewHolder(IngredientLayoutAdapter.ViewHolder holder, final int position) {
+        final Ingredient ingredient =ingredientList.get(position);
+        //String name = Ingredient.getName();
+        //holder.recipeName.setText(name);
     }
 
 
     @Override
     public int getItemCount() {
-        return recipeList.size();
+        return ingredientList.size();
     }
 }
+
+
