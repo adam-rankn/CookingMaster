@@ -8,11 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import com.rankin.adam.cookingmaster.Ingredient;
+import com.rankin.adam.cookingmaster.Model.RecipeList;
 import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.Recipe;
+import com.rankin.adam.cookingmaster.Model.Recipe;
 
 import java.util.ArrayList;
+
+import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
+import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeList;
 
 public class RecipeBookActivity extends AppCompatActivity {
 
@@ -20,14 +23,15 @@ public class RecipeBookActivity extends AppCompatActivity {
     private LinearLayoutManager recipeBookLinearLayoutManager;
     private RecipeBookLayoutAdapter recipeBookAdapter;
 
-    private ArrayList<Recipe> recipeList;
+    private int ADD_RECIPE_REQUEST = 0;
+
+    private ArrayList<Recipe> adapterList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_book);
-
-        ArrayList<Recipe> recipeList = new ArrayList<>();
 
         //dummy recipes
         Recipe chicken = new Recipe("Chicken Gallina");
@@ -36,17 +40,20 @@ public class RecipeBookActivity extends AppCompatActivity {
         pork.setTime("45 min");
         Recipe beef = new Recipe("Beef Vacca");
         beef.setTime("60 min");
-        recipeList.add(chicken);
-        recipeList.add(pork);
-        recipeList.add(beef);
 
-        recipeBookRecyclerView = (RecyclerView) findViewById(R.id.recycler_recipe_book);
+        adapterList.add(chicken);
+        adapterList.add(pork);
+        adapterList.add(beef);
+
+        adapterList.addAll(recipeList.getRecipeList());
+
+        recipeBookRecyclerView = findViewById(R.id.recycler_recipe_book);
         recipeBookLinearLayoutManager = new LinearLayoutManager(this);
         recipeBookRecyclerView.setLayoutManager(recipeBookLinearLayoutManager);
-        recipeBookAdapter = new RecipeBookLayoutAdapter(recipeList, this);
+        recipeBookAdapter = new RecipeBookLayoutAdapter(adapterList, this);
         recipeBookRecyclerView.setAdapter(recipeBookAdapter);
 
-        Button returnToMainButton = (Button) findViewById(R.id.btn_main);
+        Button returnToMainButton = findViewById(R.id.btn_main);
         returnToMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,14 +61,58 @@ public class RecipeBookActivity extends AppCompatActivity {
             }
         });
 
-        Button addRecipeButton = (Button) findViewById(R.id.btn_add_recipe);
+        Button addRecipeButton = findViewById(R.id.btn_add_recipe);
         addRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent addRecipeIntent = new Intent(RecipeBookActivity.this, AddRecipeActivity.class);
-                startActivity(addRecipeIntent);
+                startActivityForResult(addRecipeIntent,ADD_RECIPE_REQUEST);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if (requestCode == ADD_RECIPE_REQUEST){
+            if (resultCode == RESULT_OK){
+                //recipeList.sort;
+                adapterList.clear();
+                adapterList.addAll(recipeList.getRecipeList());
+                recipeBookAdapter.notifyDataSetChanged();
+
+
+            }
+        }
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        recipeController.saveRecipes();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapterList.clear();
+        adapterList.addAll(recipeList.getRecipeList());
+        recipeBookAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        invalidateOptionsMenu();
+
+        recipeBookRecyclerView = (RecyclerView) findViewById(R.id.recycler_recipe_book);
+        recipeBookLinearLayoutManager = new LinearLayoutManager(this);
+        recipeBookRecyclerView.setLayoutManager(recipeBookLinearLayoutManager);
+        adapterList.clear();
+        adapterList.addAll(recipeList.getRecipeList());
+        recipeBookAdapter = new RecipeBookLayoutAdapter(adapterList, this);
+        recipeBookRecyclerView.setAdapter(recipeBookAdapter);
+        recipeBookAdapter.notifyDataSetChanged();
     }
 
 

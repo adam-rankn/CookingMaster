@@ -10,10 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.Recipe;
+import com.rankin.adam.cookingmaster.Model.Recipe;
 
 import java.util.ArrayList;
 

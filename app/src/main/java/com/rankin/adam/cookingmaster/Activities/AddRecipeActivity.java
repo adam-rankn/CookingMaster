@@ -1,36 +1,32 @@
 package com.rankin.adam.cookingmaster.Activities;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.Ingredient;
+import com.rankin.adam.cookingmaster.Controllers.RecipeController;
 import com.rankin.adam.cookingmaster.R;
+import com.rankin.adam.cookingmaster.Model.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
+
 public class AddRecipeActivity extends AppCompatActivity {
 
-    List<String> allergenList = new ArrayList<>();
+    private List<String> allergenList = new ArrayList<>();
     private int RECIPE_ADD_FLAG = 0;
     private int RECIPE_EDIT_FLAG = 1;
     private int mode;
-
-    private RecyclerView ingredientRecyclerView;
-    private LinearLayoutManager ingredientLinearLayoutManager;
-    private IngredientLayoutAdapter ingredientAdapter;
-
-    private ArrayList<Ingredient> ingredientList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +42,6 @@ public class AddRecipeActivity extends AppCompatActivity {
         allergenList.add("Peanut");
         allergenList.add("Eggs");
 
-        ingredientRecyclerView = (RecyclerView) findViewById(R.id.ingrDialog_recyclerView);
-        ingredientLinearLayoutManager = new LinearLayoutManager(this);
-        ingredientRecyclerView.setLayoutManager(ingredientLinearLayoutManager);
-        ingredientAdapter = new IngredientLayoutAdapter(ingredientList, this);
-        ingredientRecyclerView.setAdapter(ingredientAdapter);
 
         //mode = getIntent().getIntExtra("Mode",0);
         //if (mode == 1){
@@ -58,7 +49,49 @@ public class AddRecipeActivity extends AppCompatActivity {
         //    saveRecipeButton.setText("Save");
         //}
 
-        Button ingredientsButton = (Button) findViewById(R.id.addRecipeAct_btn_set_ingredients);
+        Button addButton = findViewById(R.id.addRecipeAct_btn_add_recipe);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //get recipe ingo from view
+                EditText nameEdit = findViewById(R.id.addRecipeAct_txt_name);
+                EditText timeEdit = findViewById(R.id.addRecipeAct_txt_time);
+                EditText instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
+
+                if (nameEdit.getText().toString().trim().isEmpty()){
+                    nameEdit.setError("Recipe name required");
+                }
+
+
+                else {
+                    String name = nameEdit.getText().toString();
+                    Recipe newRecipe = new Recipe(name);
+
+                    String time = timeEdit.getText().toString();
+                    newRecipe.setTime(time);
+
+                    String instructions = instructionsEdit.getText().toString();
+                    newRecipe.setInstructions(instructions);
+
+                    //TODO add the ingredients and allergens list
+
+                    recipeController.addRecipe(newRecipe);
+                    recipeController.saveRecipes();
+                    finish();
+                }
+            }
+        });
+
+        Button cancelButton = findViewById(R.id.addRecipeAct_btn_cancel);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        Button ingredientsButton = findViewById(R.id.addRecipeAct_btn_set_ingredients);
         ingredientsButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -116,7 +149,17 @@ public class AddRecipeActivity extends AppCompatActivity {
 
             }
         });
+
+        AlertDialog.Builder ingredientDialog = new AlertDialog.Builder(this);
+        View convertView = LayoutInflater.from(this).inflate(R.layout.ingredients_dialog, null);
+        ingredientDialog.setView(convertView);
+        ingredientDialog.setTitle("Add Ingredients");
+        Dialog dialog = ingredientDialog.create();
+
+
+
     }
+
 }
 
 

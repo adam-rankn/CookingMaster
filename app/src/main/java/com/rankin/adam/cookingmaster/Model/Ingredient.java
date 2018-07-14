@@ -1,4 +1,4 @@
-package com.rankin.adam.cookingmaster;
+package com.rankin.adam.cookingmaster.Model;
 
 import java.util.ArrayList;
 

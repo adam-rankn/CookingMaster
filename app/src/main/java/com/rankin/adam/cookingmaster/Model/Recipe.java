@@ -1,4 +1,6 @@
-package com.rankin.adam.cookingmaster;
+package com.rankin.adam.cookingmaster.Model;
+
+import com.rankin.adam.cookingmaster.Model.Ingredient;
 
 import java.util.ArrayList;
 
@@ -11,6 +13,8 @@ public class Recipe {
     private String Name;
     private String Time;
     private ArrayList<Ingredient> IngredientList;
+    private String Instructions;
+    private ArrayList<String> allergens;
 
 
     public Recipe(String name) {
@@ -39,5 +43,21 @@ public class Recipe {
 
     public void setIngredientList(ArrayList<Ingredient> ingredientList) {
         IngredientList = ingredientList;
+    }
+
+    public String getInstructions() {
+        return Instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        Instructions = instructions;
+    }
+
+    public ArrayList<String> getAllergens() {
+        return allergens;
+    }
+
+    public void setAllergens(ArrayList<String> allergens) {
+        this.allergens = allergens;
     }
 }
