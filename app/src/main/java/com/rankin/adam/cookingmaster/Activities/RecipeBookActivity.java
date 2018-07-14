@@ -33,18 +33,6 @@ public class RecipeBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_book);
 
-        //dummy recipes
-        Recipe chicken = new Recipe("Chicken Gallina");
-        chicken.setTime("30 min");
-        Recipe pork = new Recipe("Pork Suilla");
-        pork.setTime("45 min");
-        Recipe beef = new Recipe("Beef Vacca");
-        beef.setTime("60 min");
-
-        adapterList.add(chicken);
-        adapterList.add(pork);
-        adapterList.add(beef);
-
         adapterList.addAll(recipeList.getRecipeList());
 
         recipeBookRecyclerView = findViewById(R.id.recycler_recipe_book);

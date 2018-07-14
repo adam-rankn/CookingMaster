@@ -21,6 +21,11 @@ public class RecipeController {
         recipeList.addRecipe(recipe);
     }
 
+    public void viewRecipe(int position){
+        this.position = position;
+        recipe = recipeList.getRecipe(position);
+    }
+
     public String getName(){
         return recipe.getName();
     }
@@ -29,8 +34,20 @@ public class RecipeController {
         recipe.setName(name);
     }
 
+    public String getTime(){
+        return recipe.getTime();
+    }
+
+    public void setTime(String time){
+        recipe.setTime(time);
+    }
+
     public String getInstructions(){
         return recipe.getInstructions();
+    }
+
+    public void setInstructions(String instructions){
+        recipe.setInstructions(instructions);
     }
 
     public void viewHabit(int position){

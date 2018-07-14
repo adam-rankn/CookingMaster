@@ -4,6 +4,7 @@ package com.rankin.adam.cookingmaster.Activities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +17,7 @@ import com.rankin.adam.cookingmaster.Model.Recipe;
 
 import java.util.ArrayList;
 
-
-
-
+import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
 
 
 public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayoutAdapter.ViewHolder>{
@@ -66,10 +65,12 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
 
     @Override
     public void onBindViewHolder(RecipeBookLayoutAdapter.ViewHolder holder, final int position) {
-        final Recipe recipe =recipeList.get(position);
-        String name = recipe.getName();
+        final Recipe recipe = recipeList.get(position);
+        recipeController.viewRecipe(position);
 
+        String name = recipe.getName();
         holder.recipeName.setText(name);
+        //TODO show recipe photo
     }
 
 

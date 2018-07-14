@@ -7,13 +7,13 @@
     tools:context="com.rankin.adam.cookingmaster.Activities.ViewRecipeActivity">
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/viewRecipeAct_txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Recipe Name"
+        android:text="Recipe Name:"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,15 +21,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="112dp"
-        android:layout_height="129dp"
+        android:id="@+id/viewRecipeAct_photo"
+        android:layout_width="93dp"
+        android:layout_height="113dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_txt_time"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <Button
@@ -38,26 +39,25 @@
         android:layout_height="51dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="Ingredients"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_photo" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/viewRecipeAct_txt_time"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="26dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="8dp"
         android:text="time"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView18"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_txt_name" />
 
     <TextView
         android:id="@+id/textView15"
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/viewRecipeAct_txt_instructions"
         android:layout_width="365dp"
         android:layout_height="180dp"
         android:layout_marginBottom="8dp"
@@ -86,5 +86,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15"
         tools:text="cooking instructions" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="140dp"
+        android:text="mins"
+        app:layout_constraintBaseline_toBaselineOf="@+id/viewRecipeAct_txt_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/viewRecipeAct_txt_time" />
 
 </android.support.constraint.ConstraintLayout>
