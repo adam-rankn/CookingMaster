@@ -49,9 +49,10 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
 
         @Override
         public void onClick(View view) {
+            recipeController.setCurrentRecipe(getAdapterPosition());
             Intent viewRecipeIntent = new Intent(recipeBookContext, ViewRecipeActivity.class);
-            //viewRecipeIntent.putExtra("Mode",RECIPE_EDIT_FLAG);
-            ((Activity)recipeBookContext).startActivity(viewRecipeIntent);
+            recipeBookContext.startActivity(viewRecipeIntent);
+
 
         }
     }
@@ -77,5 +78,13 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
     @Override
     public int getItemCount() {
         return recipeList.size();
+    }
+
+    public void addRecipe(Recipe recipe){
+        recipeList.add(recipe);
+    }
+
+    public void removeIngredient(int position) {
+        recipeList.remove(position);
     }
 }

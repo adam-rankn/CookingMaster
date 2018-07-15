@@ -66,9 +66,8 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
             @Override
             public void onClick(View v) {
                 recipeController.removeIngredient(position);
-                ingredientList.clear();
-                ingredientList.addAll(recipeController.getIngredients());
-
+                removeIngredient(position);
+                notifyItemRemoved(position);
             }
         });
 
@@ -80,12 +79,12 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
         return ingredientList.size();
     }
 
-    public ArrayList<Ingredient> getIngredientList(){
-        return ingredientList;
-    }
-
     public void addIngredient(Ingredient ingredient){
         ingredientList.add(ingredient);
+    }
+
+    public void removeIngredient(int position) {
+        ingredientList.remove(position);
     }
 }
 

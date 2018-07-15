@@ -1,6 +1,9 @@
 package com.rankin.adam.cookingmaster.Activities;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +24,7 @@ public class RecipeBookActivity extends AppCompatActivity {
 
     private RecyclerView recipeBookRecyclerView;
     private LinearLayoutManager recipeBookLinearLayoutManager;
-    private RecipeBookLayoutAdapter recipeBookAdapter;
+    public RecipeBookLayoutAdapter recipeBookAdapter;
 
     private int ADD_RECIPE_REQUEST = 0;
 
@@ -64,10 +67,7 @@ public class RecipeBookActivity extends AppCompatActivity {
         if (requestCode == ADD_RECIPE_REQUEST){
             if (resultCode == RESULT_OK){
                 //recipeList.sort;
-                adapterList.clear();
-                adapterList.addAll(recipeList.getRecipeList());
-                recipeBookAdapter.notifyDataSetChanged();
-
+                recreate();
 
             }
         }
@@ -83,24 +83,16 @@ public class RecipeBookActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapterList.clear();
-        adapterList.addAll(recipeList.getRecipeList());
-        recipeBookAdapter.notifyDataSetChanged();
+
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
         invalidateOptionsMenu();
+        recreate();
 
-        recipeBookRecyclerView = findViewById(R.id.recycler_recipe_book);
-        recipeBookLinearLayoutManager = new LinearLayoutManager(this);
-        recipeBookRecyclerView.setLayoutManager(recipeBookLinearLayoutManager);
-        adapterList.clear();
-        adapterList.addAll(recipeList.getRecipeList());
-        recipeBookAdapter = new RecipeBookLayoutAdapter(adapterList, this);
-        recipeBookRecyclerView.setAdapter(recipeBookAdapter);
-        recipeBookAdapter.notifyDataSetChanged();
+
     }
 
 

@@ -2,9 +2,12 @@ package com.rankin.adam.cookingmaster.Activities;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -60,7 +63,7 @@ public class IngredientsDialog extends Dialog {
         RecyclerView ingredientRecyclerView = findViewById(R.id.ingrDialog_recyclerView);
         LinearLayoutManager ingredientLinearLayoutManager = new LinearLayoutManager(getContext());
         ingredientRecyclerView.setLayoutManager(ingredientLinearLayoutManager);
-        IngredientLayoutAdapter ingredientAdapter = new IngredientLayoutAdapter(ingredients, getContext());
+        final IngredientLayoutAdapter ingredientAdapter = new IngredientLayoutAdapter(ingredients, getContext());
         ingredientRecyclerView.setAdapter(ingredientAdapter);
 
 
@@ -73,20 +76,15 @@ public class IngredientsDialog extends Dialog {
                 Ingredient ingredient = new Ingredient(ingrString);
                 ingredients.add(ingredient);
 
+                ingredientAdapter.addIngredient(ingredient);
 
-                //refresh the recyclerview
-                adapterList = new ArrayList<>();
-                adapterList.clear();
-                adapterList.addAll(recipeController.getIngredients());
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    public void run() {
+                        ingredientAdapter.notifyDataSetChanged();
+                    }
+                });
+
                 recipeController.addIngredient(ingredient);
-
-                RecyclerView ingredientRecyclerView = findViewById(R.id.ingrDialog_recyclerView);
-                LinearLayoutManager ingredientLinearLayoutManager = new LinearLayoutManager(getContext());
-                ingredientRecyclerView.setLayoutManager(ingredientLinearLayoutManager);
-                IngredientLayoutAdapter ingredientAdapter = new IngredientLayoutAdapter(ingredients, getContext());
-                ingredientRecyclerView.setAdapter(ingredientAdapter);
-                ingredientAdapter.notifyDataSetChanged();
-
                 ingredientText.setText("");
 
             }
