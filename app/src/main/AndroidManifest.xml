@@ -26,7 +26,7 @@
         </activity>
         <activity android:name=".Activities.RecipeBookActivity" />
         <activity android:name=".Activities.AddRecipeActivity" />
-        <activity android:name=".Activities.RecipeBookLayoutAdapter" />
+        <activity android:name=".Adapters.RecipeBookLayoutAdapter" />
         <activity android:name=".Activities.CookingActivity" />
         <activity android:name=".Activities.ViewRecipeActivity"></activity>
     </application>

@@ -1,5 +1,7 @@
 package com.rankin.adam.cookingmaster.Model;
 
+import android.graphics.Bitmap;
+
 import com.rankin.adam.cookingmaster.Model.Ingredient;
 
 import java.util.ArrayList;
@@ -12,13 +14,16 @@ public class Recipe {
 
     private String Name;
     private String Time;
-    private ArrayList<Ingredient> IngredientList;
+    private ArrayList<Ingredient> ingredientList;
     private String Instructions;
     private ArrayList<String> allergens;
+    private Bitmap thumbnail;
 
 
     public Recipe(String name) {
         Name = name;
+        ingredientList = new ArrayList<>();
+        allergens = new ArrayList<>();
     }
 
     public String getName() {
@@ -38,11 +43,19 @@ public class Recipe {
     }
 
     public ArrayList<Ingredient> getIngredientList() {
-        return IngredientList;
+        return ingredientList;
     }
 
     public void setIngredientList(ArrayList<Ingredient> ingredientList) {
-        IngredientList = ingredientList;
+        ingredientList = ingredientList;
+    }
+
+    public void addIngredient(Ingredient ingredient){
+        ingredientList.add(ingredient);
+    }
+
+    public void removeIngredient(int position){
+        ingredientList.remove(position);
     }
 
     public String getInstructions() {
@@ -59,5 +72,13 @@ public class Recipe {
 
     public void setAllergens(ArrayList<String> allergens) {
         this.allergens = allergens;
+    }
+
+    public Bitmap getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(Bitmap thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

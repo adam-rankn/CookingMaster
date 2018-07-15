@@ -20,7 +20,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Time:"
         android:textAlignment="textEnd"
         android:textColor="@android:color/black"
@@ -66,7 +66,7 @@
     <EditText
         android:id="@+id/addRecipeAct_txt_name"
         android:layout_width="196dp"
-        android:layout_height="46dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
@@ -83,7 +83,6 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="Allergens:"
         android:textAlignment="textEnd"
         android:textColor="@android:color/black"
@@ -92,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
-        android:id="@+id/txt_allergen_list"
+        android:id="@+id/addRecipeAct_txt_allergen_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No Allergens"
@@ -104,10 +103,8 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="Instructions:"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -115,14 +112,13 @@
         app:layout_constraintBottom_toTopOf="@+id/addRecipeAct_txt_instructions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addRecipeAct_btn_set_ingredients" />
+        app:layout_constraintTop_toBottomOf="@+id/addRecipeAct_btn_add_image" />
 
     <EditText
         android:id="@+id/addRecipeAct_txt_instructions"
         style="@style/Widget.AppCompat.EditText"
         android:layout_width="358dp"
-        android:layout_height="178dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="155dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
@@ -148,19 +144,31 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Ingredients:"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/txt_allergen_list" />
+        app:layout_constraintTop_toBottomOf="@+id/addRecipeAct_txt_allergen_list" />
 
     <Button
         android:id="@+id/addRecipeAct_btn_set_ingredients"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="37dp"
         android:text="SET"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView11"
-        app:layout_constraintStart_toStartOf="@+id/txt_allergen_list" />
+        app:layout_constraintStart_toStartOf="@+id/addRecipeAct_txt_allergen_list" />
+
+    <ImageButton
+        android:id="@+id/addRecipeAct_btn_add_image"
+        android:layout_width="64dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/default_recipe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addRecipeAct_btn_set_ingredients" />
 
 </android.support.constraint.ConstraintLayout>

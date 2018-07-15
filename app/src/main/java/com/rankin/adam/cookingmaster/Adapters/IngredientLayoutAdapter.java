@@ -1,16 +1,19 @@
-package com.rankin.adam.cookingmaster.Activities;
+package com.rankin.adam.cookingmaster.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.Model.Ingredient;
 import com.rankin.adam.cookingmaster.R;
 
 import java.util.ArrayList;
+
+import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
 
 /**
  * Created by Adam on 10-Jul-18.
@@ -29,12 +32,15 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView ingredientName;
+        private Button deleteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(this);
             ingredientName = itemView.findViewById(R.id.ingrRow_name);
+
+            deleteButton = itemView.findViewById(R.id.ingrDialog_btn_delete_ingredient);
         }
 
         @Override
@@ -56,6 +62,16 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
         final Ingredient ingredient = ingredientList.get(position);
         String name = ingredient.getName();
         holder.ingredientName.setText(name);
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recipeController.removeIngredient(position);
+                ingredientList.clear();
+                ingredientList.addAll(recipeController.getIngredients());
+
+            }
+        });
+
     }
 
 

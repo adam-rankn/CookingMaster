@@ -9,14 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.Controllers.RecipeController;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.Model.Recipe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
@@ -24,9 +25,7 @@ import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeContro
 public class AddRecipeActivity extends AppCompatActivity {
 
     private List<String> allergenList = new ArrayList<>();
-    private int RECIPE_ADD_FLAG = 0;
-    private int RECIPE_EDIT_FLAG = 1;
-    private int mode;
+    private Recipe newRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +40,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         allergenList.add("Shellfish");
         allergenList.add("Peanut");
         allergenList.add("Eggs");
+
+        newRecipe = new Recipe("test");
 
 
         //mode = getIntent().getIntExtra("Mode",0);
@@ -58,15 +59,23 @@ public class AddRecipeActivity extends AppCompatActivity {
                 EditText nameEdit = findViewById(R.id.addRecipeAct_txt_name);
                 EditText timeEdit = findViewById(R.id.addRecipeAct_txt_time);
                 EditText instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
+                TextView allergensText = findViewById(R.id.addRecipeAct_txt_allergen_list);
+
+                ArrayList<String> allergensList= new ArrayList(Arrays.asList(allergensText.toString().split(",")));
+
 
                 if (nameEdit.getText().toString().trim().isEmpty()){
                     nameEdit.setError("Recipe name required");
                 }
 
+                else if (timeEdit.getText().toString().trim().isEmpty()){
+                    timeEdit.setError("Recipe Time required");
+                }
+
 
                 else {
                     String name = nameEdit.getText().toString();
-                    Recipe newRecipe = new Recipe(name);
+                    newRecipe.setName(name);
 
                     String time = timeEdit.getText().toString();
                     newRecipe.setTime(time);
@@ -74,12 +83,23 @@ public class AddRecipeActivity extends AppCompatActivity {
                     String instructions = instructionsEdit.getText().toString();
                     newRecipe.setInstructions(instructions);
 
+                    newRecipe.setAllergens(allergensList);
+
                     //TODO add the ingredients and allergens list
 
                     recipeController.addRecipe(newRecipe);
                     recipeController.saveRecipes();
                     finish();
                 }
+            }
+        });
+
+        ImageButton thumbnailButton = findViewById(R.id.addRecipeAct_btn_add_image);
+        thumbnailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
             }
         });
 
@@ -96,13 +116,14 @@ public class AddRecipeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                recipeController.setCurrentRecipe(newRecipe);
                 IngredientsDialog ingredientsDialog = new IngredientsDialog(AddRecipeActivity.this);
                 ingredientsDialog.show();
             }
         });
 
 
-        View openDialog = (View) findViewById(R.id.txt_allergen_list);
+        View openDialog = (View) findViewById(R.id.addRecipeAct_txt_allergen_list);
         openDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,17 +152,17 @@ public class AddRecipeActivity extends AppCompatActivity {
                         }
                     }
                     if (stringBuilder.toString().trim().equals("")) {
-                        ((TextView) findViewById(R.id.txt_allergen_list)).setText("No Allergens");
+                        ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText("No Allergens");
                         stringBuilder.setLength(0);
                     } else {
-                        ((TextView) findViewById(R.id.txt_allergen_list)).setText(stringBuilder);
+                        ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText(stringBuilder);
                     }
                 }
                 });
                 builderDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ((TextView) findViewById(R.id.text)).setText("No Allergens");
+                        ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText("No Allergens");
                     }
                 });
                 AlertDialog alert = builderDialog.create();
@@ -156,10 +177,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         ingredientDialog.setTitle("Add Ingredients");
         Dialog dialog = ingredientDialog.create();
 
-
-
     }
-
 }
 
 

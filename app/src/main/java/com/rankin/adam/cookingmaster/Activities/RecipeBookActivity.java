@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import com.rankin.adam.cookingmaster.Model.RecipeList;
+import com.rankin.adam.cookingmaster.Adapters.RecipeBookLayoutAdapter;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.Model.Recipe;
 
@@ -93,7 +93,7 @@ public class RecipeBookActivity extends AppCompatActivity {
         super.onRestart();
         invalidateOptionsMenu();
 
-        recipeBookRecyclerView = (RecyclerView) findViewById(R.id.recycler_recipe_book);
+        recipeBookRecyclerView = findViewById(R.id.recycler_recipe_book);
         recipeBookLinearLayoutManager = new LinearLayoutManager(this);
         recipeBookRecyclerView.setLayoutManager(recipeBookLinearLayoutManager);
         adapterList.clear();

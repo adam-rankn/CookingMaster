@@ -1,10 +1,9 @@
-package com.rankin.adam.cookingmaster.Activities;
+package com.rankin.adam.cookingmaster.Adapters;
 
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rankin.adam.cookingmaster.Activities.ViewRecipeActivity;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.Model.Recipe;
 
@@ -66,7 +66,7 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
     @Override
     public void onBindViewHolder(RecipeBookLayoutAdapter.ViewHolder holder, final int position) {
         final Recipe recipe = recipeList.get(position);
-        recipeController.viewRecipe(position);
+        recipeController.setCurrentRecipe(position);
 
         String name = recipe.getName();
         holder.recipeName.setText(name);
