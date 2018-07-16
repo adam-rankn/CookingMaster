@@ -23,14 +23,14 @@ import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeContro
  * Created by Adam on 08-Jul-18.
  */
 
-public class IngredientsDialog extends Dialog {
-    private IngredientsDialog thisDialog;
+public class IngredientAddDialog extends Dialog {
+    private IngredientAddDialog thisDialog;
     private EditText ingredientText;
     private ArrayList<Ingredient> ingredients;
 
 
 
-    public IngredientsDialog(AddRecipeActivity context) {
+    public IngredientAddDialog(AddRecipeActivity context) {
         super(context);
         this.thisDialog = this;
     }

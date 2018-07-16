@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.Activities.Dialogs.IngredientsDialog;
+import com.rankin.adam.cookingmaster.Activities.Dialogs.IngredientAddDialog;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.Model.Recipe;
 
@@ -117,8 +117,8 @@ public class AddRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recipeController.setCurrentRecipe(newRecipe);
-                IngredientsDialog ingredientsDialog = new IngredientsDialog(AddRecipeActivity.this);
-                ingredientsDialog.show();
+                IngredientAddDialog ingredientAddDialog = new IngredientAddDialog(AddRecipeActivity.this);
+                ingredientAddDialog.show();
             }
         });
 
