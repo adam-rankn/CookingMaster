@@ -31,7 +31,7 @@ public class ShoppingListController {
     }
 
     public void removeIngredient(int position){
-        shoppingList.removeIngredident(position);
+        shoppingList.removeIngredient(position);
     }
 
     public ArrayList<Ingredient> getShoppingList(){

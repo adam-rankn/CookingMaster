@@ -27,7 +27,7 @@ public class ShoppingList {
         this.shoppingList.add(ingredient);
     }
 
-    public void removeIngredident(int position){
+    public void removeIngredient(int position){
         this.shoppingList.remove(position);
     }
 
