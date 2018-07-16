@@ -30,8 +30,8 @@
         <activity android:name=".Activities.RecipeBookActivity" />
         <activity android:name=".Activities.AddRecipeActivity" />
         <activity android:name=".Adapters.RecipeBookLayoutAdapter" />
-        <activity android:name=".Activities.CookingActivity" />
-        <activity android:name=".Activities.ViewRecipeActivity"></activity>
+        <activity android:name=".Activities.ViewRecipeActivity" />
+        <activity android:name=".Activities.Dialogs.ShoppingListActivity"></activity>
     </application>
 
 </manifest>

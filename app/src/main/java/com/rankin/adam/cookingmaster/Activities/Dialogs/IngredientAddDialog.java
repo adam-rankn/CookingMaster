@@ -58,26 +58,33 @@ public class IngredientAddDialog extends Dialog {
         final IngredientLayoutAdapter ingredientAdapter = new IngredientLayoutAdapter(ingredients, getContext());
         ingredientRecyclerView.setAdapter(ingredientAdapter);
 
-
+        // TODO add speech recognitionn for ingredients
         Button addIngredientButton = findViewById(R.id.ingrDialog_btn_add_ingredient);
         addIngredientButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 String ingrString= ingredientText.getText().toString();
-                Ingredient ingredient = new Ingredient(ingrString);
-                ingredients.add(ingredient);
 
-                ingredientAdapter.addIngredient(ingredient);
+                if (ingrString.trim().length() == 0){
+                    ingredientText.setError("please enter an ingredient");
+                }
 
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    public void run() {
-                        ingredientAdapter.notifyDataSetChanged();
-                    }
-                });
+                else {
+                    Ingredient ingredient = new Ingredient(ingrString);
+                    ingredients.add(ingredient);
 
-                recipeController.addIngredient(ingredient);
-                ingredientText.setText("");
+                    ingredientAdapter.addIngredient(ingredient);
+
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        public void run() {
+                            ingredientAdapter.notifyDataSetChanged();
+                        }
+                    });
+
+                    recipeController.addIngredient(ingredient);
+                    ingredientText.setText("");
+                }
 
             }
         });

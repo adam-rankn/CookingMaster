@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.rankin.adam.cookingmaster.Activities.Dialogs.ShoppingListActivity;
+import com.rankin.adam.cookingmaster.Adapters.ShoppingListLayoutAdapter;
 import com.rankin.adam.cookingmaster.Controllers.RecipeController;
+import com.rankin.adam.cookingmaster.Controllers.ShoppingListController;
 import com.rankin.adam.cookingmaster.Model.RecipeList;
+import com.rankin.adam.cookingmaster.Model.ShoppingList;
 import com.rankin.adam.cookingmaster.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,19 +19,15 @@ public class MainActivity extends AppCompatActivity {
     public static final RecipeList recipeList = new RecipeList();
     public static final RecipeController recipeController = new RecipeController();
 
+    public static final ShoppingList shoppingList = new ShoppingList();
+    public static final ShoppingListController shoppingListController = new ShoppingListController();
+    //TODO load shoppingList from file
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button cookButton = (Button) findViewById(R.id.btn_cook);
-        cookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent cookIntent = new Intent(MainActivity.this, CookingActivity.class);
-                startActivity(cookIntent);
-            }
-        });
 
         Button recipesButton = (Button) findViewById(R.id.btn_recipe_book);
         recipesButton.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         shoppingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent shoppingIntent = new Intent(MainActivity.this, Activity.class);
-                //startActivity(shoppingIntent);
+                Intent shoppingIntent = new Intent(MainActivity.this, ShoppingListActivity.class);
+                startActivity(shoppingIntent);
             }
         });
 
