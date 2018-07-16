@@ -1,4 +1,4 @@
-package com.rankin.adam.cookingmaster.Activities;
+package com.rankin.adam.cookingmaster.Activities.Dialogs;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.rankin.adam.cookingmaster.Activities.AddRecipeActivity;
 import com.rankin.adam.cookingmaster.Adapters.IngredientLayoutAdapter;
 import com.rankin.adam.cookingmaster.Model.Ingredient;
 import com.rankin.adam.cookingmaster.R;
@@ -18,25 +18,20 @@ import com.rankin.adam.cookingmaster.R;
 import java.util.ArrayList;
 
 import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeList;
 
 /**
  * Created by Adam on 08-Jul-18.
  */
 
 public class IngredientsDialog extends Dialog {
-    private AddRecipeActivity activity;
     private IngredientsDialog thisDialog;
-
     private EditText ingredientText;
-
     private ArrayList<Ingredient> ingredients;
-    private ArrayList<Ingredient> adapterList;
+
 
 
     public IngredientsDialog(AddRecipeActivity context) {
         super(context);
-        this.activity = context;
         this.thisDialog = this;
     }
 
@@ -49,10 +44,7 @@ public class IngredientsDialog extends Dialog {
 
         ingredients = new ArrayList<>();
         ingredients.addAll(recipeController.getIngredients());
-
-
         initalize();
-
 
     }
 

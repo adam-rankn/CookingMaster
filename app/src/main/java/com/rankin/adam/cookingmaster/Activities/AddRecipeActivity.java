@@ -1,6 +1,5 @@
 package com.rankin.adam.cookingmaster.Activities;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.rankin.adam.cookingmaster.Activities.Dialogs.IngredientsDialog;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.Model.Recipe;
 
@@ -55,7 +55,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //get recipe ingo from view
+                //get recipe ingr from view
                 EditText nameEdit = findViewById(R.id.addRecipeAct_txt_name);
                 EditText timeEdit = findViewById(R.id.addRecipeAct_txt_time);
                 EditText instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
@@ -175,7 +175,6 @@ public class AddRecipeActivity extends AppCompatActivity {
         View convertView = LayoutInflater.from(this).inflate(R.layout.ingredients_dialog, null);
         ingredientDialog.setView(convertView);
         ingredientDialog.setTitle("Add Ingredients");
-        Dialog dialog = ingredientDialog.create();
 
     }
 }

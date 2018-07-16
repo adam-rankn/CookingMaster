@@ -68,10 +68,8 @@ public class RecipeBookActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK){
                 //recipeList.sort;
                 recreate();
-
             }
         }
-
     }
 
     @Override
@@ -91,8 +89,6 @@ public class RecipeBookActivity extends AppCompatActivity {
         super.onRestart();
         invalidateOptionsMenu();
         recreate();
-
-
     }
 
 
