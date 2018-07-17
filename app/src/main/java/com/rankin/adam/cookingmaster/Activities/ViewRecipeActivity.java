@@ -43,7 +43,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         viewAllergensButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //show the allergens
+                //TODO show the allergens
             }
         });
 

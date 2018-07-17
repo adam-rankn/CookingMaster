@@ -1,16 +1,16 @@
 package com.rankin.adam.cookingmaster.Activities;
 
-import android.content.Intent;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-import com.rankin.adam.cookingmaster.Activities.MainActivity;
 import com.rankin.adam.cookingmaster.Adapters.ShoppingListLayoutAdapter;
-import com.rankin.adam.cookingmaster.Model.Ingredient;
 import com.rankin.adam.cookingmaster.Model.ShoppingListEntry;
 import com.rankin.adam.cookingmaster.R;
 
@@ -40,15 +40,15 @@ public class ShoppingListActivity extends AppCompatActivity {
         shoppingListAdapter = new ShoppingListLayoutAdapter(shoppingList, this);
         shoppingListRecyclerView.setAdapter(shoppingListAdapter);
 
-        Button mainButton = (Button) findViewById(R.id.shoppingListAct_btn_main);
-        mainButton.setOnClickListener(new View.OnClickListener() {
+        Button orderButton = findViewById(R.id.shoppingListAct_btn_buy);
+        orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                //TODO onlinee grocery ordering integration
             }
         });
 
-        Button addButton = (Button) findViewById(R.id.shoppingListAct_btn_add);
+        Button addButton = findViewById(R.id.shoppingListAct_btn_add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,11 +56,29 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
 
-        Button clearButton = (Button) findViewById(R.id.shoppingListAct_btn_clear);
+        Button clearButton = findViewById(R.id.shoppingListAct_btn_clear);
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO delete shopping list, use confrirmation dialog
+                new AlertDialog.Builder(ShoppingListActivity.this,R.style.Theme_AppCompat_Dialog_Alert)
+                        .setTitle("Clear List")
+                        .setMessage("Delete entire list?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                Toast.makeText(ShoppingListActivity.this, "Shopping List Cleared", Toast.LENGTH_LONG).show();
+                                shoppingListController.clearShoppingList();
+                                shoppingListAdapter.clearList();
+
+                            }})
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                Toast.makeText(ShoppingListActivity.this, "Shopping List Not Cleared", Toast.LENGTH_LONG).show();
+                            }}).show();
             }
         });
     }

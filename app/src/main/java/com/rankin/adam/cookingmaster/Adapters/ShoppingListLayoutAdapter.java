@@ -36,7 +36,7 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
         private TextView ingredientName;
         private TextView ingredientAmount;
         private TextView ingredientUnit;
-        private Button ingredientDeleteButton;
+        private Button deleteButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -44,7 +44,7 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
             ingredientAmount = itemView.findViewById(R.id.shoppingListRowLay_txt_amount);
             ingredientUnit = itemView.findViewById(R.id.shoppingListRowLay_txt_unit);
 
-            ingredientDeleteButton = itemView.findViewById(R.id.shoppingListRowLay_btn_delete);
+            deleteButton = itemView.findViewById(R.id.shoppingListRowLay_btn_delete);
 
         }
 
@@ -70,11 +70,27 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
         holder.ingredientUnit.setText(shoppingListEntry.getUnit());
 
         //TODO add delete button
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteItem(position);
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
         return shoppingList.size();
+    }
+
+    public void clearList(){
+        shoppingList.clear();
+        notifyDataSetChanged();
+    }
+
+    public void deleteItem(int position){
+        shoppingList.remove(position);
+        notifyItemRemoved(position);
     }
 }

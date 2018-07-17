@@ -63,13 +63,20 @@ public class AddIngredientToShoppingListDialog extends Dialog implements Adapter
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String amountString = amountEditText.getText().toString();
-                ingredient = shoppingListController.getIngredient();
-                amount = Integer.parseInt(amountString);
 
-                ShoppingListEntry shoppingListEntry = new ShoppingListEntry(ingredient,amount,unit);
-                shoppingList.addEntry(shoppingListEntry);
-                dismiss();
+                if (amountEditText.getText().toString().trim().length() == 0){
+                    amountEditText.setError("please enter a quantity");
+                }
+
+                else{
+                    String amountString = amountEditText.getText().toString();
+                    ingredient = shoppingListController.getIngredient();
+                    amount = Integer.parseInt(amountString);
+
+                    ShoppingListEntry shoppingListEntry = new ShoppingListEntry(ingredient, amount, unit);
+                    shoppingList.addEntry(shoppingListEntry);
+                    dismiss();
+                }
 
             }
         });

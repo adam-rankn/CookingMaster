@@ -46,4 +46,8 @@ public class ShoppingListController {
         shoppingList.setShoppingList(list);
     }
 
+    public void clearShoppingList(){
+        shoppingList.clearShoppingList();
+    }
+
 }
