@@ -47,6 +47,22 @@ public class ViewRecipeActivity extends AppCompatActivity {
             }
         });
 
-        //TODO add edit and delete buttons, main button
+        Button editRecipeButton = findViewById(R.id.viewRecipeAct_btn_edit);
+        editRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO edit recipe activity
+            }
+        });
+
+        Button deleteRecipeButton = findViewById(R.id.viewRecipeAct_btn_delete);
+        deleteRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recipeController.deleteCurrentRecipe();
+                finish();
+            }
+        });
+
     }
 }

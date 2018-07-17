@@ -35,6 +35,10 @@ public class RecipeController {
         recipe = recipeList.getRecipe(position);
     }
 
+    public void deleteCurrentRecipe(){
+        recipeList.deleteRecipe(position);
+    }
+
     public void setCurrentRecipe(Recipe recipe){
         this.recipe=recipe;
     }
