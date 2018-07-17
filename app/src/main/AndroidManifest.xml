@@ -31,7 +31,7 @@
         <activity android:name=".Activities.AddRecipeActivity" />
         <activity android:name=".Adapters.RecipeBookLayoutAdapter" />
         <activity android:name=".Activities.ViewRecipeActivity" />
-        <activity android:name=".Activities.Dialogs.ShoppingListActivity"></activity>
+        <activity android:name=".Activities.ShoppingListActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,14 @@
 <resources>
+    <string-array name="units_array">
+        <item>lb</item>
+        <item>kg</item>
+        <item>grams</item>
+        <item>ounces</item>
+        <item>packages</item>
+        <item>pieces</item>
+        <item>gallons</item>
+        <item>liters</item>
+    </string-array>
     <string name="app_name">Cooking Master</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_login">Sign in</string>
@@ -15,4 +25,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="recipe_book">RECIPE BOOK</string>
 </resources>

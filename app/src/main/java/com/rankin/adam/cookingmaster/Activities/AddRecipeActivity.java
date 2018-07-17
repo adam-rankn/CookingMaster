@@ -171,11 +171,6 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
         });
 
-        AlertDialog.Builder ingredientDialog = new AlertDialog.Builder(this);
-        View convertView = LayoutInflater.from(this).inflate(R.layout.ingredients_dialog, null);
-        ingredientDialog.setView(convertView);
-        ingredientDialog.setTitle("Add Ingredients");
-
     }
 }
 

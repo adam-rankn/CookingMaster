@@ -1,5 +1,6 @@
 package com.rankin.adam.cookingmaster.Adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rankin.adam.cookingmaster.Activities.Dialogs.AddIngredientToShoppingListDialog;
 import com.rankin.adam.cookingmaster.Activities.ViewRecipeActivity;
 import com.rankin.adam.cookingmaster.Controllers.ShoppingListController;
 import com.rankin.adam.cookingmaster.Model.Ingredient;
@@ -29,11 +31,13 @@ import static com.rankin.adam.cookingmaster.Activities.MainActivity.shoppingList
 public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<IngredientViewLayoutAdapter.ViewHolder> {
 
     private ArrayList<Ingredient> ingredientList;
+    private Context viewRecipeContext;
 
 
     public IngredientViewLayoutAdapter(ArrayList<Ingredient> ingredientList, Context context) {
         this.ingredientList = new ArrayList<>();
         this.ingredientList.addAll(ingredientList);
+        this.viewRecipeContext = context;
     }
 
 
@@ -73,7 +77,11 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
         holder.addToShoppingListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shoppingListController.addIngredient(ingredient);
+                shoppingListController.setIngredient(ingredient);
+                //TODO add dialog to select amount and unit of ingredient
+
+                AddIngredientToShoppingListDialog dialog = new AddIngredientToShoppingListDialog(viewRecipeContext);
+                dialog.show();
             }
         });
     }

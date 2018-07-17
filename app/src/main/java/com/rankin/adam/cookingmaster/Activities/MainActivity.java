@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.rankin.adam.cookingmaster.Activities.Dialogs.ShoppingListActivity;
-import com.rankin.adam.cookingmaster.Adapters.ShoppingListLayoutAdapter;
 import com.rankin.adam.cookingmaster.Controllers.RecipeController;
 import com.rankin.adam.cookingmaster.Controllers.ShoppingListController;
 import com.rankin.adam.cookingmaster.Model.RecipeList;

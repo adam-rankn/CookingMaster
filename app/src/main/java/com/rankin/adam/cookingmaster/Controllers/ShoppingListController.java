@@ -1,6 +1,8 @@
 package com.rankin.adam.cookingmaster.Controllers;
 
 import com.rankin.adam.cookingmaster.Model.Ingredient;
+import com.rankin.adam.cookingmaster.Model.ShoppingList;
+import com.rankin.adam.cookingmaster.Model.ShoppingListEntry;
 
 import java.util.ArrayList;
 
@@ -26,19 +28,21 @@ public class ShoppingListController {
         this.ingredient = ingredient;
     }
 
-    public void addIngredient(Ingredient ingredient){
-        shoppingList.addIngredient(ingredient);
+    public void addEntry(Ingredient ingredient, Integer amount, String unit){
+        ShoppingListEntry shoppingListEntry = new ShoppingListEntry(ingredient,amount,unit);
+        shoppingList.addEntry(shoppingListEntry);
+
     }
 
-    public void removeIngredient(int position){
-        shoppingList.removeIngredient(position);
+    public void removeEntry(int position){
+        shoppingList.removeEntry(position);
     }
 
-    public ArrayList<Ingredient> getShoppingList(){
+    public ArrayList<ShoppingListEntry> getShoppingList(){
         return shoppingList.getShoppingList();
     }
 
-    public void setShoppingList(ArrayList<Ingredient> list){
+    public void setShoppingList(ArrayList<ShoppingListEntry> list){
         shoppingList.setShoppingList(list);
     }
 

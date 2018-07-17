@@ -44,11 +44,11 @@ public class IngredientAddDialog extends Dialog {
 
         ingredients = new ArrayList<>();
         ingredients.addAll(recipeController.getIngredients());
-        initalize();
+        initialize();
 
     }
 
-    private void initalize() {
+    private void initialize() {
 
         ingredientText = findViewById(R.id.ingrDialog_txt_add_ingredient);
 

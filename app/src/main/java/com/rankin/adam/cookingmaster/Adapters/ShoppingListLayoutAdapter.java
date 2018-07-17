@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.Model.Ingredient;
+import com.rankin.adam.cookingmaster.Model.ShoppingListEntry;
 import com.rankin.adam.cookingmaster.R;
 
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ import java.util.ArrayList;
 
 public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingListLayoutAdapter.ViewHolder> {
 
-    private ArrayList<Ingredient> shoppingList;
+    private ArrayList<ShoppingListEntry> shoppingList;
 
-    public ShoppingListLayoutAdapter(ArrayList<Ingredient> shoppingList, Context context) {
+    public ShoppingListLayoutAdapter(ArrayList<ShoppingListEntry> shoppingList, Context context) {
         super();
         this.shoppingList = new ArrayList<>();
         this.shoppingList.addAll(shoppingList);
@@ -62,9 +63,13 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
 
     @Override
     public void onBindViewHolder(ShoppingListLayoutAdapter.ViewHolder holder, final int position) {
-        final Ingredient ingredient = shoppingList.get(position);
+        final ShoppingListEntry shoppingListEntry = shoppingList.get(position);
 
-        holder.ingredientName.setText(ingredient.getName());
+        holder.ingredientName.setText(shoppingListEntry.getName());
+        holder.ingredientAmount.setText(shoppingListEntry.getAmount().toString());
+        holder.ingredientUnit.setText(shoppingListEntry.getUnit());
+
+        //TODO add delete button
 
     }
 

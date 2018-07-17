@@ -46,5 +46,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 //show the allergens
             }
         });
+
+        //TODO add edit and delete buttons, main button
     }
 }
