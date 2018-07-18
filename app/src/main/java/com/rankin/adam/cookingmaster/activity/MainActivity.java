@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        saveLoadController.loadRecipesFromFile();
+        if (recipeList.getSize() == 0) {
+            saveLoadController.loadRecipesFromFile();
+        }
         saveLoadController.loadShoppingListFromFile();
 
         Button recipesButton = (Button) findViewById(R.id.btn_recipe_book);

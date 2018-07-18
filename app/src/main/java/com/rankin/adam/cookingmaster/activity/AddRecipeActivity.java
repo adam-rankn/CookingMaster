@@ -2,6 +2,7 @@ package com.rankin.adam.cookingmaster.activity;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,12 +31,16 @@ import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.model.Recipe;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 import static java.lang.Boolean.FALSE;
@@ -65,22 +70,17 @@ public class AddRecipeActivity extends AppCompatActivity {
         allergenList.add("Peanut");
         allergenList.add("Eggs");
 
+        //set temporary recipe so we can add photo etc
         newRecipe = new Recipe("test");
+        recipeController.setCurrentRecipe(newRecipe);
+
         recipeThumbnail = findViewById(R.id.addRecipeAct_btn_add_image);
-
-
-        //mode = getIntent().getIntExtra("Mode",0);
-        //if (mode == 1){
-        //    Button saveRecipeButton = findViewById(R.id.addRecipeAct_btn_add_recipe);
-        //    saveRecipeButton.setText("Save");
-        //}
 
         Button addButton = findViewById(R.id.addRecipeAct_btn_add_recipe);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //get recipe ingr from view
                 EditText nameEdit = findViewById(R.id.addRecipeAct_txt_name);
                 EditText timeEdit = findViewById(R.id.addRecipeAct_txt_time);
                 EditText instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
@@ -100,6 +100,12 @@ public class AddRecipeActivity extends AppCompatActivity {
 
 
                 else {
+
+                    if (recipeController.getImageUri() == null){
+                        Uri defaultUri = Uri.parse("android.resource://com.rankin.adam.cookingmaster/drawable/R.drawable/default_recipe_background");
+                        String defaultUriString = defaultUri.toString();
+                        recipeController.setImageUri(defaultUriString);
+                    }
                     String name = nameEdit.getText().toString();
                     newRecipe.setName(name);
 
@@ -132,6 +138,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recipeController.setCurrentRecipe(null);
                 finish();
             }
         });
@@ -247,25 +254,39 @@ public class AddRecipeActivity extends AppCompatActivity {
         // no permission, ask permission
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-                ActivityCompat.requestPermissions(AddRecipeActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
+                ActivityCompat.requestPermissions(AddRecipeActivity.this, new String[]{permission}, IMAGE_REQUEST_CODE);
 
             } else {
-                ActivityCompat.requestPermissions(AddRecipeActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, IMAGE_REQUEST_CODE);
+                ActivityCompat.requestPermissions(AddRecipeActivity.this, new String[]{permission}, IMAGE_REQUEST_CODE);
 
             }
         } else {
             // has permission, get the image
             recipeImage = decodeFile(imageDecode);
             recipeThumbnail.setImageBitmap(recipeImage);
-            //TODO store imgae here
+
+            //TODO factor out
+
+            //https://stackoverflow.com/questions/42460710/how-to-convert-a-bitmap-image-to-uri
+            File file = createImageFile();
+            if (file != null) {
+                FileOutputStream fout;
+                try {
+                    fout = new FileOutputStream(file);
+                    recipeImage.compress(Bitmap.CompressFormat.PNG, 70, fout);
+                    fout.flush();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Uri uri = Uri.fromFile(file);
+                String uriString = uri.toString();
+                recipeController.setImageUri(uriString);
+            }
         }
-
-
     }
 
     /**
-     * call from checkPermission if no permission is granted
-     * then ask the user to give permissions
+     * checks result of permissions request
      *
      * @param requestCode the indicator for gps or image permission
      * @param permissions the sentence of permission request
@@ -274,24 +295,38 @@ public class AddRecipeActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
-        // If request is cancelled, the result arrays are empty.
-        if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        //if length is zero, request was cancelled
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             recipeImage = decodeFile(imageDecode);
             recipeThumbnail.setImageBitmap(recipeImage);
+
+            //TODO factor out
+
+            //https://stackoverflow.com/questions/42460710/how-to-convert-a-bitmap-image-to-uri
+            File file = createImageFile();
+            if (file != null) {
+                FileOutputStream fout;
+                try {
+                    fout = new FileOutputStream(file);
+                    recipeImage.compress(Bitmap.CompressFormat.PNG, 70, fout);
+                    fout.flush();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Uri uri = Uri.fromFile(file);
+                String uriString = uri.toString();
+                recipeController.setImageUri(uriString);
+
+
+            }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             Toast.makeText(AddRecipeActivity.this, "Permission needed to access photo gallery.", Toast.LENGTH_SHORT).show();
         }
-
-
-
     }
 
     /**
-     * pass the file path to decode it into bitmap
-     * then resize and compress it to desired file size
-     * then set it to image view to show it
+     * decode into Bitmap then compress to desired size
      *
      * @param filePath the file path of image in this phone
      */
@@ -306,9 +341,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         option.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(filePath, option);
 
-        // The new size we want to scale to 500
         final int REQUIRED_SIZE = 500;
-        // Find the correct scale value. It should be the power of 2.
+        // Find the correct scale value - power of 2.
         int width_origin = option.outWidth, height_origin = option.outHeight;
         int scale = 1;
         while (true) {
@@ -338,6 +372,29 @@ public class AddRecipeActivity extends AppCompatActivity {
         }
 
         return compressedImage;
+    }
+
+    /**
+     * Save bitmap image to file
+     * https://stackoverflow.com/questions/42460710/how-to-convert-a-bitmap-image-to-uri
+     *
+     * @return file
+     */
+    public File createImageFile() {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
+        String imageFileName = "RECIPE_" + timeStamp + "_";
+        File mFileTemp = null;
+        String root = this.getDir("recipe_images", Context.MODE_PRIVATE).getAbsolutePath();
+        File myDir = new File(root);
+        if(!myDir.exists()){
+            myDir.mkdirs();
+        }
+        try {
+            mFileTemp=File.createTempFile(imageFileName,".jpg",myDir.getAbsoluteFile());
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return mFileTemp;
     }
 }
 

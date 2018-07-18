@@ -1,7 +1,9 @@
 package com.rankin.adam.cookingmaster.model;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +17,7 @@ public class Recipe {
     private ArrayList<Ingredient> ingredientList;
     private String Instructions;
     private ArrayList<String> allergens;
-    private Bitmap thumbnail;
+    private String imageUri;
 
 
     public Recipe(String name) {
@@ -72,11 +74,11 @@ public class Recipe {
         this.allergens = allergens;
     }
 
-    public Bitmap getThumbnail() {
-        return thumbnail;
+    public String getImageUri() {
+        return imageUri;
     }
 
-    public void setThumbnail(Bitmap thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
     }
 }
