@@ -1,6 +1,5 @@
-package com.rankin.adam.cookingmaster.Model;
+package com.rankin.adam.cookingmaster.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

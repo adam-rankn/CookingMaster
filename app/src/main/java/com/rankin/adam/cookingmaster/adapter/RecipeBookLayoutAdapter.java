@@ -1,7 +1,6 @@
-package com.rankin.adam.cookingmaster.Adapters;
+package com.rankin.adam.cookingmaster.adapter;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -11,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.Activities.ViewRecipeActivity;
+import com.rankin.adam.cookingmaster.activity.ViewRecipeActivity;
 import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.Model.Recipe;
+import com.rankin.adam.cookingmaster.model.Recipe;
 
 import java.util.ArrayList;
 
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
 
 public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayoutAdapter.ViewHolder>{

@@ -1,11 +1,11 @@
-package com.rankin.adam.cookingmaster.Controllers;
+package com.rankin.adam.cookingmaster.controller;
 
 import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.rankin.adam.cookingmaster.Model.Recipe;
-import com.rankin.adam.cookingmaster.Model.ShoppingListEntry;
+import com.rankin.adam.cookingmaster.model.Recipe;
+import com.rankin.adam.cookingmaster.model.ShoppingListEntry;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -17,8 +17,8 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeList;
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.shoppingList;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeList;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingList;
 
 /**
  * Created by Adam on 17-Jul-18.

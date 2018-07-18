@@ -1,4 +1,4 @@
-package com.rankin.adam.cookingmaster.Activities.Dialogs;
+package com.rankin.adam.cookingmaster.activity.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -7,14 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-import com.rankin.adam.cookingmaster.Activities.ViewRecipeActivity;
-import com.rankin.adam.cookingmaster.Adapters.IngredientViewLayoutAdapter;
-import com.rankin.adam.cookingmaster.Model.Ingredient;
+import com.rankin.adam.cookingmaster.activity.ViewRecipeActivity;
+import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter;
+import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.R;
 
 import java.util.ArrayList;
 
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
 /**
  * Created by Adam on 15-Jul-18.

@@ -1,8 +1,6 @@
-package com.rankin.adam.cookingmaster.Model;
+package com.rankin.adam.cookingmaster.model;
 
 import android.graphics.Bitmap;
-
-import com.rankin.adam.cookingmaster.Model.Ingredient;
 
 import java.util.ArrayList;
 

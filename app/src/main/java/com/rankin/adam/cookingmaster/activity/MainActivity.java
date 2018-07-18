@@ -1,20 +1,16 @@
-package com.rankin.adam.cookingmaster.Activities;
+package com.rankin.adam.cookingmaster.activity;
 
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.rankin.adam.cookingmaster.Controllers.RecipeController;
-import com.rankin.adam.cookingmaster.Controllers.SaveLoadController;
-import com.rankin.adam.cookingmaster.Controllers.ShoppingListController;
-import com.rankin.adam.cookingmaster.Model.RecipeList;
-import com.rankin.adam.cookingmaster.Model.ShoppingList;
+import com.rankin.adam.cookingmaster.controller.RecipeController;
+import com.rankin.adam.cookingmaster.controller.SaveLoadController;
+import com.rankin.adam.cookingmaster.controller.ShoppingListController;
+import com.rankin.adam.cookingmaster.model.RecipeList;
+import com.rankin.adam.cookingmaster.model.ShoppingList;
 import com.rankin.adam.cookingmaster.R;
 
 public class MainActivity extends AppCompatActivity {

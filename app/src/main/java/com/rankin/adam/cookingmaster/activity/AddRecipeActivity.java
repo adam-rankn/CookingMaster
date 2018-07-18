@@ -1,10 +1,9 @@
-package com.rankin.adam.cookingmaster.Activities;
+package com.rankin.adam.cookingmaster.activity;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,15 +11,15 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.Activities.Dialogs.IngredientAddDialog;
+import com.rankin.adam.cookingmaster.activity.dialog.IngredientAddDialog;
 import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.Model.Recipe;
+import com.rankin.adam.cookingmaster.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
 public class AddRecipeActivity extends AppCompatActivity {
 

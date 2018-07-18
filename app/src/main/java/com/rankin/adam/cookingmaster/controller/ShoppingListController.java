@@ -1,12 +1,11 @@
-package com.rankin.adam.cookingmaster.Controllers;
+package com.rankin.adam.cookingmaster.controller;
 
-import com.rankin.adam.cookingmaster.Model.Ingredient;
-import com.rankin.adam.cookingmaster.Model.ShoppingList;
-import com.rankin.adam.cookingmaster.Model.ShoppingListEntry;
+import com.rankin.adam.cookingmaster.model.Ingredient;
+import com.rankin.adam.cookingmaster.model.ShoppingListEntry;
 
 import java.util.ArrayList;
 
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.shoppingList;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingList;
 
 /**
  * Created by Adam on 15-Jul-18.

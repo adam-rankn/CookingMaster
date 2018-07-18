@@ -1,8 +1,7 @@
-package com.rankin.adam.cookingmaster.Activities.Dialogs;
+package com.rankin.adam.cookingmaster.activity.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -13,12 +12,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.Model.Ingredient;
-import com.rankin.adam.cookingmaster.Model.ShoppingListEntry;
+import com.rankin.adam.cookingmaster.model.Ingredient;
+import com.rankin.adam.cookingmaster.model.ShoppingListEntry;
 import com.rankin.adam.cookingmaster.R;
 
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.shoppingList;
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.shoppingListController;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingList;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingListController;
 
 /**
  * Created by Adam on 16-Jul-18.

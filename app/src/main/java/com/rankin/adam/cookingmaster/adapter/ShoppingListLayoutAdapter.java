@@ -1,17 +1,14 @@
-package com.rankin.adam.cookingmaster.Adapters;
+package com.rankin.adam.cookingmaster.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.Model.Ingredient;
-import com.rankin.adam.cookingmaster.Model.ShoppingListEntry;
+import com.rankin.adam.cookingmaster.model.ShoppingListEntry;
 import com.rankin.adam.cookingmaster.R;
 
 import java.util.ArrayList;

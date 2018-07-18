@@ -1,4 +1,4 @@
-package com.rankin.adam.cookingmaster.Activities;
+package com.rankin.adam.cookingmaster.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

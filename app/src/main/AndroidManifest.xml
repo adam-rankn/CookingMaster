@@ -8,7 +8,8 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-permission android:name="android.permission.CAMERA" android:required="false"/>
 
     <application
         android:allowBackup="true"
@@ -18,20 +19,35 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.RecipeBookActivity" />
-        <activity android:name=".Activities.AddRecipeActivity" />
-        <activity android:name=".Adapters.RecipeBookLayoutAdapter" />
-        <activity android:name=".Activities.ViewRecipeActivity" />
-        <activity android:name=".Activities.ShoppingListActivity"></activity>
+        <activity android:name=".activity.RecipeBookActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rankin.adam.cookingmaster.activity.MainActivity" />
+        </activity>
+        <activity android:name=".activity.AddRecipeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rankin.adam.cookingmaster.activity.RecipeBookActivity" />
+        </activity>
+        <activity android:name=".activity.ViewRecipeActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.rankin.adam.cookingmaster.activity.RecipeBookActivity" />
+        </activity>
+        <activity android:name=".activity.ShoppingListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rankin.adam.cookingmaster.activity.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

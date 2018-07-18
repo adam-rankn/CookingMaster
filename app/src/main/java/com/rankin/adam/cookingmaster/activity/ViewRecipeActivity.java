@@ -1,4 +1,4 @@
-package com.rankin.adam.cookingmaster.Activities;
+package com.rankin.adam.cookingmaster.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,10 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.Activities.Dialogs.IngredientViewDialog;
+import com.rankin.adam.cookingmaster.activity.dialog.IngredientViewDialog;
 import com.rankin.adam.cookingmaster.R;
 
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
 public class ViewRecipeActivity extends AppCompatActivity {
 

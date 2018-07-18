@@ -1,4 +1,4 @@
-package com.rankin.adam.cookingmaster.Activities;
+package com.rankin.adam.cookingmaster.activity;
 
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -10,15 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.rankin.adam.cookingmaster.Adapters.ShoppingListLayoutAdapter;
-import com.rankin.adam.cookingmaster.Controllers.SaveLoadController;
-import com.rankin.adam.cookingmaster.Controllers.ShoppingListController;
-import com.rankin.adam.cookingmaster.Model.ShoppingListEntry;
+import com.rankin.adam.cookingmaster.adapter.ShoppingListLayoutAdapter;
+import com.rankin.adam.cookingmaster.controller.SaveLoadController;
+import com.rankin.adam.cookingmaster.model.ShoppingListEntry;
 import com.rankin.adam.cookingmaster.R;
 
 import java.util.ArrayList;
 
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.shoppingListController;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingListController;
 
 public class ShoppingListActivity extends AppCompatActivity {
 

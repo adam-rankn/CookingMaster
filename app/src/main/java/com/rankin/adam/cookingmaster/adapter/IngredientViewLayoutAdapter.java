@@ -1,28 +1,20 @@
-package com.rankin.adam.cookingmaster.Adapters;
+package com.rankin.adam.cookingmaster.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.Activities.Dialogs.AddIngredientToShoppingListDialog;
-import com.rankin.adam.cookingmaster.Activities.ViewRecipeActivity;
-import com.rankin.adam.cookingmaster.Controllers.ShoppingListController;
-import com.rankin.adam.cookingmaster.Model.Ingredient;
-import com.rankin.adam.cookingmaster.Model.Recipe;
+import com.rankin.adam.cookingmaster.activity.dialog.AddIngredientToShoppingListDialog;
+import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.recipeController;
-import static com.rankin.adam.cookingmaster.Activities.MainActivity.shoppingListController;
+import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingListController;
 
 /**
  * Created by Adam on 15-Jul-18.

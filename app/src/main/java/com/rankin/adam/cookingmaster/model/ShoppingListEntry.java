@@ -1,4 +1,4 @@
-package com.rankin.adam.cookingmaster.Model;
+package com.rankin.adam.cookingmaster.model;
 
 /**
  * Created by Adam on 16-Jul-18.
