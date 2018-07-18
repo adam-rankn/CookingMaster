@@ -1,7 +1,7 @@
 package com.rankin.adam.cookingmaster;
 
-import com.rankin.adam.cookingmaster.Model.Ingredient;
-import com.rankin.adam.cookingmaster.Model.ShoppingList;
+import com.rankin.adam.cookingmaster.model.Ingredient;
+import com.rankin.adam.cookingmaster.model.ShoppingList;
 
 import org.junit.Test;
 

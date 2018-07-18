@@ -1,12 +1,9 @@
 package com.rankin.adam.cookingmaster;
 
-import com.rankin.adam.cookingmaster.Model.Ingredient;
-import com.rankin.adam.cookingmaster.Model.Recipe;
+import com.rankin.adam.cookingmaster.model.Ingredient;
+import com.rankin.adam.cookingmaster.model.Recipe;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

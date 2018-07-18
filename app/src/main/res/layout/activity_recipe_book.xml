@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rankin.adam.cookingmaster.Activities.RecipeBookActivity">
+    tools:context="com.rankin.adam.cookingmaster.activity.RecipeBookActivity">
 
     <TextView
         android:id="@+id/textView2"
