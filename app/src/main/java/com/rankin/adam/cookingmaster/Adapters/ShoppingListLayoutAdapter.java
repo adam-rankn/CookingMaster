@@ -69,7 +69,6 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
         holder.ingredientAmount.setText(shoppingListEntry.getAmount().toString());
         holder.ingredientUnit.setText(shoppingListEntry.getUnit());
 
-        //TODO add delete button
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -39,4 +39,8 @@ public class RecipeList {
     public ArrayList<Recipe> getRecipeList(){
         return recipeList;
     }
+
+    public void setRecipeList(ArrayList<Recipe> recipeList) {
+        this.recipeList = recipeList;
+    }
 }

@@ -10,9 +10,6 @@ public class ShoppingList {
 
     private ArrayList<ShoppingListEntry> shoppingList;
 
-
-    //TODO edit method to use amount and unit as well
-
     public ShoppingList() {
         this.shoppingList = new ArrayList<>();
     }

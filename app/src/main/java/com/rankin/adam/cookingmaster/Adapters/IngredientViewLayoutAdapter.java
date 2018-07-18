@@ -78,8 +78,6 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
             @Override
             public void onClick(View v) {
                 shoppingListController.setIngredient(ingredient);
-                //TODO add dialog to select amount and unit of ingredient
-
                 AddIngredientToShoppingListDialog dialog = new AddIngredientToShoppingListDialog(viewRecipeContext);
                 dialog.show();
             }

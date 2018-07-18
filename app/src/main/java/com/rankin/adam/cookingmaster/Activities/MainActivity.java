@@ -1,12 +1,17 @@
 package com.rankin.adam.cookingmaster.Activities;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.rankin.adam.cookingmaster.Controllers.RecipeController;
+import com.rankin.adam.cookingmaster.Controllers.SaveLoadController;
 import com.rankin.adam.cookingmaster.Controllers.ShoppingListController;
 import com.rankin.adam.cookingmaster.Model.RecipeList;
 import com.rankin.adam.cookingmaster.Model.ShoppingList;
@@ -19,13 +24,15 @@ public class MainActivity extends AppCompatActivity {
 
     public static final ShoppingList shoppingList = new ShoppingList();
     public static final ShoppingListController shoppingListController = new ShoppingListController();
-    //TODO load shoppingList from file
+    private final SaveLoadController saveLoadController = new SaveLoadController(MainActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        saveLoadController.loadRecipesFromFile();
+        saveLoadController.loadShoppingListFromFile();
 
         Button recipesButton = (Button) findViewById(R.id.btn_recipe_book);
         recipesButton.setOnClickListener(new View.OnClickListener() {

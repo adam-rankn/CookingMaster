@@ -49,5 +49,4 @@ public class ShoppingListController {
     public void clearShoppingList(){
         shoppingList.clearShoppingList();
     }
-
 }

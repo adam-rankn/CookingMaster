@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.rankin.adam.cookingmaster.Adapters.ShoppingListLayoutAdapter;
+import com.rankin.adam.cookingmaster.Controllers.SaveLoadController;
+import com.rankin.adam.cookingmaster.Controllers.ShoppingListController;
 import com.rankin.adam.cookingmaster.Model.ShoppingListEntry;
 import com.rankin.adam.cookingmaster.R;
 
@@ -25,6 +27,7 @@ public class ShoppingListActivity extends AppCompatActivity {
     private ShoppingListLayoutAdapter shoppingListAdapter;
 
     private ArrayList<ShoppingListEntry> shoppingList;
+    SaveLoadController saveLoadController = new SaveLoadController(ShoppingListActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +63,6 @@ public class ShoppingListActivity extends AppCompatActivity {
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO delete shopping list, use confrirmation dialog
                 new AlertDialog.Builder(ShoppingListActivity.this,R.style.Theme_AppCompat_Dialog_Alert)
                         .setTitle("Clear List")
                         .setMessage("Delete entire list?")
@@ -69,7 +71,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Toast.makeText(ShoppingListActivity.this, "Shopping List Cleared", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ShoppingListActivity.this, "Shopping List Cleared", Toast.LENGTH_SHORT).show();
                                 shoppingListController.clearShoppingList();
                                 shoppingListAdapter.clearList();
 
@@ -77,9 +79,15 @@ public class ShoppingListActivity extends AppCompatActivity {
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                Toast.makeText(ShoppingListActivity.this, "Shopping List Not Cleared", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ShoppingListActivity.this, "Shopping List Not Cleared", Toast.LENGTH_SHORT).show();
                             }}).show();
             }
         });
+    }
+
+    protected void onPause(){
+        super.onPause();
+        saveLoadController.saveShoppingListToFile();
+
     }
 }

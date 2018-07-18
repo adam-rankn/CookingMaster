@@ -70,6 +70,8 @@ public class IngredientAddDialog extends Dialog {
                     ingredientText.setError("please enter an ingredient");
                 }
 
+                //TODO add amount for ingredients
+
                 else {
                     Ingredient ingredient = new Ingredient(ingrString);
                     ingredients.add(ingredient);

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.rankin.adam.cookingmaster.Adapters.RecipeBookLayoutAdapter;
+import com.rankin.adam.cookingmaster.Controllers.SaveLoadController;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.Model.Recipe;
 
@@ -29,6 +30,9 @@ public class RecipeBookActivity extends AppCompatActivity {
     private int ADD_RECIPE_REQUEST = 0;
 
     private ArrayList<Recipe> adapterList = new ArrayList<>();
+
+    private SaveLoadController saveLoadController = new SaveLoadController(RecipeBookActivity.this);
+
 
 
     @Override
@@ -75,7 +79,7 @@ public class RecipeBookActivity extends AppCompatActivity {
     @Override
     public void onPause(){
         super.onPause();
-        recipeController.saveRecipes();
+        saveLoadController.saveRecipesToFile();
     }
 
     @Override

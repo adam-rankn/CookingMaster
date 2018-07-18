@@ -10,6 +10,7 @@ public class Ingredient {
 
     private String name;
     private ArrayList<String> allergens;
+    private Integer amount;
 
     public Ingredient(String name) {
         this.name = name;
@@ -22,4 +23,14 @@ public class Ingredient {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+
 }

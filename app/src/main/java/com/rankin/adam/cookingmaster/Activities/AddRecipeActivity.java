@@ -86,7 +86,6 @@ public class AddRecipeActivity extends AppCompatActivity {
                     newRecipe.setAllergens(allergensList);
 
                     recipeController.addRecipe(newRecipe);
-                    recipeController.saveRecipes();
                     finish();
                 }
             }
