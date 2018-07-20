@@ -3,6 +3,7 @@ package com.rankin.adam.cookingmaster.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
 
             itemView.setOnClickListener(this);
             recipeName = itemView.findViewById(R.id.recipe_row_name);
-            //recipeImage = itemView.findViewById(R.id.recipe_row_image);
+            recipeImage = itemView.findViewById(R.id.recipe_book_row_image);
         }
 
         @Override
@@ -71,6 +72,11 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
         String name = recipe.getName();
         holder.recipeName.setText(name);
         //TODO show recipe photo
+
+        String recipeUriString = recipeController.getImageUri();
+        Uri uri = Uri.parse(recipeUriString);
+        holder.recipeImage.setImageURI(uri);
+
     }
 
 

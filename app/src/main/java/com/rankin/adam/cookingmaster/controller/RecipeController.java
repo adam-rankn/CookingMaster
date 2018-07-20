@@ -1,10 +1,12 @@
 package com.rankin.adam.cookingmaster.controller;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.model.Recipe;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeList;
@@ -66,12 +68,12 @@ public class RecipeController {
         recipe.setInstructions(instructions);
     }
 
-    public Bitmap getThumbnail(){
-        return recipe.getThumbnail();
+    public String getImageUri(){
+        return recipe.getImageUri();
     }
 
-    public void setThumbnail(Bitmap thumbnail){
-        recipe.setThumbnail(thumbnail);
+    public void setImageUri(String imageUri){
+        recipe.setImageUri(imageUri);
     }
 
     public void setIngredients(ArrayList<Ingredient> ingredients){

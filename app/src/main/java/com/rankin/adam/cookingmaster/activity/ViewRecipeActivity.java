@@ -1,9 +1,11 @@
 package com.rankin.adam.cookingmaster.activity;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.activity.dialog.IngredientViewDialog;
@@ -21,14 +23,20 @@ public class ViewRecipeActivity extends AppCompatActivity {
         TextView nameText = findViewById(R.id.viewRecipeAct_txt_name);
         TextView timeText = findViewById(R.id.viewRecipeAct_txt_time);
         TextView instructionsText = findViewById(R.id.viewRecipeAct_txt_instructions);
+        ImageView recipeImage = findViewById(R.id.viewRecipeAct_photo);
 
         String name = recipeController.getName();
         String time = recipeController.getTime();
         String instructions = recipeController.getInstructions();
 
+        // get image uri String from file, convert to URI
+        String recipeUriString = recipeController.getImageUri();
+        Uri uri = Uri.parse(recipeUriString);
+
         nameText.setText(name);
         timeText.setText(time);
         instructionsText.setText(instructions);
+        recipeImage.setImageURI(uri);
 
         Button viewIngredientsButton = findViewById(R.id.viewRecipeAct_btn_view_ingredients);
         viewIngredientsButton.setOnClickListener(new View.OnClickListener() {
