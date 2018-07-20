@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.R;
+import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.util.ArrayList;
 
@@ -21,10 +24,10 @@ import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeControll
 
 public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayoutAdapter.ViewHolder> {
 
-    private ArrayList<Ingredient> ingredientList;
+    private ArrayList<RecipeIngredientEntry> ingredientList;
 
 
-    public IngredientLayoutAdapter(ArrayList<Ingredient> ingredientList, Context context) {
+    public IngredientLayoutAdapter(ArrayList<RecipeIngredientEntry> ingredientList, Context context) {
         this.ingredientList = new ArrayList<>();
         this.ingredientList.addAll(ingredientList);
     }
@@ -33,12 +36,16 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView ingredientName;
         private Button deleteButton;
+        private TextView amount;
+        private TextView unit;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(this);
             ingredientName = itemView.findViewById(R.id.ingrRow_name);
+            amount = itemView.findViewById(R.id.ingrRow_txt_amount);
+            unit = itemView.findViewById(R.id.ingrRow_txt_unit);
 
             deleteButton = itemView.findViewById(R.id.ingrDialog_btn_delete_ingredient);
         }
@@ -58,9 +65,19 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
 
     @Override
     public void onBindViewHolder(IngredientLayoutAdapter.ViewHolder holder, final int position) {
-        final Ingredient ingredient = ingredientList.get(position);
-        String name = ingredient.getName();
+        final RecipeIngredientEntry recipeIngredientEntry = ingredientList.get(position);
+        String name = recipeIngredientEntry.getIngredientName();
         holder.ingredientName.setText(name);
+
+        if (recipeIngredientEntry.getAmount() != null) {
+            String amount = recipeIngredientEntry.getAmount().toString();
+            holder.amount.setText(amount);
+
+            String unit = recipeIngredientEntry.getUnit();
+            holder.unit.setText(unit);
+        }
+
+
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +95,7 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
         return ingredientList.size();
     }
 
-    public void addIngredient(Ingredient ingredient){
+    public void addIngredient(RecipeIngredientEntry ingredient){
         ingredientList.add(ingredient);
     }
 

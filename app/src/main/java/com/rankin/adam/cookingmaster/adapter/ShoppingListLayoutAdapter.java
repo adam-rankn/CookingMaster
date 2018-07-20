@@ -13,6 +13,8 @@ import com.rankin.adam.cookingmaster.R;
 
 import java.util.ArrayList;
 
+import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingListController;
+
 
 /**
  * Created by Adam on 16-Jul-18.
@@ -59,8 +61,9 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
     }
 
     @Override
-    public void onBindViewHolder(ShoppingListLayoutAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ShoppingListLayoutAdapter.ViewHolder holder, final int position) {
         final ShoppingListEntry shoppingListEntry = shoppingList.get(position);
+
 
         holder.ingredientName.setText(shoppingListEntry.getName());
         holder.ingredientAmount.setText(shoppingListEntry.getAmount().toString());
@@ -69,7 +72,8 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteItem(position);
+                deleteItem(holder.getLayoutPosition());
+                shoppingListController.removeEntry(holder.getLayoutPosition());
             }
         });
 

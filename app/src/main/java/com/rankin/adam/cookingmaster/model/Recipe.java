@@ -14,7 +14,7 @@ public class Recipe {
 
     private String Name;
     private String Time;
-    private ArrayList<Ingredient> ingredientList;
+    private ArrayList<RecipeIngredientEntry> ingredientList;
     private String Instructions;
     private ArrayList<String> allergens;
     private String imageUri;
@@ -42,16 +42,16 @@ public class Recipe {
         Time = time;
     }
 
-    public ArrayList<Ingredient> getIngredientList() {
+    public ArrayList<RecipeIngredientEntry> getIngredientList() {
         return ingredientList;
     }
 
-    public void setIngredientList(ArrayList<Ingredient> ingredientList) {
+    public void setIngredientList(ArrayList<RecipeIngredientEntry> recipeIngredientEntries) {
         ingredientList = ingredientList;
     }
 
-    public void addIngredient(Ingredient ingredient){
-        ingredientList.add(ingredient);
+    public void addIngredient(RecipeIngredientEntry recipeIngredientEntry){
+        ingredientList.add(recipeIngredientEntry);
     }
 
     public void removeIngredient(int position){
