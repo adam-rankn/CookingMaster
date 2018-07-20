@@ -9,6 +9,19 @@
         <item>gallons</item>
         <item>liters</item>
     </string-array>
+
+    <string-array name="recipe_units_array">
+        <item>cups</item>
+        <item>grams</item>
+        <item>TSP</item>
+        <item>TBSP</item>
+        <item>chunks</item>
+        <item>pieces</item>
+        <item>pinch</item>
+        <item>pint</item>
+        <item>quart</item>
+    </string-array>
+
     <string name="app_name">Cooking Master</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_login">Sign in</string>

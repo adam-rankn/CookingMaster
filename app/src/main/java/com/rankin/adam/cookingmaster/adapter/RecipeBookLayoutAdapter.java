@@ -71,7 +71,6 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
 
         String name = recipe.getName();
         holder.recipeName.setText(name);
-        //TODO show recipe photo
 
         String recipeUriString = recipeController.getImageUri();
         Uri uri = Uri.parse(recipeUriString);

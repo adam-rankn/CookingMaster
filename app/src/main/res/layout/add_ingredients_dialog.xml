@@ -21,9 +21,8 @@
 
     <EditText
         android:id="@+id/ingrDialog_txt_add_ingredient"
-        android:layout_width="0dp"
+        android:layout_width="135dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -31,13 +30,12 @@
         android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        app:layout_constraintEnd_toStartOf="@+id/ingrDialog_btn_add_ingredient"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <Button
         android:id="@+id/ingrDialog_btn_add_ingredient"
-        android:layout_width="wrap_content"
+        android:layout_width="61dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:text="ADD"
@@ -67,5 +65,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingrDialog_recyclerView" />
+
+    <EditText
+        android:id="@+id/ingrDialog_edt_amount"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="00"
+        android:inputType="number"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/ingrDialog_txt_add_ingredient"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <Spinner
+        android:id="@+id/ingrDialog_spn_unit"
+        android:layout_width="108dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ingrDialog_edt_amount"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
 </android.support.constraint.ConstraintLayout>

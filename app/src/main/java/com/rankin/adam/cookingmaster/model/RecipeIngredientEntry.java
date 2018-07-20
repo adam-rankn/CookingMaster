@@ -1,25 +1,24 @@
 package com.rankin.adam.cookingmaster.model;
 
 /**
- * Created by Adam on 16-Jul-18.
+ * Created by Adam on 18-Jul-18.
  */
 
-public class ShoppingListEntry {
+public class RecipeIngredientEntry {
 
     private Ingredient ingredient;
     private Integer amount;
     private String unit;
 
-    public ShoppingListEntry(Ingredient ingredient, Integer amount, String unit) {
+
+    public RecipeIngredientEntry(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public RecipeIngredientEntry(Ingredient ingredient, Integer amount, String unit) {
         this.ingredient = ingredient;
         this.amount = amount;
         this.unit = unit;
-    }
-
-    public ShoppingListEntry(Ingredient ingredient) {
-        this.ingredient = ingredient;
-        this.amount = 0;
-        this.unit = "lb";
     }
 
     public Ingredient getIngredient() {
@@ -34,10 +33,6 @@ public class ShoppingListEntry {
         return amount;
     }
 
-    public void addAmount(Integer amount){
-        this.amount += amount;
-    }
-
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
@@ -50,8 +45,7 @@ public class ShoppingListEntry {
         this.unit = unit;
     }
 
-    public String getName(){
+    public String getIngredientName(){
         return this.ingredient.getName();
     }
-
 }

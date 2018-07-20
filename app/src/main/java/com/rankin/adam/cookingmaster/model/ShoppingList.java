@@ -33,4 +33,20 @@ public class ShoppingList {
     public void clearShoppingList(){
         this.shoppingList.clear();
     }
+
+    public ShoppingListEntry findIngredient(Ingredient ingredient){
+        //TODO optimize
+        for (ShoppingListEntry element : shoppingList) {
+            if (element.getIngredient().getName().equals(ingredient.getName())){
+                return element;
+            }
+        }
+        return null;
+
+    }
+
+    public void increaseAmount(int position,int amount){
+        shoppingList.get(position).addAmount(amount);
+
+    }
 }

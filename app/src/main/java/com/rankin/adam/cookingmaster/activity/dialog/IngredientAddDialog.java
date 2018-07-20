@@ -1,19 +1,24 @@
 package com.rankin.adam.cookingmaster.activity.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.rankin.adam.cookingmaster.activity.AddRecipeActivity;
 import com.rankin.adam.cookingmaster.adapter.IngredientLayoutAdapter;
 import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.R;
+import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.util.ArrayList;
 
@@ -25,20 +30,25 @@ import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeControll
 
 public class IngredientAddDialog extends Dialog {
     private IngredientAddDialog thisDialog;
-    private EditText ingredientText;
-    private ArrayList<Ingredient> ingredients;
+    private EditText ingredientEdit;
+    private ArrayList<RecipeIngredientEntry> ingredients;
+    private EditText amountEdit;
+    private Spinner unitSpinner;
 
+    private String unit = "lb";
+    private Context context;
 
 
     public IngredientAddDialog(AddRecipeActivity context) {
         super(context);
         this.thisDialog = this;
+        this.context = context;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ingredients_dialog);
+        setContentView(R.layout.add_ingredients_dialog);
         getWindow().setLayout(android.view.ViewGroup.LayoutParams.FILL_PARENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -50,7 +60,25 @@ public class IngredientAddDialog extends Dialog {
 
     private void initialize() {
 
-        ingredientText = findViewById(R.id.ingrDialog_txt_add_ingredient);
+        ingredientEdit = findViewById(R.id.ingrDialog_txt_add_ingredient);
+        amountEdit = findViewById(R.id.ingrDialog_edt_amount);
+
+        final Spinner unitSpinner = (Spinner) findViewById(R.id.ingrDialog_spn_unit);
+        ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.recipe_units_array, android.R.layout.simple_spinner_item);
+        unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        unitSpinner.setAdapter(unitAdapter);
+        unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                unit = parent.getItemAtPosition(pos).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         RecyclerView ingredientRecyclerView = findViewById(R.id.ingrDialog_recyclerView);
         LinearLayoutManager ingredientLinearLayoutManager = new LinearLayoutManager(getContext());
@@ -64,19 +92,24 @@ public class IngredientAddDialog extends Dialog {
 
             @Override
             public void onClick(View v) {
-                String ingrString= ingredientText.getText().toString();
+                String ingrString = ingredientEdit.getText().toString();
+                String amountString = amountEdit.getText().toString();
 
-                if (ingrString.trim().length() == 0){
-                    ingredientText.setError("please enter an ingredient");
+                Ingredient ingredient = new Ingredient(ingrString);
+                RecipeIngredientEntry entry = new RecipeIngredientEntry(ingredient);
+
+                if (amountString.trim().length() != 0){
+                    entry.setAmount(Integer.parseInt(amountString));
+                    entry.setUnit(unitSpinner.getSelectedItem().toString());
                 }
 
-                //TODO add amount for ingredients
+                if (ingrString.trim().length() == 0){
+                    ingredientEdit.setError("please enter an ingredient");
+                }
 
                 else {
-                    Ingredient ingredient = new Ingredient(ingrString);
-                    ingredients.add(ingredient);
-
-                    ingredientAdapter.addIngredient(ingredient);
+                    ingredients.add(entry);
+                    ingredientAdapter.addIngredient(entry);
 
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         public void run() {
@@ -84,8 +117,8 @@ public class IngredientAddDialog extends Dialog {
                         }
                     });
 
-                    recipeController.addIngredient(ingredient);
-                    ingredientText.setText("");
+                    recipeController.addIngredient(entry);
+                    ingredientEdit.setText("");
                 }
 
             }

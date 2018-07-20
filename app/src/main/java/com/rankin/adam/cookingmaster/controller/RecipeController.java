@@ -5,6 +5,7 @@ import android.net.Uri;
 
 import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.model.Recipe;
+import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -76,16 +77,16 @@ public class RecipeController {
         recipe.setImageUri(imageUri);
     }
 
-    public void setIngredients(ArrayList<Ingredient> ingredients){
-        recipe.setIngredientList(ingredients);
+    public void setIngredients(ArrayList<RecipeIngredientEntry> recipeIngredientEntries){
+        recipe.setIngredientList(recipeIngredientEntries);
     }
 
-    public ArrayList<Ingredient> getIngredients(){
+    public ArrayList<RecipeIngredientEntry> getIngredients(){
         return recipe.getIngredientList();
     }
 
-    public void addIngredient(Ingredient ingredient){
-        recipe.addIngredient(ingredient);
+    public void addIngredient(RecipeIngredientEntry recipeIngredientEntry){
+        recipe.addIngredient(recipeIngredientEntry);
     }
 
     public void removeIngredient(int position){

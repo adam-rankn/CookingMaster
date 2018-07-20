@@ -1,6 +1,7 @@
 package com.rankin.adam.cookingmaster.controller;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -57,7 +58,7 @@ public class SaveLoadController {
             writer.flush();
             fos.close();
         }  catch (IOException e) {
-            // TODO Auto-generated catch block
+            Log.e("SaveError","recipes failed to save");
             throw new RuntimeException();
         }
     }

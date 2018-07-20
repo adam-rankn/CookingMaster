@@ -11,6 +11,7 @@ import com.rankin.adam.cookingmaster.activity.ViewRecipeActivity;
 import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter;
 import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.R;
+import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeControll
 public class IngredientViewDialog extends Dialog {
 
     private IngredientViewDialog thisDialog;
-    private ArrayList<Ingredient> ingredients;
+    private ArrayList<RecipeIngredientEntry> ingredients;
 
     public IngredientViewDialog(ViewRecipeActivity context) {
         super(context);

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.rankin.adam.cookingmaster.controller.SaveLoadController;
 import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.model.ShoppingListEntry;
 import com.rankin.adam.cookingmaster.R;
@@ -34,14 +35,16 @@ public class AddIngredientToShoppingListDialog extends Dialog implements Adapter
     private String unit;
     private Ingredient ingredient;
     private Integer amount;
+    private SaveLoadController saveLoadController;
 
     public AddIngredientToShoppingListDialog(@NonNull Context context) {
         super(context);
         viewRecipeContext = context;
+        saveLoadController = new SaveLoadController(viewRecipeContext);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_ingredient_to_shopping_list_dialog);
         getWindow().setLayout(android.view.ViewGroup.LayoutParams.FILL_PARENT,
@@ -56,7 +59,7 @@ public class AddIngredientToShoppingListDialog extends Dialog implements Adapter
 
         amountEditText = findViewById(R.id.addIngrShopListDialog_edit_amount);
         ingredientTextView = findViewById(R.id.addIngrShopListDialog_txt_ingredient_name);
-        ingredientTextView.setText(shoppingListController.getIngredient().getName());
+        ingredientTextView.setText(shoppingListController.getCurrentIngredient().getName());
 
         addButton = findViewById(R.id.addIngrShopListDialog_btn_add);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -69,11 +72,12 @@ public class AddIngredientToShoppingListDialog extends Dialog implements Adapter
 
                 else{
                     String amountString = amountEditText.getText().toString();
-                    ingredient = shoppingListController.getIngredient();
+                    ingredient = shoppingListController.getCurrentIngredient();
                     amount = Integer.parseInt(amountString);
 
                     ShoppingListEntry shoppingListEntry = new ShoppingListEntry(ingredient, amount, unit);
-                    shoppingList.addEntry(shoppingListEntry);
+                    shoppingListController.addIngredient(shoppingListEntry);
+                    saveLoadController.saveShoppingListToFile();
                     dismiss();
                 }
 
@@ -89,7 +93,6 @@ public class AddIngredientToShoppingListDialog extends Dialog implements Adapter
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
     }
 
 }

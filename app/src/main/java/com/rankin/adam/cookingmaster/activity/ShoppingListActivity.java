@@ -73,6 +73,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                                 Toast.makeText(ShoppingListActivity.this, "Shopping List Cleared", Toast.LENGTH_SHORT).show();
                                 shoppingListController.clearShoppingList();
                                 shoppingListAdapter.clearList();
+                                saveLoadController.saveShoppingListToFile();
 
                             }})
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
