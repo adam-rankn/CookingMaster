@@ -93,7 +93,7 @@ public class RecipeController {
         recipe.setAllergens(recipeAllergens);
     }
 
-    public ArrayList<String> recipeAllergens(){
+    public ArrayList<String> getAllergens(){
         return recipe.getAllergens();
     }
 

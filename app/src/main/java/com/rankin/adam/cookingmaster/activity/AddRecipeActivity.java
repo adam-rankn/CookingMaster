@@ -73,6 +73,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
         allergensText = findViewById(R.id.addRecipeAct_txt_allergen_list);
 
+        Button addButton = findViewById(R.id.addRecipeAct_btn_add_recipe);
+
         allergenList.add("Soy");
         allergenList.add("Wheat");
         allergenList.add("Dairy");
@@ -87,6 +89,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         final int mode = getIntent().getIntExtra("Flag", 0);
         if (mode == 1){
             loadRecipeData();
+            addButton.setText("Done");
+
         }
 
         else {
@@ -95,14 +99,9 @@ public class AddRecipeActivity extends AppCompatActivity {
             recipeController.setCurrentRecipe(newRecipe);
         }
 
-
-        Button addButton = findViewById(R.id.addRecipeAct_btn_add_recipe);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                ArrayList<String> allergensList= new ArrayList(Arrays.asList(allergensText.toString().split(",")));
 
 
                 if (nameEdit.getText().toString().trim().isEmpty()){
@@ -130,7 +129,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                     String instructions = instructionsEdit.getText().toString();
                     recipeController.setInstructions(instructions);
 
-                    recipeController.setAllergens(allergensList);
+                    ArrayList<String> allergens= new ArrayList(Arrays.asList(allergensText.toString().split(",")));
+                    recipeController.setAllergens(allergens);
 
                     if (mode == 0) {
                         recipeController.addRecipe(newRecipe);
@@ -237,6 +237,22 @@ public class AddRecipeActivity extends AppCompatActivity {
         nameEdit.setText(currentRecipe.getName());
         timeEdit.setText(currentRecipe.getTime());
         instructionsEdit.setText(currentRecipe.getInstructions());
+
+        ArrayList<String> allergenList = recipeController.getAllergens();
+
+         //build the comma seperated list
+        StringBuilder stringBuilder = new StringBuilder();
+        //for (int i = 0; i < allergenList.size(); i++) {
+        //    if (stringBuilder.length() > 0) stringBuilder.append(',');
+        //    String allergen = allergenList.get(i);
+        //stringBuilder.append(allergen);
+        //}
+
+        for (String element : allergenList) {
+            if (stringBuilder.length() > 0) stringBuilder.append(',');
+            stringBuilder.append(element);
+            }
+        allergensText.setText(stringBuilder.toString());
     }
 
     /**

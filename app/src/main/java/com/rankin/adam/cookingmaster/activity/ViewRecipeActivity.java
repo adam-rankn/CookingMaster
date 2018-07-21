@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.activity.dialog.IngredientViewDialog;
 import com.rankin.adam.cookingmaster.R;
+import com.rankin.adam.cookingmaster.controller.SaveLoadController;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
 public class ViewRecipeActivity extends AppCompatActivity {
 
     private final int EDIT_RECIPE_FLAG = 1;
+    private final int EDIT_RECIPE = 2 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +67,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 //TODO edit recipe activity
                 Intent editRecipeIntent = new Intent(ViewRecipeActivity.this, AddRecipeActivity.class);
                 editRecipeIntent.putExtra("Flag",EDIT_RECIPE_FLAG);
-                startActivity(editRecipeIntent);
+                startActivityForResult(editRecipeIntent,EDIT_RECIPE);
             }
         });
 
@@ -79,4 +81,23 @@ public class ViewRecipeActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        invalidateOptionsMenu();
+        //ensure that the recipes are displayed correctly
+        recreate();
+
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        SaveLoadController saveLoadController = new SaveLoadController(getApplicationContext());
+        saveLoadController.saveRecipesToFile();
+    }
+
+
 }
