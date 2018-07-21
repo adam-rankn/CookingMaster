@@ -1,13 +1,8 @@
 package com.rankin.adam.cookingmaster.controller;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
-
-import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.model.Recipe;
 import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeList;

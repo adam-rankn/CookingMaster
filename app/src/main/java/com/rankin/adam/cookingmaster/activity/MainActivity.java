@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         }
         saveLoadController.loadShoppingListFromFile();
 
-        Button recipesButton = (Button) findViewById(R.id.btn_recipe_book);
+        Button recipesButton = findViewById(R.id.btn_recipe_book);
         recipesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button spiceButton = (Button) findViewById(R.id.btn_spices);
+        Button spiceButton = findViewById(R.id.btn_spices);
         spiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        Button shoppingButton = (Button) findViewById(R.id.btn_shopping);
+        Button shoppingButton = findViewById(R.id.btn_shopping);
         shoppingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button optionsButton = (Button) findViewById(R.id.btn_options);
+        Button optionsButton = findViewById(R.id.btn_options);
         optionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
