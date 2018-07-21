@@ -1,5 +1,6 @@
 package com.rankin.adam.cookingmaster.activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import com.rankin.adam.cookingmaster.R;
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
 public class ViewRecipeActivity extends AppCompatActivity {
+
+    private final int EDIT_RECIPE_FLAG = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,9 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO edit recipe activity
+                Intent editRecipeIntent = new Intent(ViewRecipeActivity.this, AddRecipeActivity.class);
+                editRecipeIntent.putExtra("Flag",EDIT_RECIPE_FLAG);
+                startActivity(editRecipeIntent);
             }
         });
 

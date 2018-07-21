@@ -37,6 +37,10 @@ public class RecipeController {
         recipe = recipeList.getRecipe(position);
     }
 
+    public void editCurrentRecipe(){
+        recipeList.editRecipe(position,recipe);
+    }
+
     public void deleteCurrentRecipe(){
         recipeList.deleteRecipe(position);
     }
@@ -84,6 +88,15 @@ public class RecipeController {
     public ArrayList<RecipeIngredientEntry> getIngredients(){
         return recipe.getIngredientList();
     }
+
+    public void setAllergens(ArrayList<String> recipeAllergens){
+        recipe.setAllergens(recipeAllergens);
+    }
+
+    public ArrayList<String> recipeAllergens(){
+        return recipe.getAllergens();
+    }
+
 
     public void addIngredient(RecipeIngredientEntry recipeIngredientEntry){
         recipe.addIngredient(recipeIngredientEntry);

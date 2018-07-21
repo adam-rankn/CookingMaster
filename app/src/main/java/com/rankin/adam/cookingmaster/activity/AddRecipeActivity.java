@@ -49,17 +49,30 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private List<String> allergenList = new ArrayList<>();
     private Recipe newRecipe;
+    private Recipe currentRecipe;
 
     private int IMAGE_REQUEST_CODE = 0;
     private int IMAGE_RESULT = 1;
     private String imageDecode;
     private Bitmap recipeImage;
+
     private ImageView recipeThumbnail;
+    private EditText nameEdit;
+    private EditText timeEdit;
+    private EditText instructionsEdit;
+    private TextView allergensText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+
+        recipeThumbnail = findViewById(R.id.addRecipeAct_btn_add_image);
+        nameEdit = findViewById(R.id.addRecipeAct_txt_name);
+        timeEdit = findViewById(R.id.addRecipeAct_txt_time);
+        instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
+        allergensText = findViewById(R.id.addRecipeAct_txt_allergen_list);
+
         allergenList.add("Soy");
         allergenList.add("Wheat");
         allergenList.add("Dairy");
@@ -70,21 +83,23 @@ public class AddRecipeActivity extends AppCompatActivity {
         allergenList.add("Peanut");
         allergenList.add("Eggs");
 
-        //set temporary recipe so we can add photo etc
-        newRecipe = new Recipe("test");
-        recipeController.setCurrentRecipe(newRecipe);
 
-        recipeThumbnail = findViewById(R.id.addRecipeAct_btn_add_image);
+        final int mode = getIntent().getIntExtra("Flag", 0);
+        if (mode == 1){
+            loadRecipeData();
+        }
+
+        else {
+            //set temporary recipe so we can add photo etc
+            newRecipe = new Recipe("test");
+            recipeController.setCurrentRecipe(newRecipe);
+        }
+
 
         Button addButton = findViewById(R.id.addRecipeAct_btn_add_recipe);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                EditText nameEdit = findViewById(R.id.addRecipeAct_txt_name);
-                EditText timeEdit = findViewById(R.id.addRecipeAct_txt_time);
-                EditText instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
-                TextView allergensText = findViewById(R.id.addRecipeAct_txt_allergen_list);
 
 
                 ArrayList<String> allergensList= new ArrayList(Arrays.asList(allergensText.toString().split(",")));
@@ -107,17 +122,23 @@ public class AddRecipeActivity extends AppCompatActivity {
                         recipeController.setImageUri(defaultUriString);
                     }
                     String name = nameEdit.getText().toString();
-                    newRecipe.setName(name);
+                    recipeController.setName(name);
 
                     String time = timeEdit.getText().toString();
-                    newRecipe.setTime(time);
+                    recipeController.setTime(time);
 
                     String instructions = instructionsEdit.getText().toString();
-                    newRecipe.setInstructions(instructions);
+                    recipeController.setInstructions(instructions);
 
-                    newRecipe.setAllergens(allergensList);
+                    recipeController.setAllergens(allergensList);
 
-                    recipeController.addRecipe(newRecipe);
+                    if (mode == 0) {
+                        recipeController.addRecipe(newRecipe);
+                    }
+
+                    else if (mode == 1){
+
+                    }
                     finish();
                 }
             }
@@ -138,7 +159,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recipeController.setCurrentRecipe(null);
+                //recipeController.setCurrentRecipe(null);
                 finish();
             }
         });
@@ -148,7 +169,9 @@ public class AddRecipeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                recipeController.setCurrentRecipe(newRecipe);
+                if (mode == 0) {
+                    recipeController.setCurrentRecipe(newRecipe);
+                }
                 IngredientAddDialog ingredientAddDialog = new IngredientAddDialog(AddRecipeActivity.this);
                 ingredientAddDialog.show();
             }
@@ -203,6 +226,17 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loadRecipeData(){
+        currentRecipe = recipeController.getCurrentRecipe();
+
+        String recipeUriString = recipeController.getImageUri();
+        Uri uri = Uri.parse(recipeUriString);
+        recipeThumbnail.setImageURI(uri);
+        nameEdit.setText(currentRecipe.getName());
+        timeEdit.setText(currentRecipe.getTime());
+        instructionsEdit.setText(currentRecipe.getInstructions());
     }
 
     /**
