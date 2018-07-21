@@ -129,7 +129,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                     String instructions = instructionsEdit.getText().toString();
                     recipeController.setInstructions(instructions);
 
-                    ArrayList<String> allergens= new ArrayList(Arrays.asList(allergensText.toString().split(",")));
+                    ArrayList<String> allergens= new ArrayList<String>(Arrays.asList(allergensText.getText().toString().split(", ")));
                     recipeController.setAllergens(allergens);
 
                     if (mode == 0) {
@@ -189,30 +189,30 @@ public class AddRecipeActivity extends AppCompatActivity {
                 boolean[] is_checked = new boolean[count];
                 builderDialog.setMultiChoiceItems(dialogList, is_checked,
                         new DialogInterface.OnMultiChoiceClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int whichButton, boolean isChecked) {
-                    }
-                });
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton, boolean isChecked) {
+                            }
+                        });
                 builderDialog.setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ListView list = ((AlertDialog) dialog).getListView();
-                    // build the comma seperated list
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (int i = 0; i < list.getCount(); i++) {
-                        boolean checked = list.isItemChecked(i);
-                        if (checked) {
-                            if (stringBuilder.length() > 0) stringBuilder.append(',');
-                            stringBuilder.append(list.getItemAtPosition(i).toString());
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ListView list = ((AlertDialog) dialog).getListView();
+                        // build the comma seperated list
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (int i = 0; i < list.getCount(); i++) {
+                            boolean checked = list.isItemChecked(i);
+                            if (checked) {
+                                if (stringBuilder.length() > 0) stringBuilder.append(", ");
+                                stringBuilder.append(list.getItemAtPosition(i));
+                            }
+                        }
+                        if (stringBuilder.toString().trim().equals("")) {
+                            ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText("No Allergens");
+                            stringBuilder.setLength(0);
+                        } else {
+                            ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText(stringBuilder);
                         }
                     }
-                    if (stringBuilder.toString().trim().equals("")) {
-                        ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText("No Allergens");
-                        stringBuilder.setLength(0);
-                    } else {
-                        ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText(stringBuilder);
-                    }
-                }
                 });
                 builderDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
