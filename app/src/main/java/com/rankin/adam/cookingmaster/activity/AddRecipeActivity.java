@@ -49,17 +49,32 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private List<String> allergenList = new ArrayList<>();
     private Recipe newRecipe;
+    private Recipe currentRecipe;
 
     private int IMAGE_REQUEST_CODE = 0;
     private int IMAGE_RESULT = 1;
     private String imageDecode;
     private Bitmap recipeImage;
+
     private ImageView recipeThumbnail;
+    private EditText nameEdit;
+    private EditText timeEdit;
+    private EditText instructionsEdit;
+    private TextView allergensText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+
+        recipeThumbnail = findViewById(R.id.addRecipeAct_btn_add_image);
+        nameEdit = findViewById(R.id.addRecipeAct_txt_name);
+        timeEdit = findViewById(R.id.addRecipeAct_txt_time);
+        instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
+        allergensText = findViewById(R.id.addRecipeAct_txt_allergen_list);
+
+        Button addButton = findViewById(R.id.addRecipeAct_btn_add_recipe);
+
         allergenList.add("Soy");
         allergenList.add("Wheat");
         allergenList.add("Dairy");
@@ -70,24 +85,23 @@ public class AddRecipeActivity extends AppCompatActivity {
         allergenList.add("Peanut");
         allergenList.add("Eggs");
 
-        //set temporary recipe so we can add photo etc
-        newRecipe = new Recipe("test");
-        recipeController.setCurrentRecipe(newRecipe);
 
-        recipeThumbnail = findViewById(R.id.addRecipeAct_btn_add_image);
+        final int mode = getIntent().getIntExtra("Flag", 0);
+        if (mode == 1){
+            loadRecipeData();
+            addButton.setText("Done");
 
-        Button addButton = findViewById(R.id.addRecipeAct_btn_add_recipe);
+        }
+
+        else {
+            //set temporary recipe so we can add photo etc
+            newRecipe = new Recipe("test");
+            recipeController.setCurrentRecipe(newRecipe);
+        }
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                EditText nameEdit = findViewById(R.id.addRecipeAct_txt_name);
-                EditText timeEdit = findViewById(R.id.addRecipeAct_txt_time);
-                EditText instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
-                TextView allergensText = findViewById(R.id.addRecipeAct_txt_allergen_list);
-
-
-                ArrayList<String> allergensList= new ArrayList(Arrays.asList(allergensText.toString().split(",")));
 
 
                 if (nameEdit.getText().toString().trim().isEmpty()){
@@ -107,17 +121,24 @@ public class AddRecipeActivity extends AppCompatActivity {
                         recipeController.setImageUri(defaultUriString);
                     }
                     String name = nameEdit.getText().toString();
-                    newRecipe.setName(name);
+                    recipeController.setName(name);
 
                     String time = timeEdit.getText().toString();
-                    newRecipe.setTime(time);
+                    recipeController.setTime(time);
 
                     String instructions = instructionsEdit.getText().toString();
-                    newRecipe.setInstructions(instructions);
+                    recipeController.setInstructions(instructions);
 
-                    newRecipe.setAllergens(allergensList);
+                    ArrayList<String> allergens= new ArrayList<String>(Arrays.asList(allergensText.getText().toString().split(", ")));
+                    recipeController.setAllergens(allergens);
 
-                    recipeController.addRecipe(newRecipe);
+                    if (mode == 0) {
+                        recipeController.addRecipe(newRecipe);
+                    }
+
+                    else if (mode == 1){
+
+                    }
                     finish();
                 }
             }
@@ -138,7 +159,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recipeController.setCurrentRecipe(null);
+                //recipeController.setCurrentRecipe(null);
                 finish();
             }
         });
@@ -148,7 +169,9 @@ public class AddRecipeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                recipeController.setCurrentRecipe(newRecipe);
+                if (mode == 0) {
+                    recipeController.setCurrentRecipe(newRecipe);
+                }
                 IngredientAddDialog ingredientAddDialog = new IngredientAddDialog(AddRecipeActivity.this);
                 ingredientAddDialog.show();
             }
@@ -166,30 +189,30 @@ public class AddRecipeActivity extends AppCompatActivity {
                 boolean[] is_checked = new boolean[count];
                 builderDialog.setMultiChoiceItems(dialogList, is_checked,
                         new DialogInterface.OnMultiChoiceClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int whichButton, boolean isChecked) {
-                    }
-                });
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton, boolean isChecked) {
+                            }
+                        });
                 builderDialog.setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ListView list = ((AlertDialog) dialog).getListView();
-                    // build the comma seperated list
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (int i = 0; i < list.getCount(); i++) {
-                        boolean checked = list.isItemChecked(i);
-                        if (checked) {
-                            if (stringBuilder.length() > 0) stringBuilder.append(',');
-                            stringBuilder.append(list.getItemAtPosition(i).toString());
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ListView list = ((AlertDialog) dialog).getListView();
+                        // build the comma seperated list
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (int i = 0; i < list.getCount(); i++) {
+                            boolean checked = list.isItemChecked(i);
+                            if (checked) {
+                                if (stringBuilder.length() > 0) stringBuilder.append(", ");
+                                stringBuilder.append(list.getItemAtPosition(i));
+                            }
+                        }
+                        if (stringBuilder.toString().trim().equals("")) {
+                            ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText("No Allergens");
+                            stringBuilder.setLength(0);
+                        } else {
+                            ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText(stringBuilder);
                         }
                     }
-                    if (stringBuilder.toString().trim().equals("")) {
-                        ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText("No Allergens");
-                        stringBuilder.setLength(0);
-                    } else {
-                        ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText(stringBuilder);
-                    }
-                }
                 });
                 builderDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -203,6 +226,33 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void loadRecipeData(){
+        currentRecipe = recipeController.getCurrentRecipe();
+
+        String recipeUriString = recipeController.getImageUri();
+        Uri uri = Uri.parse(recipeUriString);
+        recipeThumbnail.setImageURI(uri);
+        nameEdit.setText(currentRecipe.getName());
+        timeEdit.setText(currentRecipe.getTime());
+        instructionsEdit.setText(currentRecipe.getInstructions());
+
+        ArrayList<String> allergenList = recipeController.getAllergens();
+
+         //build the comma seperated list
+        StringBuilder stringBuilder = new StringBuilder();
+        //for (int i = 0; i < allergenList.size(); i++) {
+        //    if (stringBuilder.length() > 0) stringBuilder.append(',');
+        //    String allergen = allergenList.get(i);
+        //stringBuilder.append(allergen);
+        //}
+
+        for (String element : allergenList) {
+            if (stringBuilder.length() > 0) stringBuilder.append(',');
+            stringBuilder.append(element);
+            }
+        allergensText.setText(stringBuilder.toString());
     }
 
     /**

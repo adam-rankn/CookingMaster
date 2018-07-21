@@ -1,19 +1,29 @@
 package com.rankin.adam.cookingmaster.activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.activity.dialog.IngredientViewDialog;
 import com.rankin.adam.cookingmaster.R;
+import com.rankin.adam.cookingmaster.controller.SaveLoadController;
+
+import java.util.ArrayList;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
 public class ViewRecipeActivity extends AppCompatActivity {
+
+    private final int EDIT_RECIPE_FLAG = 1;
+    private final int EDIT_RECIPE = 2 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +62,26 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO show the allergens
+                ArrayList<String> allergenList = recipeController.getAllergens();
+                int count = allergenList.size();
+                final CharSequence[] dialogList =  allergenList.toArray(new CharSequence[count]);
+                final AlertDialog.Builder builderDialog = new AlertDialog.Builder(ViewRecipeActivity.this);
+                builderDialog.setTitle("Select Item");
+                boolean[] is_checked = new boolean[count];
+                builderDialog.setMultiChoiceItems(dialogList, is_checked,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton, boolean isChecked) {
+                            }
+                        });
+                builderDialog.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog alert = builderDialog.create();
+                alert.show();
+
             }
         });
 
@@ -59,7 +89,9 @@ public class ViewRecipeActivity extends AppCompatActivity {
         editRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO edit recipe activity
+                Intent editRecipeIntent = new Intent(ViewRecipeActivity.this, AddRecipeActivity.class);
+                editRecipeIntent.putExtra("Flag",EDIT_RECIPE_FLAG);
+                startActivityForResult(editRecipeIntent,EDIT_RECIPE);
             }
         });
 
@@ -73,4 +105,23 @@ public class ViewRecipeActivity extends AppCompatActivity {
         });
 
     }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        invalidateOptionsMenu();
+        //ensure that the recipes are displayed correctly
+        recreate();
+
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        SaveLoadController saveLoadController = new SaveLoadController(getApplicationContext());
+        saveLoadController.saveRecipesToFile();
+    }
+
+
 }
