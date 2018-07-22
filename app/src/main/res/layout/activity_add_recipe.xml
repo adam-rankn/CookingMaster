@@ -48,6 +48,7 @@
         android:inputType="number"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:imeOptions="actionDone"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="@+id/addRecipeAct_txt_name" />
 
@@ -75,6 +76,7 @@
         android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="parent" />
@@ -126,6 +128,7 @@
         android:singleLine="false"
         android:text="Just cook it"
         android:textSize="14sp"
+        android:imeOptions="actionDone"
         app:layout_constraintBottom_toTopOf="@+id/addRecipeAct_btn_add_recipe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
