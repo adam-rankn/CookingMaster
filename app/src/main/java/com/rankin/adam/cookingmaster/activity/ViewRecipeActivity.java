@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -62,17 +63,19 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<String> allergenList = recipeController.getAllergens();
-                int count = allergenList.size();
-                final CharSequence[] dialogList =  allergenList.toArray(new CharSequence[count]);
+
                 final AlertDialog.Builder builderDialog = new AlertDialog.Builder(ViewRecipeActivity.this);
-                builderDialog.setTitle("Select Item");
-                boolean[] is_checked = new boolean[count];
-                builderDialog.setMultiChoiceItems(dialogList, is_checked,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int whichButton, boolean isChecked) {
-                            }
-                        });
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ViewRecipeActivity.this, android.R.layout.select_dialog_item);
+                arrayAdapter.addAll(allergenList);
+
+                builderDialog.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+
                 builderDialog.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
