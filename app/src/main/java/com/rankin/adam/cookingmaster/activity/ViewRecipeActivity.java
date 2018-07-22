@@ -61,7 +61,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         viewAllergensButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO show the allergens
                 ArrayList<String> allergenList = recipeController.getAllergens();
                 int count = allergenList.size();
                 final CharSequence[] dialogList =  allergenList.toArray(new CharSequence[count]);
