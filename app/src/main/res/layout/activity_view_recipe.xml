@@ -68,7 +68,8 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/viewRecipeAct_txt_mins"
-        app:layout_constraintStart_toStartOf="@+id/viewRecipeAct_photo" />
+        app:layout_constraintStart_toStartOf="@+id/viewRecipeAct_photo"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/viewRecipeAct_txt_instructions"
@@ -85,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_btn_view_ingredients" />
 
     <TextView
-        android:id="@+id/viewRecipeAct_txt_instructions"
+        android:id="@+id/viewRecipeAct_edt_instructions"
         android:layout_width="0dp"
         android:layout_height="163dp"
         android:layout_marginBottom="8dp"
@@ -107,7 +108,8 @@
         android:layout_marginTop="8dp"
         android:text="mins"
         app:layout_constraintEnd_toEndOf="@+id/viewRecipeAct_photo"
-        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_txt_name" />
+        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_txt_name"
+        android:layout_marginRight="16dp" />
 
     <Button
         android:id="@+id/viewRecipeAct_btn_edit"
@@ -117,7 +119,8 @@
         android:layout_marginEnd="8dp"
         android:text="EDIT"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="8dp" />
 
     <Button
         android:id="@+id/viewRecipeAct_btn_delete"
@@ -127,6 +130,7 @@
         android:layout_marginStart="8dp"
         android:text="DELETE"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="8dp" />
 
 </android.support.constraint.ConstraintLayout>

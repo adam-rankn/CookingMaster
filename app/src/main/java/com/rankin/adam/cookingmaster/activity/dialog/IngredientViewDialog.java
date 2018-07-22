@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import com.rankin.adam.cookingmaster.activity.ViewRecipeActivity;
 import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter;
-import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 

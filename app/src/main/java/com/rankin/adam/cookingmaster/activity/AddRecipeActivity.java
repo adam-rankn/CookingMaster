@@ -1,7 +1,6 @@
 package com.rankin.adam.cookingmaster.activity;
 
 import android.Manifest;
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -37,13 +35,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
-import static java.lang.Boolean.FALSE;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
@@ -129,7 +125,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                     String instructions = instructionsEdit.getText().toString();
                     recipeController.setInstructions(instructions);
 
-                    ArrayList<String> allergens= new ArrayList<String>(Arrays.asList(allergensText.getText().toString().split(", ")));
+                    ArrayList<String> allergens= new ArrayList<>(Arrays.asList(allergensText.getText().toString().split(", ")));
                     recipeController.setAllergens(allergens);
 
                     if (mode == 0) {
@@ -178,7 +174,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
 
 
-        View openDialog = (View) findViewById(R.id.addRecipeAct_txt_allergen_list);
+        View openDialog = findViewById(R.id.addRecipeAct_txt_allergen_list);
         openDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

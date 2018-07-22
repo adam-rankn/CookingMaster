@@ -17,7 +17,6 @@ import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.model.ShoppingListEntry;
 import com.rankin.adam.cookingmaster.R;
 
-import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingList;
 import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingListController;
 
 /**
@@ -50,7 +49,7 @@ public class AddIngredientToShoppingListDialog extends Dialog implements Adapter
         getWindow().setLayout(android.view.ViewGroup.LayoutParams.FILL_PARENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        Spinner unitSpinner = (Spinner) findViewById(R.id.addIngrShopListDialog_spinner_units);
+        Spinner unitSpinner = findViewById(R.id.addIngrShopListDialog_spinner_units);
         ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(viewRecipeContext,
                 R.array.units_array, android.R.layout.simple_spinner_item);
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
