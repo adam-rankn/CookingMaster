@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.util.ArrayList;
 
+import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
 /**
@@ -119,6 +121,11 @@ public class IngredientAddDialog extends Dialog {
 
                     recipeController.addIngredient(entry);
                     ingredientEdit.setText("");
+                    amountEdit.setText("");
+
+                    //close the keyboard
+                    InputMethodManager imm = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
 
             }
