@@ -243,6 +243,8 @@ public class AddIngrToShopListTest {
                         isDisplayed()));
         textView3.check(matches(withText("lb")));
 
+        //TODO clear the shopping list here
+
         pressBack();
 
         ViewInteraction appCompatButton13 = onView(
