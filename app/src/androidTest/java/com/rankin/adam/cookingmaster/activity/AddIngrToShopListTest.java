@@ -243,7 +243,24 @@ public class AddIngrToShopListTest {
                         isDisplayed()));
         textView3.check(matches(withText("lb")));
 
-        //TODO clear the shopping list here
+        ViewInteraction appCompatButton2 = onView(
+                allOf(withId(R.id.shoppingListAct_btn_clear), withText("Clear List"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                3),
+                        isDisplayed()));
+        appCompatButton2.perform(click());
+
+        ViewInteraction appCompatButton15 = onView(
+                allOf(withId(android.R.id.button1), withText("OK"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
+        appCompatButton15.perform(scrollTo(), click());
 
         pressBack();
 
