@@ -121,12 +121,14 @@ public class AddRecipeTestIngredients {
         ViewInteraction appCompatEditText5 = onView(
                 allOf(withId(R.id.ingrDialog_edt_amount),
                         isDisplayed()));
-        appCompatEditText5.perform(replaceText("3"), closeSoftKeyboard());
+        appCompatEditText5.perform(replaceText("2"));
+
 
         ViewInteraction appCompatButton5 = onView(allOf(withId(R.id.ingrDialog_btn_add_ingredient), withText("ADD"),
-
                 isDisplayed()));
         appCompatButton5.perform(closeSoftKeyboard(),click());
+
+        onView(withId(R.id.ingrDialog_btn_save)).perform(closeSoftKeyboard());
 
         ViewInteraction appCompatButton6 = onView(withText("save"));
         appCompatButton6.perform(click());
@@ -136,7 +138,7 @@ public class AddRecipeTestIngredients {
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content), 0), 9),
-isDisplayed()));
+                        isDisplayed()));
         appCompatEditText6.perform(replaceText("Just cook it good"));
 
         ViewInteraction appCompatEditText7 = onView(
@@ -144,16 +146,11 @@ isDisplayed()));
                         isDisplayed()));
         appCompatEditText7.perform(closeSoftKeyboard());
 
-        pressBack();
 
-        ViewInteraction appCompatButton7 = onView(
-allOf(withId(R.id.addRecipeAct_btn_add_recipe), withText("ADD"),
-childAtPosition(
-childAtPosition(
-withId(android.R.id.content),
-0),
-0),
-isDisplayed()));
+        ViewInteraction appCompatButton7 = onView(  allOf(withId(R.id.addRecipeAct_btn_add_recipe), withText("ADD"),
+                childAtPosition(
+                        childAtPosition(withId(android.R.id.content), 0), 0),
+                isDisplayed()));
         appCompatButton7.perform(click());
 
         ViewInteraction recyclerView = onView(
@@ -183,24 +180,14 @@ withId(R.id.ingrViewDialog_recyclerView_ingredients),
 isDisplayed()));
         textView.check(matches(withText("milk")));
 
-        ViewInteraction textView2 = onView(
-allOf(withId(R.id.ingrViewRowLay_txt_amount), withText("3"),
-childAtPosition(
-childAtPosition(
-withId(R.id.ingrViewDialog_recyclerView_ingredients),
-0),
-1),
-isDisplayed()));
-        textView2.check(matches(withText("3")));
+        ViewInteraction textView2 = onView(allOf(withId(R.id.ingrViewRowLay_txt_amount),
+                withText("2"),
+                isDisplayed()));
+        textView2.check(matches(withText("2")));
 
-        ViewInteraction textView3 = onView(
-allOf(withId(R.id.ingrViewRowLay_txt_unit), withText("cups"),
-childAtPosition(
-childAtPosition(
-withId(R.id.ingrViewDialog_recyclerView_ingredients),
-0),
-2),
-isDisplayed()));
+        ViewInteraction textView3 = onView(allOf(withId(R.id.ingrViewRowLay_txt_unit),
+                withText("cups"),
+                isDisplayed()));
         textView3.check(matches(withText("cups")));
 
         ViewInteraction appCompatButton9 = onView(
