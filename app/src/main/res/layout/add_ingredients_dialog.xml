@@ -30,6 +30,7 @@
         android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
         android:layout_marginLeft="8dp" />
@@ -58,12 +59,12 @@
 
     <Button
         android:id="@+id/ingrDialog_btn_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="Save"
+        android:text="save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingrDialog_recyclerView"
@@ -81,6 +82,7 @@
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:textSize="16sp"
+        android:imeOptions="actionDone"
         app:layout_constraintStart_toEndOf="@+id/ingrDialog_txt_add_ingredient"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
         android:layout_marginLeft="8dp" />
