@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -75,15 +76,8 @@ public class AddRecipeActivity extends AppCompatActivity {
 
         Button addButton = findViewById(R.id.addRecipeAct_btn_add_recipe);
 
-        allergenList.add("Soy");
-        allergenList.add("Wheat");
-        allergenList.add("Dairy");
-        allergenList.add("Peanut");
-        allergenList.add("Tree nuts");
-        allergenList.add("Fish");
-        allergenList.add("Shellfish");
-        allergenList.add("Peanut");
-        allergenList.add("Eggs");
+
+        allergenList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.allergens)));
 
 
         final int mode = getIntent().getIntExtra("Flag", 0);
@@ -123,13 +117,13 @@ public class AddRecipeActivity extends AppCompatActivity {
                     String name = nameEdit.getText().toString();
                     recipeController.setName(name);
 
-                    String time = timeEdit.getText().toString();
+                    Integer time = Integer.parseInt(timeEdit.getText().toString());
                     recipeController.setTime(time);
 
                     String instructions = instructionsEdit.getText().toString();
                     recipeController.setInstructions(instructions);
 
-                    ArrayList<String> allergens= new ArrayList<String>(Arrays.asList(allergensText.getText().toString().split(", ")));
+                    ArrayList<String> allergens= new ArrayList<>(Arrays.asList(allergensText.getText().toString().split(", ")));
                     recipeController.setAllergens(allergens);
 
                     if (mode == 0) {
@@ -185,7 +179,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 int count = allergenList.size();
                 final CharSequence[] dialogList =  allergenList.toArray(new CharSequence[count]);
                 final AlertDialog.Builder builderDialog = new AlertDialog.Builder(AddRecipeActivity.this);
-                builderDialog.setTitle("Select Item");
+                builderDialog.setTitle("Select Allergens");
                 boolean[] is_checked = new boolean[count];
                 builderDialog.setMultiChoiceItems(dialogList, is_checked,
                         new DialogInterface.OnMultiChoiceClickListener() {
@@ -235,19 +229,13 @@ public class AddRecipeActivity extends AppCompatActivity {
         Uri uri = Uri.parse(recipeUriString);
         recipeThumbnail.setImageURI(uri);
         nameEdit.setText(currentRecipe.getName());
-        timeEdit.setText(currentRecipe.getTime());
+        timeEdit.setText(currentRecipe.getTime().toString());
         instructionsEdit.setText(currentRecipe.getInstructions());
 
         ArrayList<String> allergenList = recipeController.getAllergens();
 
-         //build the comma seperated list
-        StringBuilder stringBuilder = new StringBuilder();
-        //for (int i = 0; i < allergenList.size(); i++) {
-        //    if (stringBuilder.length() > 0) stringBuilder.append(',');
-        //    String allergen = allergenList.get(i);
-        //stringBuilder.append(allergen);
-        //}
 
+        StringBuilder stringBuilder = new StringBuilder();
         for (String element : allergenList) {
             if (stringBuilder.length() > 0) stringBuilder.append(',');
             stringBuilder.append(element);

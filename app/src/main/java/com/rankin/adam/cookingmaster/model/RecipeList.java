@@ -22,8 +22,8 @@ public class RecipeList {
         recipeList.set(position, recipe);
     }
 
-    public void deleteRecipe(int position){
-        recipeList.remove(position);
+    public void deleteRecipe(Recipe recipe){
+        recipeList.remove(recipe);
     }
 
     public Recipe getRecipe(int position){

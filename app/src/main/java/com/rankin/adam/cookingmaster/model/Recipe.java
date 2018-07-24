@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Recipe {
 
     private String Name;
-    private String Time;
+    private Integer Time;
     private ArrayList<RecipeIngredientEntry> ingredientList;
     private String Instructions;
     private ArrayList<String> allergens;
@@ -34,11 +34,11 @@ public class Recipe {
         Name = name;
     }
 
-    public String getTime() {
+    public Integer getTime() {
         return Time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Integer time) {
         Time = time;
     }
 
@@ -80,5 +80,16 @@ public class Recipe {
 
     public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
+    }
+
+    public Boolean containsIngredient(Ingredient ingredient){
+        for (RecipeIngredientEntry entry : ingredientList) {
+            if (ingredient.getName().equals(entry.getIngredient().getName())){
+                return Boolean.TRUE;
+            }
+        }
+        return
+                Boolean.FALSE;
+
     }
 }
