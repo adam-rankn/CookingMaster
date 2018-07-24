@@ -89,6 +89,7 @@ public class RecipeBookActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == ADD_RECIPE_REQUEST){
+            recreate();
             if (resultCode == RESULT_OK){
                 recreate();
             }
@@ -111,7 +112,7 @@ public class RecipeBookActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         invalidateOptionsMenu();
-        recreate();
+        //recreate();
     }
 
     @Override

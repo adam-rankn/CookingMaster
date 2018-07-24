@@ -50,9 +50,10 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
 
         @Override
         public void onClick(View view) {
-            //recipeController.setCurrentRecipe(recipe);
-            //Intent viewRecipeIntent = new Intent(recipeBookContext, ViewRecipeActivity.class);
-            //recipeBookContext.startActivity(viewRecipeIntent);
+            Recipe recipe = recipeList.get(getAdapterPosition());
+            recipeController.setCurrentRecipe(recipe);
+            Intent viewRecipeIntent = new Intent(recipeBookContext, ViewRecipeActivity.class);
+            recipeBookContext.startActivity(viewRecipeIntent);
         }
     }
 
@@ -80,21 +81,14 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
             //no image to display
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+/*        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 recipeController.setCurrentRecipe(recipe);
                 Intent viewRecipeIntent = new Intent(recipeBookContext, ViewRecipeActivity.class);
                 recipeBookContext.startActivity(viewRecipeIntent);
             }
-        });
-
-
-
-
-
-
-
+        });*/
     }
 
 
