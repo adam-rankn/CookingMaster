@@ -22,6 +22,17 @@
         <item>quart</item>
     </string-array>
 
+    <string-array name="allergens">
+        <item>Soy</item>
+        <item>Wheat</item>
+        <item>Dairy</item>
+        <item>Peanuts</item>
+        <item>Tree nuts</item>
+        <item>Fish</item>
+        <item>Shellfish</item>
+        <item>Eggs</item>
+    </string-array>
+
     <string name="app_name">Cooking Master</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_login">Sign in</string>

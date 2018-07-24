@@ -45,15 +45,14 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
             itemView.setOnClickListener(this);
             recipeName = itemView.findViewById(R.id.recipe_row_name);
             recipeImage = itemView.findViewById(R.id.recipe_book_row_image);
+
         }
 
         @Override
         public void onClick(View view) {
-            recipeController.setCurrentRecipe(getAdapterPosition());
-            Intent viewRecipeIntent = new Intent(recipeBookContext, ViewRecipeActivity.class);
-            recipeBookContext.startActivity(viewRecipeIntent);
-
-
+            //recipeController.setCurrentRecipe(recipe);
+            //Intent viewRecipeIntent = new Intent(recipeBookContext, ViewRecipeActivity.class);
+            //recipeBookContext.startActivity(viewRecipeIntent);
         }
     }
 
@@ -67,14 +66,34 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
     @Override
     public void onBindViewHolder(RecipeBookLayoutAdapter.ViewHolder holder, final int position) {
         final Recipe recipe = recipeList.get(position);
-        recipeController.setCurrentRecipe(position);
 
         String name = recipe.getName();
         holder.recipeName.setText(name);
 
-        String recipeUriString = recipeController.getImageUri();
-        Uri uri = Uri.parse(recipeUriString);
-        holder.recipeImage.setImageURI(uri);
+        try {
+            String recipeUriString = recipeController.getImageUri();
+            Uri uri = Uri.parse(recipeUriString);
+            holder.recipeImage.setImageURI(uri);
+        }
+
+        catch (NullPointerException exception){
+            //no image to display
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                recipeController.setCurrentRecipe(recipe);
+                Intent viewRecipeIntent = new Intent(recipeBookContext, ViewRecipeActivity.class);
+                recipeBookContext.startActivity(viewRecipeIntent);
+            }
+        });
+
+
+
+
+
+
 
     }
 
@@ -90,5 +109,9 @@ public class RecipeBookLayoutAdapter extends RecyclerView.Adapter<RecipeBookLayo
 
     public void removeIngredient(int position) {
         recipeList.remove(position);
+    }
+
+    public void setRecipeList(ArrayList<Recipe> recipeList){
+        this.recipeList = recipeList;
     }
 }
