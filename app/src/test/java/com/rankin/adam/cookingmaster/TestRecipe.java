@@ -6,6 +6,7 @@ import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import org.junit.Test;
 
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 /**
