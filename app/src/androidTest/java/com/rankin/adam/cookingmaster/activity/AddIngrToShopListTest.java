@@ -3,12 +3,17 @@ package com.rankin.adam.cookingmaster.activity;
 
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.BoundedMatcher;
+import android.support.test.internal.util.Checks;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v7.widget.RecyclerView;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.R;
 
@@ -18,6 +23,8 @@ import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -32,6 +39,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static com.rankin.adam.cookingmaster.activity.CustomMatches.findInRecipeBook;
+import static com.rankin.adam.cookingmaster.activity.CustomMatches.findInShoppingList;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
@@ -45,6 +54,8 @@ public class AddIngrToShopListTest {
 
     @Test
     public void addIngrToShopListTest() {
+        Integer randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
+        String randomString = randomNum.toString();
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btn_recipe_book), withText("RECIPE BOOK"),
                         childAtPosition(
@@ -73,7 +84,7 @@ public class AddIngrToShopListTest {
                                         0),
                                 5),
                         isDisplayed()));
-        appCompatEditText.perform(replaceText("pie"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("TEST" + randomString), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.addRecipeAct_txt_time),
@@ -113,7 +124,7 @@ public class AddIngrToShopListTest {
                                         0),
                                 1),
                         isDisplayed()));
-        appCompatEditText4.perform(replaceText("water"), closeSoftKeyboard());
+        appCompatEditText4.perform(replaceText("TEST" + randomString), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText5 = onView(
                 allOf(withId(R.id.ingrDialog_edt_amount),
@@ -152,12 +163,8 @@ public class AddIngrToShopListTest {
                         isDisplayed()));
         appCompatButton7.perform(click());
 
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.recycler_recipe_book),
-                        childAtPosition(
-                                withClassName(is("android.support.constraint.ConstraintLayout")),
-                                1)));
-        recyclerView.perform(actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.recycler_recipe_book))
+                .perform(RecyclerViewActions.actionOnHolderItem(findInRecipeBook("TEST" + randomString), click()));
 
         ViewInteraction appCompatButton8 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_view_ingredients), withText("Ingredients"),
@@ -212,36 +219,15 @@ public class AddIngrToShopListTest {
         pressBack();
 
         pressBack();
+        pressBack();
 
         ViewInteraction appCompatButton12 = onView(
-                allOf(withId(R.id.btn_shopping), withText("shopping list"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
-                        isDisplayed()));
+                allOf(withId(R.id.btn_shopping), withText("shopping list")) );
         appCompatButton12.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(R.id.shoppingListRowLay_txt_ingredient), withText("water"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.shoppingListAct_recyclerview),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("water")));
+        onView(withId(R.id.shoppingListAct_recyclerview))
+                .perform(RecyclerViewActions.actionOnHolderItem(findInShoppingList("TEST" + randomString), click()));
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(R.id.shoppingListRowLay_txt_amount), withText("12"),
-                        isDisplayed()));
-        textView2.check(matches(withText("12")));
-
-        ViewInteraction textView3 = onView(
-                allOf(withId(R.id.shoppingListRowLay_txt_unit), withText("lb"),
-                        isDisplayed()));
-        textView3.check(matches(withText("lb")));
 
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.shoppingListAct_btn_clear), withText("Clear List"),
@@ -308,6 +294,26 @@ public class AddIngrToShopListTest {
                 ViewParent parent = view.getParent();
                 return parent instanceof ViewGroup && parentMatcher.matches(parent)
                         && view.equals(((ViewGroup) parent).getChildAt(position));
+            }
+        };
+    }
+
+    public static Matcher<RecyclerView.ViewHolder> withItemSubject(final String subject) {
+        Checks.checkNotNull(subject);
+        return new BoundedMatcher<RecyclerView.ViewHolder, RecyclerView.ViewHolder>(
+                RecyclerView.ViewHolder.class) {
+
+            @Override
+            protected boolean matchesSafely(RecyclerView.ViewHolder viewHolder) {
+                TextView subjectTextView = (TextView)viewHolder.itemView.findViewById(R.id.recipe_row_name);
+
+                return ((subject.equals(subjectTextView.getText().toString())
+                        && (subjectTextView.getVisibility() == View.VISIBLE)));
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("item with subject: " + subject);
             }
         };
     }
