@@ -1,6 +1,7 @@
 package com.rankin.adam.cookingmaster.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Adam on 26-Jun-18.
@@ -10,7 +11,6 @@ public class Ingredient {
 
     private String name;
     private ArrayList<String> allergens;
-    private Integer amount;
 
     public Ingredient(String name) {
         this.name = name;
@@ -24,13 +24,12 @@ public class Ingredient {
         this.name = name;
     }
 
-    public Integer getAmount() {
-        return amount;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return name.equals(that.name);
     }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
 
 }

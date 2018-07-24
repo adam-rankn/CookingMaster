@@ -22,7 +22,7 @@ public class TestRecipe {
 
     public TestRecipe(){
         recipe.addIngredient(ingredientEntry);
-        recipe.setTime("15");
+        recipe.setTime(15);
     }
 
     @Test
@@ -36,6 +36,11 @@ public class TestRecipe {
         assertEquals(1,recipe.getIngredientList().size());
         recipe.removeIngredient(0);
         assertEquals(0,recipe.getIngredientList().size());
+    }
+
+    @Test public void containIngredient(){
+        Ingredient ingredient = new Ingredient("flour");
+        assertTrue(recipe.containsIngredient(ingredient));
     }
 
 }

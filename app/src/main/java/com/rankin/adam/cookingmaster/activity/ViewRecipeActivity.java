@@ -37,7 +37,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         ImageView recipeImage = findViewById(R.id.viewRecipeAct_photo);
 
         String name = recipeController.getName();
-        String time = recipeController.getTime();
+        Integer time = recipeController.getTime();
         String instructions = recipeController.getInstructions();
 
         // get image uri String from file, convert to URI
@@ -45,7 +45,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         Uri uri = Uri.parse(recipeUriString);
 
         nameText.setText(name);
-        timeText.setText(time);
+        timeText.setText(time.toString());
         instructionsText.setText(instructions);
         recipeImage.setImageURI(uri);
 

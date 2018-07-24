@@ -42,7 +42,7 @@ public class RecipeController {
     }
 
     public void deleteCurrentRecipe(){
-        recipeList.deleteRecipe(position);
+        recipeList.deleteRecipe(recipe);
     }
 
     public void setCurrentRecipe(Recipe recipe){
@@ -57,11 +57,11 @@ public class RecipeController {
         recipe.setName(name);
     }
 
-    public String getTime(){
+    public Integer getTime(){
         return recipe.getTime();
     }
 
-    public void setTime(String time){
+    public void setTime(Integer time){
         recipe.setTime(time);
     }
 
@@ -108,6 +108,10 @@ public class RecipeController {
 
     public void clearRecipes(){
         //recipeList.deleteAll();
+    }
+
+    public ArrayList<Recipe> getRecipesList(){
+        return recipeList.getRecipeList();
     }
 
 }
