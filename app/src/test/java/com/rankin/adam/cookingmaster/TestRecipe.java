@@ -7,8 +7,6 @@ import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Adam on 16-Jul-18.

@@ -65,7 +65,7 @@ public class IngredientAddDialog extends Dialog {
         ingredientEdit = findViewById(R.id.ingrDialog_txt_add_ingredient);
         amountEdit = findViewById(R.id.ingrDialog_edt_amount);
 
-        final Spinner unitSpinner = (Spinner) findViewById(R.id.ingrDialog_spn_unit);
+        final Spinner unitSpinner = findViewById(R.id.ingrDialog_spn_unit);
         ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.recipe_units_array, android.R.layout.simple_spinner_item);
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

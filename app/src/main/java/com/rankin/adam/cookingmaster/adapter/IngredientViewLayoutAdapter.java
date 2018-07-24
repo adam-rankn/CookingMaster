@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.activity.dialog.AddIngredientToShoppingListDialog;
-import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 import com.rankin.adam.cookingmaster.model.ShoppingListEntry;

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.activity.dialog.IngredientViewDialog;
@@ -33,7 +32,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         TextView nameText = findViewById(R.id.viewRecipeAct_txt_name);
         TextView timeText = findViewById(R.id.viewRecipeAct_txt_time);
-        TextView instructionsText = findViewById(R.id.viewRecipeAct_txt_instructions);
+        TextView instructionsText = findViewById(R.id.viewRecipeAct_edt_instructions);
         ImageView recipeImage = findViewById(R.id.viewRecipeAct_photo);
 
         String name = recipeController.getName();

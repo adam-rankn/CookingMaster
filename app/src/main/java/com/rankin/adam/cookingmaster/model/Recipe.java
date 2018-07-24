@@ -1,9 +1,5 @@
 package com.rankin.adam.cookingmaster.model;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
-
-import java.net.URI;
 import java.util.ArrayList;
 
 /**
