@@ -33,6 +33,8 @@ public class TestShoppingList {
         assertEquals(0,shoppingList.getShoppingList().size());
         shoppingList.addEntry(entry);
         assertEquals(1,shoppingList.getShoppingList().size());
+        shoppingListController.clearShoppingList();
+
     }
 
     @Test
@@ -43,6 +45,7 @@ public class TestShoppingList {
         shoppingListController.addIngredient(entry2);
         ShoppingListEntry combinedEntry = shoppingListController.getShoppingList().get(0);
         assertEquals((Integer)2,combinedEntry.getAmount());
+        shoppingListController.clearShoppingList();
     }
 
     @Test
@@ -50,6 +53,7 @@ public class TestShoppingList {
         shoppingListController.addIngredient(entry);
         ShoppingListEntry test = shoppingListController.findIngredient(ingredient);
         assertEquals("flour",test.getName());
+        shoppingListController.clearShoppingList();
     }
 
     @Test
@@ -58,7 +62,19 @@ public class TestShoppingList {
         shoppingListController.addIngredient(milkEntry);
         shoppingListController.removeEntry(0);
         assertEquals("milk",shoppingListController.getShoppingList().get(0).getName());
+        shoppingListController.clearShoppingList();
     }
+
+    @Test
+    public void testIncreaseIngredient(){
+        shoppingList.clearShoppingList();
+        shoppingList.addEntry(entry);
+        shoppingList.increaseAmount(0,100);
+        assertEquals((Integer)101,shoppingList.getShoppingList().get(0).getAmount());
+
+    }
+
+
 
 
 }
