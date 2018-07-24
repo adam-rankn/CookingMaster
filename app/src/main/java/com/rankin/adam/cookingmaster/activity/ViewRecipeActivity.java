@@ -101,6 +101,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recipeController.deleteCurrentRecipe();
+                recipeController.setDeletedFlag(Boolean.TRUE);
                 finish();
             }
         });

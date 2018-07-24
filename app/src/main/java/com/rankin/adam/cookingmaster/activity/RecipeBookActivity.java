@@ -112,7 +112,10 @@ public class RecipeBookActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         invalidateOptionsMenu();
-        //recreate();
+        if (recipeController.getDeletedFlag()){
+            recreate();
+            recipeController.setDeletedFlag(Boolean.FALSE);
+        }
     }
 
     @Override

@@ -15,8 +15,10 @@ public class RecipeController {
 
     private Recipe recipe;
     private int position;
+    private Boolean recipeDeleted;
 
     public RecipeController(){
+        recipeDeleted = Boolean.FALSE;
     }
 
     public void addRecipe(Recipe recipe){
@@ -109,4 +111,11 @@ public class RecipeController {
         return recipeList.getRecipeList();
     }
 
+    public void setDeletedFlag(Boolean bool){
+        this.recipeDeleted = bool;
+    }
+
+    public Boolean getDeletedFlag() {
+        return this.recipeDeleted;
+    }
 }
