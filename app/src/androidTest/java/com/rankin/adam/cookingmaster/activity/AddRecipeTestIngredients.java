@@ -3,6 +3,7 @@ package com.rankin.adam.cookingmaster.activity;
 
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -30,6 +31,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.ThreadLocalRandom;
+
+import static com.rankin.adam.cookingmaster.activity.CustomMatches.findInRecipeBook;
+import static com.rankin.adam.cookingmaster.activity.CustomMatches.findInShoppingList;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.is;
@@ -43,6 +48,9 @@ public class AddRecipeTestIngredients {
 
     @Test
     public void addRecipeTestIngredients() {
+        Integer randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
+        String randomString = randomNum.toString();
+
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.btn_recipe_book), withText("RECIPE BOOK"),
                         childAtPosition(
@@ -61,7 +69,7 @@ public class AddRecipeTestIngredients {
         ViewInteraction appCompatEditText = onView(allOf(withId(R.id.addRecipeAct_txt_name),
                 childAtPosition(childAtPosition(withId(android.R.id.content), 0),5),
                 isDisplayed()));
-        appCompatEditText.perform(replaceText("chicken"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("TEST" + randomString), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.addRecipeAct_txt_time),
@@ -86,10 +94,6 @@ public class AddRecipeTestIngredients {
                         withId(R.id.contentPanel), 0))).atPosition(3);
         appCompatCheckedTextView.perform(click());
 
-        DataInteraction appCompatCheckedTextView2 = onData(anything())
-                .inAdapterView(allOf(withId(R.id.select_dialog_listview), childAtPosition(
-                        withId(R.id.contentPanel), 0))).atPosition(8);
-        appCompatCheckedTextView2.perform(click());
 
         ViewInteraction appCompatButton3 = onView(
                 allOf(withId(android.R.id.button1), withText("OK"),
@@ -116,7 +120,7 @@ public class AddRecipeTestIngredients {
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.ingrDialog_txt_add_ingredient),
                         isDisplayed()));
-        appCompatEditText4.perform(replaceText("milk"), closeSoftKeyboard());
+        appCompatEditText4.perform(replaceText("TEST" + randomString), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText5 = onView(
                 allOf(withId(R.id.ingrDialog_edt_amount),
@@ -153,32 +157,23 @@ public class AddRecipeTestIngredients {
                 isDisplayed()));
         appCompatButton7.perform(click());
 
-        ViewInteraction recyclerView = onView(
-allOf(withId(R.id.recycler_recipe_book),
-childAtPosition(
-withClassName(is("android.support.constraint.ConstraintLayout")),
-1)));
-        recyclerView.perform(actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.recycler_recipe_book))
+                .perform(RecyclerViewActions.actionOnHolderItem(findInRecipeBook("TEST" + randomString), click()));
 
         ViewInteraction appCompatButton8 = onView(
-allOf(withId(R.id.viewRecipeAct_btn_view_ingredients), withText("Ingredients"),
-childAtPosition(
-childAtPosition(
-withId(android.R.id.content),
-0),
-3),
-isDisplayed()));
+                allOf(withId(R.id.viewRecipeAct_btn_view_ingredients), withText("Ingredients"),
+                        childAtPosition(
+                                childAtPosition(withId(android.R.id.content), 0), 3),
+                        isDisplayed()));
         appCompatButton8.perform(click());
 
-        ViewInteraction textView = onView(
-allOf(withId(R.id.ingrViewRowLay_ingredient_name), withText("milk"),
-childAtPosition(
-childAtPosition(
-withId(R.id.ingrViewDialog_recyclerView_ingredients),
-0),
-0),
-isDisplayed()));
-        textView.check(matches(withText("milk")));
+        ViewInteraction textView = onView(allOf(withId(R.id.ingrViewRowLay_ingredient_name), withText("TEST" + randomString),
+                childAtPosition(
+                        childAtPosition(withId(R.id.ingrViewDialog_recyclerView_ingredients),
+                                0),
+                        0),
+                isDisplayed()));
+        textView.check(matches(withText("TEST" + randomString)));
 
         ViewInteraction textView2 = onView(allOf(withId(R.id.ingrViewRowLay_txt_amount),
                 withText("2"),
@@ -211,7 +206,7 @@ isDisplayed()));
         appCompatButton10.perform(click());
 
         ViewInteraction textView4 = onView(
-allOf(withId(android.R.id.text1), withText("Peanut"),
+allOf(withId(android.R.id.text1), withText("Peanuts"),
 childAtPosition(
 allOf(withId(R.id.select_dialog_listview),
 childAtPosition(
@@ -219,18 +214,7 @@ withId(R.id.contentPanel),
 0)),
 0),
 isDisplayed()));
-        textView4.check(matches(withText("Peanut")));
-
-        ViewInteraction textView5 = onView(
-allOf(withId(android.R.id.text1), withText("Eggs"),
-childAtPosition(
-allOf(withId(R.id.select_dialog_listview),
-childAtPosition(
-withId(R.id.contentPanel),
-0)),
-1),
-isDisplayed()));
-        textView5.check(matches(withText("Eggs")));
+        textView4.check(matches(withText("Peanuts")));
 
         ViewInteraction appCompatButton11 = onView(
 allOf(withId(android.R.id.button1), withText("OK"),
