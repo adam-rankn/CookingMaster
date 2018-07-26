@@ -22,17 +22,16 @@
 
     <ImageView
         android:id="@+id/viewRecipeAct_photo"
-        cooking+pinning
         android:layout_width="80dp"
         android:layout_height="78dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@mipmap/default_recipe"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
     <Button
         android:id="@+id/viewRecipeAct_btn_view_allergens"
