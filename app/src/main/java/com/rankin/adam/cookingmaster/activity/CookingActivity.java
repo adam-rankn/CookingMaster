@@ -115,7 +115,8 @@ public class CookingActivity extends AppCompatActivity {
         CookingRecipeFragment fragment = adapter.getFragment(index);
 
         if (!fragment.getPinned()){
-            adapter.destroyItem(viewPager,index,adapter.getItem(index));
+            //adapter.destroyItem(viewPager,index,adapter.getItem(index));
+            adapter.removeItemAtPosition(index);
             adapter.notifyDataSetChanged();
             recipeController.unpinRecipe(recipeController.getPinnedRecipes().get(index));
 /*            new Handler(Looper.getMainLooper()).post(new Runnable() {

@@ -57,4 +57,15 @@ public class CookingRecipesPagerAdapter extends FragmentStatePagerAdapter {
         fragmentRecipeList.remove(position);
         notifyDataSetChanged();
     }
+
+    @Override
+    public int getItemPosition(Object item) {
+        CookingRecipeFragment fragment = (CookingRecipeFragment)item;
+        int position = fragmentList.indexOf(fragment);
+        if (position >= 0) {
+            return position;
+        } else {
+            return POSITION_NONE;
+        }
+    }
 }
