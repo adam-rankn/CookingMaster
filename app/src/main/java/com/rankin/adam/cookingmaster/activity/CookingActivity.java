@@ -126,4 +126,10 @@ public class CookingActivity extends AppCompatActivity {
             });*/
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        removeCurrentRecipeIfUnpinned();
+        super.onBackPressed();
+    }
 }
