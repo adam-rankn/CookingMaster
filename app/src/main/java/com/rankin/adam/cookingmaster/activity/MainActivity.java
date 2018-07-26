@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Intent spiceIntent = new Intent(MainActivity.this, Activity.class);
                 //startActivity(spiceIntent);
+                //TODO add a pantry feature
 
             }
         });

@@ -41,6 +41,7 @@ public class IngredientViewDialog extends Dialog {
         ingredients = new ArrayList<>();
         ingredients.addAll(recipeController.getIngredients());
         initalize();
+        //TODO add an add all ingr to shop list minus pantry items
 
     }
 
@@ -50,7 +51,7 @@ public class IngredientViewDialog extends Dialog {
         RecyclerView ingredientViewRecyclerView = findViewById(R.id.ingrViewDialog_recyclerView_ingredients);
         LinearLayoutManager ingredientViewLinearLayoutManager = new LinearLayoutManager(getContext());
         ingredientViewRecyclerView.setLayoutManager(ingredientViewLinearLayoutManager);
-        final IngredientViewLayoutAdapter ingredientViewAdapter = new IngredientViewLayoutAdapter(ingredients, getContext());
+        IngredientViewLayoutAdapter ingredientViewAdapter = new IngredientViewLayoutAdapter(ingredients, getContext());
         ingredientViewRecyclerView.setAdapter(ingredientViewAdapter);
 
 
