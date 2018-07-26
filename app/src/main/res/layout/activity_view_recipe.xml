@@ -22,6 +22,7 @@
 
     <ImageView
         android:id="@+id/viewRecipeAct_photo"
+        cooking+pinning
         android:layout_width="80dp"
         android:layout_height="78dp"
         android:layout_marginEnd="8dp"
