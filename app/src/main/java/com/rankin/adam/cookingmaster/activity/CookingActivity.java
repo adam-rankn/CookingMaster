@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.gson.Gson;
 import com.rankin.adam.cookingmaster.Fragments.CookingRecipeFragment;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.adapter.CookingRecipesPagerAdapter;
@@ -94,19 +95,19 @@ public class CookingActivity extends AppCompatActivity {
             recipeController.pinRecipe(currentRecipe);
         }
 
+        int currentPos = recipeController.getPinnedRecipes().indexOf(recipeController.getCurrentRecipe());
+
         for(int i = 0; i < recipeController.getPinnedRecipes().size(); i++) {
             Recipe recipe = recipeController.getPinnedRecipes().get(i);
             CookingRecipeFragment fragment = new CookingRecipeFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt("recipe",i);
+            bundle.putInt("recipe", i);
             fragment.setArguments(bundle);
             adapter.addFragment(fragment,recipe);
         }
 
-
-        //TODO add this to pinned temporarily or sumthing
-
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(currentPos);
     }
 
     public void removeCurrentRecipeIfUnpinned(){
