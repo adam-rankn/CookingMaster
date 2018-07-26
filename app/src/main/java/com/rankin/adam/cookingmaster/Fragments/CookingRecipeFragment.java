@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,11 +48,15 @@ public class CookingRecipeFragment extends Fragment {
         pinRecipeButton = view.findViewById(R.id.cookRecipeFrag_btn_pin_recipe);
 
 
-        if (currentRecipe != -1){
-            recipe = recipeController.getPinnedRecipes().get(currentRecipe);
+        try {
+            if (currentRecipe != -1) {
+                recipe = recipeController.getPinnedRecipes().get(currentRecipe);
+            } else {
+                recipe = recipeController.getCurrentRecipe();
+            }
         }
-        else {
-            recipe = recipeController.getCurrentRecipe();
+        catch (IndexOutOfBoundsException e){
+            recipe = recipeController.getPinnedRecipes().get(recipeController.getPinnedSize()-1);
         }
 
         if (recipeController.isRecipePinned(recipe)){
@@ -125,5 +130,17 @@ public class CookingRecipeFragment extends Fragment {
 
     public Boolean getPinned() {
         return isPinned;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            Log.d("tag", recipe.getName() + " is NOT on screen");
+        }
+        else
+        {
+            Log.d("tag", recipe.getName() + " is on screen");
+        }
     }
 }

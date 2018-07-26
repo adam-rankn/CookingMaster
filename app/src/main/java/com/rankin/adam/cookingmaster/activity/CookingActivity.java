@@ -32,7 +32,7 @@ public class CookingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cooking);
 
-        cookingRecipesPagerAdapter = new CookingRecipesPagerAdapter(getSupportFragmentManager());
+        //cookingRecipesPagerAdapter = new CookingRecipesPagerAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.cookingAct_container);
 
         //setup pager
@@ -47,20 +47,21 @@ public class CookingActivity extends AppCompatActivity {
                 removeCurrentRecipeIfUnpinned();
 
                 //go to prev recipe
-/*                Integer prevRecipe = viewPager.getCurrentItem() - 1;
+                Integer prevRecipe = viewPager.getCurrentItem() - 1;
+                int size = cookingRecipesPagerAdapter.getCount();
 
                 if (prevRecipe < 0){
                     prevRecipe = size - 1;
                 }
                 //go to nest recipe
-                viewPager.setCurrentItem(prevRecipe);*/
+                viewPager.setCurrentItem(prevRecipe);
 
-                try {
+/*                try {
                     viewPager.setCurrentItem(viewPager.getCurrentItem()-1);
                 }
                 catch (Exception e){
                     //viewPager.setCurrentItem(cookingRecipesPagerAdapter.getCount()-1);
-                }
+                }*/
             }
         });
 
@@ -68,27 +69,28 @@ public class CookingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 removeCurrentRecipeIfUnpinned();
-/*
+
                 Integer nextRecipe = viewPager.getCurrentItem() + 1;
+                int size = cookingRecipesPagerAdapter.getCount();
 
                 if (nextRecipe > size - 1){
                     nextRecipe = 0;
                 }
                 //go to nest recipe
-                viewPager.setCurrentItem(nextRecipe);*/
+                viewPager.setCurrentItem(nextRecipe);
 
-                try {
+/*                try {
                     viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
                 }
                 catch (Exception e){
                     //viewPager.setCurrentItem(0);
-                }
+                }*/
             }
         });
     }
 
     private void setupViewPager(ViewPager viewPager){
-        CookingRecipesPagerAdapter adapter = new CookingRecipesPagerAdapter(getSupportFragmentManager());
+        cookingRecipesPagerAdapter = new CookingRecipesPagerAdapter(getSupportFragmentManager());
 
         Recipe currentRecipe = recipeController.getCurrentRecipe();
         if (!recipeController.isRecipePinned(currentRecipe)) {
@@ -103,10 +105,10 @@ public class CookingActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putInt("recipe", i);
             fragment.setArguments(bundle);
-            adapter.addFragment(fragment,recipe);
+            cookingRecipesPagerAdapter.addFragment(fragment,recipe);
         }
 
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(cookingRecipesPagerAdapter);
         viewPager.setCurrentItem(currentPos);
     }
 
