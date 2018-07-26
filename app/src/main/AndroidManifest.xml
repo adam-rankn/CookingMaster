@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rankin.adam.cookingmaster">
-    
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
-    <uses-permission android:name="android.permission.CAMERA" android:required="false"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission
+        android:name="android.permission.CAMERA"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -32,15 +38,16 @@
                 android:value="com.rankin.adam.cookingmaster.activity.RecipeBookActivity" />
         </activity>
         <activity android:name=".activity.ViewRecipeActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.rankin.adam.cookingmaster.activity.RecipeBookActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rankin.adam.cookingmaster.activity.RecipeBookActivity" />
         </activity>
         <activity android:name=".activity.ShoppingListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rankin.adam.cookingmaster.activity.MainActivity" />
         </activity>
+        <activity android:name=".activity.CookingActivity"></activity>
     </application>
 
 </manifest>

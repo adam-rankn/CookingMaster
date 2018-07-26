@@ -1,5 +1,8 @@
 package com.rankin.adam.cookingmaster.activity;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,6 +30,11 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO add cooking view
+        //TODO scale ingredients
+        //TODO pin recipe to app bar
+
+        //TODO rating bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
 
@@ -56,6 +64,16 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 ingredientViewDialog.show();
             }
         });
+
+        Button cookButton = findViewById(R.id.viewRecipeAct_btn_cook);
+        cookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cookIntent = new Intent(ViewRecipeActivity.this,CookingActivity.class);
+                startActivity(cookIntent);
+            }
+        });
+
 
         Button viewAllergensButton = findViewById(R.id.viewRecipeAct_btn_view_allergens);
         viewAllergensButton.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +118,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         deleteRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO confirmation dialog
                 recipeController.deleteCurrentRecipe();
                 recipeController.setDeletedFlag(Boolean.TRUE);
                 finish();

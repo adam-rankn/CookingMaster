@@ -4,6 +4,7 @@ import com.rankin.adam.cookingmaster.model.Recipe;
 import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeList;
 
@@ -16,9 +17,11 @@ public class RecipeController {
     private Recipe recipe;
     private int position;
     private Boolean recipeDeleted;
+    private ArrayList<Recipe> pinnedRecipes;
 
     public RecipeController(){
         recipeDeleted = Boolean.FALSE;
+        pinnedRecipes = new ArrayList<>();
     }
 
     public void addRecipe(Recipe recipe){
@@ -117,5 +120,29 @@ public class RecipeController {
 
     public Boolean getDeletedFlag() {
         return this.recipeDeleted;
+    }
+
+    public void pinRecipe(Recipe recipe){
+        pinnedRecipes.add(recipe);
+    }
+
+    public void unpinRecipe(Recipe recipe){
+        pinnedRecipes.remove(recipe);
+    }
+
+    public void setPinnedRecipes(ArrayList<Recipe> pinnedRecipes) {
+        this.pinnedRecipes = pinnedRecipes;
+    }
+
+    public ArrayList<Recipe> getPinnedRecipes() {
+        return pinnedRecipes;
+    }
+
+    public Boolean isRecipePinned(Recipe recipe){
+        return pinnedRecipes.contains(recipe);
+    }
+
+    public Integer getPinnedSize(){
+        return pinnedRecipes.size();
     }
 }
