@@ -100,7 +100,6 @@ public class CookingRecipeFragment extends Fragment {
                     if (!recipeController.isRecipePinned(recipe)) {
                         recipeController.pinRecipe(recipe);
                     }
-                    //TODO change button style to indicate pressed
                     pinRecipeButton.setImageResource(R.drawable.pinpressed);
                     pinRecipeButton.setBackgroundColor(0x00000);
                 }

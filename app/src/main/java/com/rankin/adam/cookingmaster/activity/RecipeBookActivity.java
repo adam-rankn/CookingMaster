@@ -41,7 +41,7 @@ public class RecipeBookActivity extends AppCompatActivity {
 
     private SaveLoadController saveLoadController = new SaveLoadController(RecipeBookActivity.this);
 
-    private Boolean isFiltered = Boolean.TRUE;
+    private Boolean isFiltered = Boolean.FALSE;
 
 
 

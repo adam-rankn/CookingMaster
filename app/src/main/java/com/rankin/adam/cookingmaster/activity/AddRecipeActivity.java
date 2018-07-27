@@ -102,6 +102,9 @@ public class AddRecipeActivity extends AppCompatActivity {
                     timeEdit.setError("Recipe Time required");
                 }
 
+                else if (Integer.parseInt(timeEdit.getText().toString())> 2880){
+                    timeEdit.setError("Please enter a time shorter than 2 days");
+                }
 
                 else {
 
