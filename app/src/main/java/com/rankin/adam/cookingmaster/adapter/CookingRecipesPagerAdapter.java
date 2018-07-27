@@ -1,23 +1,14 @@
 package com.rankin.adam.cookingmaster.adapter;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.SparseArray;
-import android.view.ViewGroup;
 
 import com.rankin.adam.cookingmaster.Fragments.CookingRecipeFragment;
 import com.rankin.adam.cookingmaster.model.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
 public class CookingRecipesPagerAdapter extends FragmentStatePagerAdapter {
 

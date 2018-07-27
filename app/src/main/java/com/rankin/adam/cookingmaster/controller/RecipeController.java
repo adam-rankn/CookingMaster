@@ -4,7 +4,6 @@ import com.rankin.adam.cookingmaster.model.Recipe;
 import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeList;
 
@@ -112,10 +111,6 @@ public class RecipeController {
 
     public void removeIngredient(int position){
         recipe.removeIngredient(position);
-    }
-
-    public void clearRecipes(){
-        //recipeList.deleteAll();
     }
 
     public ArrayList<Recipe> getRecipesList(){

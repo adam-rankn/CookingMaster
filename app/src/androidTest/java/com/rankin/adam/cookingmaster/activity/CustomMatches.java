@@ -23,7 +23,7 @@ public class CustomMatches {
 
             @Override
             protected boolean matchesSafely(RecyclerView.ViewHolder viewHolder) {
-                TextView subjectTextView = (TextView)viewHolder.itemView.findViewById(R.id.recipe_row_name);
+                TextView subjectTextView = viewHolder.itemView.findViewById(R.id.recipe_row_name);
 
                 return ((subject.equals(subjectTextView.getText().toString())
                         && (subjectTextView.getVisibility() == View.VISIBLE)));
@@ -43,7 +43,7 @@ public class CustomMatches {
 
             @Override
             protected boolean matchesSafely(RecyclerView.ViewHolder viewHolder) {
-                TextView subjectTextView = (TextView)viewHolder.itemView.findViewById(R.id.shoppingListRowLay_txt_ingredient);
+                TextView subjectTextView = viewHolder.itemView.findViewById(R.id.shoppingListRowLay_txt_ingredient);
 
                 return ((subject.equals(subjectTextView.getText().toString())
                         && (subjectTextView.getVisibility() == View.VISIBLE)));

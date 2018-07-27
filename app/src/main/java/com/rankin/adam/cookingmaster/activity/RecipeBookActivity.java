@@ -1,7 +1,5 @@
 package com.rankin.adam.cookingmaster.activity;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,12 +14,10 @@ import android.widget.Button;
 
 import com.rankin.adam.cookingmaster.activity.dialog.SearchRecipesDialog;
 import com.rankin.adam.cookingmaster.adapter.RecipeBookLayoutAdapter;
-import com.rankin.adam.cookingmaster.controller.RecipeController;
 import com.rankin.adam.cookingmaster.controller.SaveLoadController;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.model.Recipe;
-import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -97,12 +93,6 @@ public class RecipeBookActivity extends AppCompatActivity {
     public void onPause(){
         super.onPause();
         saveLoadController.saveRecipesToFile();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
     }
 
     @Override

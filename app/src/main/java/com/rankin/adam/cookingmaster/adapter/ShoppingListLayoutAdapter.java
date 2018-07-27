@@ -1,5 +1,6 @@
 package com.rankin.adam.cookingmaster.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -60,6 +61,7 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
         return new ShoppingListLayoutAdapter.ViewHolder(inflatedView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ShoppingListLayoutAdapter.ViewHolder holder, final int position) {
         final ShoppingListEntry shoppingListEntry = shoppingList.get(position);

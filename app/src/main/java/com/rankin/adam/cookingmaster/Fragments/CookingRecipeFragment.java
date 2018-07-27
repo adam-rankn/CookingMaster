@@ -14,7 +14,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.activity.CookingActivity;
 import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter;
 import com.rankin.adam.cookingmaster.model.Recipe;
 

@@ -44,7 +44,7 @@ public class Recipe {
     }
 
     public void setIngredientList(ArrayList<RecipeIngredientEntry> recipeIngredientEntries) {
-        ingredientList = ingredientList;
+        ingredientList = recipeIngredientEntries;
     }
 
     public void addIngredient(RecipeIngredientEntry recipeIngredientEntry){

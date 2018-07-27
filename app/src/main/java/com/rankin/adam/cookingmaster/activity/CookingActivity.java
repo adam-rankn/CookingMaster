@@ -1,16 +1,11 @@
 package com.rankin.adam.cookingmaster.activity;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.gson.Gson;
 import com.rankin.adam.cookingmaster.Fragments.CookingRecipeFragment;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.adapter.CookingRecipesPagerAdapter;
