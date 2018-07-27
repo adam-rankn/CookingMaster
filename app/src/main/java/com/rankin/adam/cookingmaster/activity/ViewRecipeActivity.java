@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.activity.dialog.IngredientViewDialog;
@@ -30,14 +31,14 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO add cooking view
         //TODO scale ingredients
-        //TODO pin recipe to app bar
 
         //TODO rating bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
 
+        RatingBar rating = findViewById(R.id.viewRecipeAct_rating_bar);
+        rating.setRating(recipeController.getRating());
         TextView nameText = findViewById(R.id.viewRecipeAct_txt_name);
         TextView timeText = findViewById(R.id.viewRecipeAct_txt_time);
         TextView instructionsText = findViewById(R.id.viewRecipeAct_edt_instructions);
@@ -55,6 +56,13 @@ public class ViewRecipeActivity extends AppCompatActivity {
         timeText.setText(time.toString());
         instructionsText.setText(instructions);
         recipeImage.setImageURI(uri);
+
+        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                recipeController.setRating(v);
+            }
+        });
 
         Button viewIngredientsButton = findViewById(R.id.viewRecipeAct_btn_view_ingredients);
         viewIngredientsButton.setOnClickListener(new View.OnClickListener() {

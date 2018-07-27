@@ -97,6 +97,14 @@ public class RecipeController {
         return recipe.getAllergens();
     }
 
+    public void setRating(float rating){
+        recipe.setRating(rating);
+    }
+
+    public float getRating(){
+        return recipe.getRating();
+    }
+
 
     public void addIngredient(RecipeIngredientEntry recipeIngredientEntry){
         recipe.addIngredient(recipeIngredientEntry);
@@ -146,3 +154,5 @@ public class RecipeController {
         return pinnedRecipes.size();
     }
 }
+
+
