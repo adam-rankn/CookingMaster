@@ -90,9 +90,6 @@ public class RecipeBookActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == ADD_RECIPE_REQUEST){
             recreate();
-            if (resultCode == RESULT_OK){
-                recreate();
-            }
         }
     }
 

@@ -6,10 +6,12 @@ import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,7 +41,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         RatingBar rating = findViewById(R.id.viewRecipeAct_rating_bar);
         rating.setRating(recipeController.getRating());
-        TextView nameText = findViewById(R.id.viewRecipeAct_txt_name);
+        final TextView nameText = findViewById(R.id.viewRecipeAct_txt_name);
         TextView timeText = findViewById(R.id.viewRecipeAct_txt_time);
         TextView instructionsText = findViewById(R.id.viewRecipeAct_edt_instructions);
         ImageView recipeImage = findViewById(R.id.viewRecipeAct_photo);
@@ -51,6 +53,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         // get image uri String from file, convert to URI
         String recipeUriString = recipeController.getImageUri();
         Uri uri = Uri.parse(recipeUriString);
+        //TODO enlarge image on click
 
         nameText.setText(name);
         timeText.setText(time.toString());
@@ -117,6 +120,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent editRecipeIntent = new Intent(ViewRecipeActivity.this, AddRecipeActivity.class);
+                //Open addRecipeActivity in edit mode
                 editRecipeIntent.putExtra("Flag",EDIT_RECIPE_FLAG);
                 startActivityForResult(editRecipeIntent,EDIT_RECIPE);
             }
@@ -126,10 +130,25 @@ public class ViewRecipeActivity extends AppCompatActivity {
         deleteRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO confirmation dialog
-                recipeController.deleteCurrentRecipe();
-                recipeController.setDeletedFlag(Boolean.TRUE);
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(ViewRecipeActivity.this,R.style.Theme_AppCompat_Dialog_Alert);
+                builder.setTitle(R.string.app_name);
+                builder.setMessage("Do you want to delete '" + nameText.getText().toString()+"'?");
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        recipeController.deleteCurrentRecipe();
+                        recipeController.setDeletedFlag(Boolean.TRUE);
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
