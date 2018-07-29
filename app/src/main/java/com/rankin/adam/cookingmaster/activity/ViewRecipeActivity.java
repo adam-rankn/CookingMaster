@@ -99,8 +99,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
                     }
                 });
-
-
                 builderDialog.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -148,9 +146,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 alert.show();
             }
         });
-
     }
-
 
     @Override
     protected void onRestart() {
@@ -158,7 +154,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         invalidateOptionsMenu();
         //ensure that the recipes are displayed correctly
         recreate();
-
     }
 
     @Override

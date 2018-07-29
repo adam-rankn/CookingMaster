@@ -48,7 +48,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rankin.adam.cookingmaster.activity.MainActivity" />
         </activity>
-        <activity android:name=".activity.CookingActivity"></activity>
+        <activity android:name=".activity.CookingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rankin.adam.cookingmaster.activity.ViewRecipeActivity" />
+        </activity>
     </application>
 
 </manifest>

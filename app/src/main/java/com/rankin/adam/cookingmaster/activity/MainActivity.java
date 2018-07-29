@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Intent optionsIntent = new Intent(MainActivity.this, Activity.class);
                 //startActivity(optionsIntent);
+                //TODO add options menu
 
             }
         });

@@ -13,7 +13,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Recipe Name:"
+        android:text="@string/recipe_name"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,26 +38,27 @@
         android:layout_width="wrap_content"
         android:layout_height="51dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Allergens"
+        android:text="@string/allergens"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_photo" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewRecipeAct_btn_view_ingredients"
+        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_photo"
+        android:layout_marginRight="8dp" />
 
     <Button
         android:id="@+id/viewRecipeAct_btn_view_ingredients"
         android:layout_width="wrap_content"
         android:layout_height="51dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Ingredients"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        android:text="@string/ingredients"
+        app:layout_constraintEnd_toStartOf="@+id/viewRecipeAct_btn_view_allergens"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_photo" />
+        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_photo"
+        android:layout_marginLeft="8dp" />
 
     <TextView
         android:id="@+id/viewRecipeAct_txt_time"
@@ -65,7 +66,7 @@
         android:layout_height="26dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:text="time:"
+        android:text="@string/time_label"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/viewRecipeAct_txt_mins"
@@ -78,7 +79,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Instructions"
+        android:text="@string/instructions"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +111,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="mins"
+        android:text="@string/mins"
         app:layout_constraintEnd_toEndOf="@+id/viewRecipeAct_photo"
         app:layout_constraintStart_toEndOf="@+id/viewRecipeAct_txt_time"
         app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_txt_name" />
@@ -121,21 +122,21 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:text="EDIT"
+        android:layout_marginRight="8dp"
+        android:text="@string/edit"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="8dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/viewRecipeAct_btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:text="DELETE"
+        android:text="@string/delete"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/viewRecipeAct_btn_cook"
@@ -146,7 +147,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:text="Cook"
+        android:text="@string/cook"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/viewRecipeAct_btn_edit"
         app:layout_constraintStart_toStartOf="@+id/viewRecipeAct_btn_delete" />

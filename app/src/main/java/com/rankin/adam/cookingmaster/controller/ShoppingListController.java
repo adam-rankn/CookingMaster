@@ -29,7 +29,6 @@ public class ShoppingListController {
 
     public void addIngredient(ShoppingListEntry newEntry){
 
-
         //if there is an entry with the same ingredient type and unit, then add to it
         if (findIngredient(newEntry.getIngredient()) != null){
             ShoppingListEntry existingEntry = findIngredient(newEntry.getIngredient());

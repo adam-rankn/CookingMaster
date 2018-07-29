@@ -14,7 +14,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Recipes"
+        android:text="@string/recipes"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/recycler_recipe_book"
@@ -41,7 +41,7 @@
         android:layout_height="61dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:text="SEARCH"
+        android:text="@string/search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="8dp" />
@@ -53,7 +53,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="MAIN"
+        android:text="@string/main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_add_recipe"
         app:layout_constraintStart_toEndOf="@+id/recipeBookAct_btn_search" />
@@ -64,7 +64,7 @@
         android:layout_height="61dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:text="ADD"
+        android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginRight="8dp" />

@@ -26,14 +26,11 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
     private ArrayList<RecipeIngredientEntry> ingredientList;
     private Context viewRecipeContext;
 
-
     public IngredientViewLayoutAdapter(ArrayList<RecipeIngredientEntry> ingredientList, Context context) {
         this.ingredientList = new ArrayList<>();
         this.ingredientList.addAll(ingredientList);
         this.viewRecipeContext = context;
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView ingredientName;
@@ -49,7 +46,6 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
             ingredientName = itemView.findViewById(R.id.ingrViewRowLay_ingredient_name);
             ingredientAmount = itemView.findViewById(R.id.ingrViewRowLay_txt_amount);
             ingredientUnit = itemView.findViewById(R.id.ingrViewRowLay_txt_unit);
-
         }
         @Override
         public void onClick(View view) {
@@ -76,7 +72,6 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
             holder.ingredientUnit.setText(unit);
         }
 
-
         holder.addToShoppingListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,9 +82,6 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
             }
         });
     }
-
-
-
 
     @Override
     public int getItemCount() {

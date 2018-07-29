@@ -43,8 +43,8 @@ public class SaveLoadController {
             ArrayList<Recipe> recipeLoadList = gson.fromJson(in, listType);
             recipeList.setRecipeList(recipeLoadList);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-
+            Log.e("loadError","recipes failed to load");
+            throw new RuntimeException();
         }
     }
 
@@ -73,8 +73,8 @@ public class SaveLoadController {
             ArrayList<ShoppingListEntry> shoppingLoadList = gson.fromJson(in, listType);
             shoppingList.setShoppingList(shoppingLoadList);
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-
+            Log.e("SaveError","shopping list failed to save");
+            throw new RuntimeException();
         }
     }
 
@@ -88,7 +88,7 @@ public class SaveLoadController {
             writer.flush();
             fos.close();
         }  catch (IOException e) {
-            // TODO Auto-generated catch block
+            Log.e("loadError","shoppingList failed to load");
             throw new RuntimeException();
         }
     }

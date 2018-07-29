@@ -31,7 +31,6 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
         this.shoppingList.addAll(shoppingList);
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView ingredientName;
         private TextView ingredientAmount;
@@ -66,7 +65,6 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
     public void onBindViewHolder(final ShoppingListLayoutAdapter.ViewHolder holder, final int position) {
         final ShoppingListEntry shoppingListEntry = shoppingList.get(position);
 
-
         holder.ingredientName.setText(shoppingListEntry.getName());
         holder.ingredientAmount.setText(shoppingListEntry.getAmount().toString());
         holder.ingredientUnit.setText(shoppingListEntry.getUnit());
@@ -78,7 +76,6 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
                 shoppingListController.removeEntry(holder.getLayoutPosition());
             }
         });
-
     }
 
     @Override

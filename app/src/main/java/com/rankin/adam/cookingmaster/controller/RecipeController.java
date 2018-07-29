@@ -104,7 +104,6 @@ public class RecipeController {
         return recipe.getRating();
     }
 
-
     public void addIngredient(RecipeIngredientEntry recipeIngredientEntry){
         recipe.addIngredient(recipeIngredientEntry);
     }

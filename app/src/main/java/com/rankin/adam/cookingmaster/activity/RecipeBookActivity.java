@@ -45,7 +45,6 @@ public class RecipeBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_book);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
 
         adapterList.addAll(recipeList.getRecipeList());
 
