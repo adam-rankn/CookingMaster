@@ -1,6 +1,8 @@
 package com.rankin.adam.cookingmaster.adapter;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
 
     private ArrayList<RecipeIngredientEntry> ingredientList;
     private Context viewRecipeContext;
+    private Integer scaleFactor = 1;
 
     public IngredientViewLayoutAdapter(ArrayList<RecipeIngredientEntry> ingredientList, Context context) {
         this.ingredientList = new ArrayList<>();
@@ -66,9 +69,10 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
         holder.ingredientName.setText(ingredientName);
 
         if (recipeIngredientEntry.getAmount() != null){
-            String amount = recipeIngredientEntry.getAmount().toString();
+            Integer amount = recipeIngredientEntry.getAmount() * scaleFactor;
+            String strAmount = amount.toString();
             String unit = recipeIngredientEntry.getUnit();
-            holder.ingredientAmount.setText(amount);
+            holder.ingredientAmount.setText(strAmount);
             holder.ingredientUnit.setText(unit);
         }
 
@@ -86,6 +90,15 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
     @Override
     public int getItemCount() {
         return ingredientList.size();
+    }
+
+    public void setScaleFactor(Integer factor){
+        this.scaleFactor = factor;
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            public void run() {
+                notifyDataSetChanged();
+            }
+        });
     }
 
 }

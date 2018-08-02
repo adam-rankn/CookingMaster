@@ -73,5 +73,8 @@ public class ShoppingListController {
         }
         return null;
     }
+    public Integer getSize(){
+        return shoppingList.getShoppingList().size();
+    }
 
 }

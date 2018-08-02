@@ -72,4 +72,6 @@
     <string name="cook">Cook</string>
     <string name="save">Save</string>
     <string name="done">Done</string>
+    <string name="scale">Scale</string>
+    <string name="timer">Timer</string>
 </resources>

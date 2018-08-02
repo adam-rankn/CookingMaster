@@ -45,9 +45,9 @@ public class CookingActivity extends AppCompatActivity {
                 Integer prevRecipe = viewPager.getCurrentItem() - 1;
                 int size = cookingRecipesPagerAdapter.getCount();
 
-                if (prevRecipe < 0){
-                    prevRecipe = size - 1;
-                }
+                //if (prevRecipe < 0){
+                //    prevRecipe = size - 1;
+                //}
                 //go to nest recipe
                 viewPager.setCurrentItem(prevRecipe);
 
@@ -68,9 +68,9 @@ public class CookingActivity extends AppCompatActivity {
                 Integer nextRecipe = viewPager.getCurrentItem() + 1;
                 int size = cookingRecipesPagerAdapter.getCount();
 
-                if (nextRecipe > size - 1){
-                    nextRecipe = 0;
-                }
+                //if (nextRecipe > size - 1){
+                //    nextRecipe = 0;
+                //}
                 //go to nest recipe
                 viewPager.setCurrentItem(nextRecipe);
 

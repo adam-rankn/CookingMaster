@@ -1,16 +1,24 @@
 package com.rankin.adam.cookingmaster.Fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter;
@@ -22,6 +30,8 @@ public class CookingRecipeFragment extends Fragment {
 
     private Button showIngredientsButton;
     private Button showInstructionsButton;
+    private Button scaleButton;
+    private Button timerButton;
     private ImageButton pinRecipeButton;
 
     private TextView instructionsTextView;
@@ -43,6 +53,8 @@ public class CookingRecipeFragment extends Fragment {
         showIngredientsButton = view.findViewById(R.id.cookRecipeFrag_btn_show_ingredients);
         showInstructionsButton = view.findViewById(R.id.cookRecipeFrag_btn_show_instructions);
         pinRecipeButton = view.findViewById(R.id.cookRecipeFrag_btn_pin_recipe);
+        scaleButton = view.findViewById(R.id.cookRecipeFrag_btn_scale);
+        timerButton = view.findViewById(R.id.cookRecipeFrag_btn_start_timer);
 
 
         try {
@@ -72,7 +84,7 @@ public class CookingRecipeFragment extends Fragment {
         ingredientsRecyclerView = view.findViewById(R.id.cookRecipeFrag_recycler_ingredients);
         LinearLayoutManager ingredientViewLinearLayoutManager = new LinearLayoutManager(getContext());
         ingredientsRecyclerView.setLayoutManager(ingredientViewLinearLayoutManager);
-        IngredientViewLayoutAdapter ingredientViewAdapter = new IngredientViewLayoutAdapter(recipe.getIngredientList(), getContext());
+        final IngredientViewLayoutAdapter ingredientViewAdapter = new IngredientViewLayoutAdapter(recipe.getIngredientList(), getContext());
         ingredientsRecyclerView.setAdapter(ingredientViewAdapter);
 
         showInstructionsButton.setOnClickListener(new View.OnClickListener() {
@@ -110,11 +122,78 @@ public class CookingRecipeFragment extends Fragment {
             }
         });
 
+        scaleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //ingredientViewAdapter.setScaleFactor();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Scale Recipe");
+
+                // Set up the input
+                final EditText input = new EditText(getContext());
+                input.setHint("2");
+
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                builder.setView(input);
+
+                // Set up buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Integer scaleFactor = Integer.parseInt(input.getText().toString());
+                        ingredientViewAdapter.setScaleFactor(scaleFactor);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
         return view;
     }
 
     public Boolean getPinned() {
         return isPinned;
+    }
+
+    private void highlightTimers(){
+        String instructionText = instructionsTextView.getText().toString();
+
+        //split on one or more whitspaces
+        String[] splitInstructions = instructionText.split("\\s+");
+
+        Integer currentTimer = 1;
+        for (String word:splitInstructions){
+            if (word.matches("\\d+")){
+                SpannableString ss = new SpannableString(word);
+                ss.setSpan(new myClickableSpan(currentTimer),1, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            }
+        }
+
+    }
+
+    public class myClickableSpan extends ClickableSpan {
+
+        int pos;
+        public myClickableSpan(int position){
+            this.pos=position;
+        }
+
+        @Override
+        public void onClick(View widget) {
+            //open timer
+            Toast.makeText(getContext(), "Position "  + pos + " clicked!", Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }
