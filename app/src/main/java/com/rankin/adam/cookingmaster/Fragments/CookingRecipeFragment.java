@@ -128,7 +128,7 @@ public class CookingRecipeFragment extends Fragment {
                 //ingredientViewAdapter.setScaleFactor();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Scale Recipe");
+                builder.setTitle(getText(R.string.scaleRecipeDialogTitle));
 
                 // Set up the input
                 final EditText factorEdit = new EditText(getContext());
@@ -139,17 +139,17 @@ public class CookingRecipeFragment extends Fragment {
                 builder.setView(factorEdit);
 
                 // Set up buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (factorEdit.getText().toString().trim().length() == 0) {
-                            factorEdit.setError("please enter a valid factor");
+                            factorEdit.setError(getText(R.string.scaleRecipeFactor));
                         }
                         Integer scaleFactor = Integer.parseInt(factorEdit.getText().toString());
                         ingredientViewAdapter.setScaleFactor(scaleFactor);
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();

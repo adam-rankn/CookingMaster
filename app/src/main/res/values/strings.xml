@@ -36,7 +36,7 @@
     <string name="app_name">Cooking Master</string>
     <string name="title_activity_login" tools:keep="@string/title_activity_login">Sign in</string>
 
-    <!-- Strings related to login -->
+    <!-- Buttons, labels, etc-->
     <string name="recipe_book">RECIPE BOOK</string>
     <string name="search">Search</string>
     <string name="add">Add</string>
@@ -74,4 +74,10 @@
     <string name="done">Done</string>
     <string name="scale">Scale</string>
     <string name="timer">Timer</string>
+    <string name="OK">OK</string>
+    <string name="Cancel">Cancel</string>
+
+    <!-- Input Validation-->
+    <string name="scaleRecipeFactor">Please enter a valid scale factor</string>
+    <string name="scaleRecipeDialogTitle">Set recipe scale factor</string>
 </resources>

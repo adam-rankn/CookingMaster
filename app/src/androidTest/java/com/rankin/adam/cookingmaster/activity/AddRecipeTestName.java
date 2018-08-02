@@ -28,7 +28,7 @@ import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.rankin.adam.cookingmaster.activity.CustomMatches.findInRecipeBook;
+import static com.rankin.adam.cookingmaster.activity.CustomMatchers.findInRecipeBook;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest

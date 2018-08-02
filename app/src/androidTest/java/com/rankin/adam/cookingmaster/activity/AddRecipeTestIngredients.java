@@ -28,7 +28,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.rankin.adam.cookingmaster.activity.CustomMatches.findInRecipeBook;
+import static com.rankin.adam.cookingmaster.activity.CustomMatchers.findInRecipeBook;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 
