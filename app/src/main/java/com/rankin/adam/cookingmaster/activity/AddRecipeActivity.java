@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -219,9 +220,15 @@ public class AddRecipeActivity extends AppCompatActivity {
     private void loadRecipeData(){
         currentRecipe = recipeController.getCurrentRecipe();
 
-        String recipeUriString = recipeController.getImageUri();
-        Uri uri = Uri.parse(recipeUriString);
-        recipeThumbnail.setImageURI(uri);
+        try {
+            String recipeUriString = currentRecipe.getImageUri();
+            Uri uri = Uri.parse(recipeUriString);
+            recipeThumbnail.setImageURI(uri);
+        }
+        catch (NullPointerException e){
+            Log.d("imageError", "recipe image not found");
+        }
+
         nameEdit.setText(currentRecipe.getName());
         timeEdit.setText(currentRecipe.getTime().toString());
         instructionsEdit.setText(currentRecipe.getInstructions());
