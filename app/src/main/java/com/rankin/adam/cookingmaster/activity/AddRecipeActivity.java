@@ -27,7 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rankin.adam.cookingmaster.activity.dialog.IngredientAddDialog;
+import com.rankin.adam.cookingmaster.dialog.IngredientAddDialog;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.model.Recipe;
 

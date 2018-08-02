@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter;
+import com.rankin.adam.cookingmaster.dialog.RecipeTimerPopup;
 import com.rankin.adam.cookingmaster.model.Recipe;
 
 import junit.framework.Assert;
@@ -223,8 +224,6 @@ public class CookingRecipeFragment extends Fragment {
         String time;
         Integer timerMinutes;
         Integer timerSeconds;
-        String seconds;
-        String minutes;
 
         public timerClickableSpan(int position,String time){
             this.pos = position;
@@ -239,10 +238,12 @@ public class CookingRecipeFragment extends Fragment {
                     (LayoutInflater)getContext()
                             .getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.popup_cook_timer, null);
-            final PopupWindow popupWindow = new PopupWindow(
-                    popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+            //final PopupWindow popupWindow = new PopupWindow(
+            //        popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+            final RecipeTimerPopup popupWindow = new RecipeTimerPopup(
+                    popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT,time,showInstructionsButton);
 
-            Button btnDismiss = popupView.findViewById(R.id.cookTimerPopup_btn_close);
+/*            Button btnDismiss = popupView.findViewById(R.id.cookTimerPopup_btn_close);
             TextView timerTitleTextView = popupView.findViewById(R.id.cookTimerPopup_txt_title);
             final TextView timerTextView = popupView.findViewById(R.id.cookTimerPopu_txt_timer);
 
@@ -299,7 +300,7 @@ public class CookingRecipeFragment extends Fragment {
                             break;
                     }
                     return true;
-                }});
+                }});*/
         }
 
     }
