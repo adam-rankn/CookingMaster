@@ -44,7 +44,7 @@ public class SaveLoadController {
             recipeList.setRecipeList(recipeLoadList);
         } catch (FileNotFoundException e) {
             Log.e("loadError","recipes failed to load");
-            throw new RuntimeException();
+            //throw new RuntimeException();
         }
     }
 
@@ -74,7 +74,7 @@ public class SaveLoadController {
             shoppingList.setShoppingList(shoppingLoadList);
         } catch (FileNotFoundException e) {
             Log.e("SaveError","shopping list failed to save");
-            throw new RuntimeException();
+            //throw new RuntimeException();
         }
     }
 
