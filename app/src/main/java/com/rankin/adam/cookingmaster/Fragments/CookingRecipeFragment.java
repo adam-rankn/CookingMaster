@@ -131,18 +131,21 @@ public class CookingRecipeFragment extends Fragment {
                 builder.setTitle("Scale Recipe");
 
                 // Set up the input
-                final EditText input = new EditText(getContext());
-                input.setHint("2");
+                final EditText factorEdit = new EditText(getContext());
+                factorEdit.setHint("2");
 
                 // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input.setInputType(InputType.TYPE_CLASS_NUMBER);
-                builder.setView(input);
+                factorEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
+                builder.setView(factorEdit);
 
                 // Set up buttons
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Integer scaleFactor = Integer.parseInt(input.getText().toString());
+                        if (factorEdit.getText().toString().trim().length() == 0) {
+                            factorEdit.setError("please enter a valid factor");
+                        }
+                        Integer scaleFactor = Integer.parseInt(factorEdit.getText().toString());
                         ingredientViewAdapter.setScaleFactor(scaleFactor);
                     }
                 });
