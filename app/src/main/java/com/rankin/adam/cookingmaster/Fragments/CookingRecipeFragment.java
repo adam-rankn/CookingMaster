@@ -96,7 +96,6 @@ public class CookingRecipeFragment extends Fragment {
         SpannableStringBuilder builder = highlightTimers(instructions);
         instructionsTextView = view.findViewById(R.id.cookRecipeFrag_txt_instructions);
         instructionsTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        //instructionsTextView.setText(recipe.getInstructions());
         instructionsTextView.setText(builder);
 
         instructionsTextView.setVisibility(View.GONE);
@@ -141,14 +140,52 @@ public class CookingRecipeFragment extends Fragment {
                     pinRecipeButton.setImageResource(R.drawable.pin);
                     pinRecipeButton.setBackgroundResource(android.R.drawable.btn_default);
                 }
+            }
+        });
 
+        timerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Timer duration in minutes");
+
+                // Set up the input
+                final EditText timerEdit = new EditText(getContext());
+                timerEdit.setHint("5");
+
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                timerEdit.setInputType(InputType.TYPE_CLASS_DATETIME);
+                builder.setView(timerEdit);
+
+                // Set up buttons
+                builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String time = timerEdit.getText().toString();
+
+                        LayoutInflater layoutInflater =
+                                (LayoutInflater)getContext()
+                                        .getSystemService(LAYOUT_INFLATER_SERVICE);
+                        View popupView = layoutInflater.inflate(R.layout.popup_cook_timer, null);
+                        final RecipeTimerPopup popupWindow = new RecipeTimerPopup(
+                                popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT,time,showInstructionsButton);
+                    }
+                });
+                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
             }
         });
 
         scaleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ingredientViewAdapter.setScaleFactor();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle(getText(R.string.scaleRecipeDialogTitle));
@@ -183,8 +220,6 @@ public class CookingRecipeFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -197,14 +232,12 @@ public class CookingRecipeFragment extends Fragment {
         //split on one or more whitespaces
         String[] splitInstructions = text.split("\\s+");
 
-
-        Integer currentTimer = 1;
         SpannableStringBuilder builder = new SpannableStringBuilder();
         for (String word:splitInstructions){
             //check if the current word is a valid time
             if (word.matches("\\d+")){
                 SpannableString ss = new SpannableString(word);
-                ss.setSpan(new timerClickableSpan(currentTimer,word),0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ss.setSpan(new timerClickableSpan(word),0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 builder.append(ss);
             }
             else {
@@ -212,7 +245,7 @@ public class CookingRecipeFragment extends Fragment {
             }
             //add space
             builder.append(" ");
-            currentTimer +=1;
+
         }
 
         return builder;
@@ -220,17 +253,11 @@ public class CookingRecipeFragment extends Fragment {
 
     public class timerClickableSpan extends ClickableSpan {
 
-        int pos;
         String time;
-        Integer timerMinutes;
-        Integer timerSeconds;
 
-        public timerClickableSpan(int position,String time){
-            this.pos = position;
+        public timerClickableSpan(String time){
             this.time = time;
-
         }
-
         @Override
         public void onClick(View view) {
             //open timer
@@ -238,71 +265,8 @@ public class CookingRecipeFragment extends Fragment {
                     (LayoutInflater)getContext()
                             .getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.popup_cook_timer, null);
-            //final PopupWindow popupWindow = new PopupWindow(
-            //        popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
             final RecipeTimerPopup popupWindow = new RecipeTimerPopup(
                     popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT,time,showInstructionsButton);
-
-/*            Button btnDismiss = popupView.findViewById(R.id.cookTimerPopup_btn_close);
-            TextView timerTitleTextView = popupView.findViewById(R.id.cookTimerPopup_txt_title);
-            final TextView timerTextView = popupView.findViewById(R.id.cookTimerPopu_txt_timer);
-
-            //TODO extract all this into a custom popup class
-            timerTitleTextView.setText(recipe.getName());
-            timerTextView.setText(time);
-            timerMinutes = Integer.parseInt(time);
-            timerSeconds = timerMinutes * 60;
-
-            new CountDownTimer(timerSeconds*1000, 1000) {
-
-                public void onTick(long millisUntilFinished) {
-                    timerTextView.setText((millisUntilFinished / 1000)/60 +  ":" + (millisUntilFinished / 1000)%60);
-                    //here you can have your logic to set text to edittext
-                }
-
-                public void onFinish() {
-                    timerTextView.setText("00:00");
-                    Animation anim = new AlphaAnimation(0.0f, 1.0f);
-                    anim.setDuration(500); //You can manage the blinking time with this parameter
-                    anim.setStartOffset(0);
-                    anim.setRepeatMode(Animation.REVERSE);
-                    anim.setRepeatCount(Animation.INFINITE);
-                    timerTextView.startAnimation(anim);
-                }
-
-            }.start();
-
-            btnDismiss.setOnClickListener(new Button.OnClickListener(){
-
-                @Override
-                public void onClick(View v) {
-                    popupWindow.dismiss();
-                }});
-
-            popupWindow.showAsDropDown(showInstructionsButton, 50, -30);
-
-
-            popupView.setOnTouchListener(new View.OnTouchListener() {
-                int orgX, orgY;
-                int offsetX, offsetY;
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            orgX = (int) event.getX();
-                            orgY = (int) event.getY();
-                            break;
-                        case MotionEvent.ACTION_MOVE:
-                            offsetX = (int)event.getRawX() - orgX;
-                            offsetY = (int)event.getRawY() - orgY;
-                            popupWindow.update(offsetX, offsetY, -1, -1, true);
-                            break;
-                    }
-                    return true;
-                }});*/
         }
-
     }
-
 }
