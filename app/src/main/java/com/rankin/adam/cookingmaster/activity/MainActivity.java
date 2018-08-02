@@ -1,6 +1,8 @@
 package com.rankin.adam.cookingmaster.activity;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,9 +30,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (recipeList.getSize() == 0) {
-            saveLoadController.loadRecipesFromFile();
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                public void run() {
+                    saveLoadController.loadRecipesFromFile();
+                }
+            });
         }
-        saveLoadController.loadShoppingListFromFile();
+
+        if (shoppingListController.getSize() == 0) {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                public void run() {
+                    saveLoadController.loadShoppingListFromFile();
+                }
+            });
+        }
 
         Button recipesButton = findViewById(R.id.btn_recipe_book);
         recipesButton.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Intent spiceIntent = new Intent(MainActivity.this, Activity.class);
                 //startActivity(spiceIntent);
+                //TODO add a pantry feature
 
             }
         });
@@ -65,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Intent optionsIntent = new Intent(MainActivity.this, Activity.class);
                 //startActivity(optionsIntent);
+                //TODO add options menu
 
             }
         });

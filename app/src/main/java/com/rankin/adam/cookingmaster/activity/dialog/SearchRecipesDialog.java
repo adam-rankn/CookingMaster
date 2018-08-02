@@ -7,7 +7,6 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,25 +23,16 @@ public class SearchRecipesDialog extends Dialog {
     private Dialog thisDialog;
 
     private ArrayList<String> allergenList;
-    private ArrayList<Ingredient> ingredientList;
 
     private TextView allergensText;
-
-    private LinearLayout linearLayout;
-    private EditText ingredientEdit;
-
     private EditText ingredientEdit1;
     private EditText ingredientEdit2;
     private EditText ingredientEdit3;
-
-
-
 
     public SearchRecipesDialog(RecipeBookActivity context) {
         super(context);
         this.context = context;
         thisDialog = this;
-
     }
 
     @Override
@@ -52,32 +42,13 @@ public class SearchRecipesDialog extends Dialog {
         getWindow().setLayout(android.view.ViewGroup.LayoutParams.FILL_PARENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        //setup for auto generated TexViews
-/*        linearLayout = findViewById(R.id.searchRecipeAct_linearLayout);
-        ingredientEdit = (EditText) findViewById(R.id.searcRecipesDialog_edt_add_ingredient);
-        TextView textView = new TextView(context);
-        textView.setText("text");
-        textView.setTextSize(24);
-        textView.setTextColor(0);*/
-
-        ingredientList = new ArrayList<>();
         ingredientEdit1 = findViewById(R.id.searcRecipesDialog_edt_add_ingredient_1);
         ingredientEdit2 = findViewById(R.id.searcRecipesDialog_edt_add_ingredient_2);
         ingredientEdit3 = findViewById(R.id.searcRecipesDialog_edt_add_ingredient_3);
 
-
         allergenList = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.allergens)));
         allergensText = findViewById(R.id.searchRecipesDialog_txt_allergens);
         final EditText timeEdit = findViewById(R.id.searchRecipesDialog_edt_max_time);
-
-/*        Button addIngredientButton = findViewById(R.id.searchRecipesDialog_btn_add);
-        addIngredientButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                linearLayout.addView(createNewTextView(ingredientEdit.getText().toString()));
-
-            }
-        });*/
 
         // get list of allergens
         allergensText.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +79,7 @@ public class SearchRecipesDialog extends Dialog {
                             }
                         }
                         if (stringBuilder.toString().trim().equals("")) {
-                            ((TextView) findViewById(R.id.searchRecipesDialog_txt_allergens)).setText("No Allergens");
+                            ((TextView) findViewById(R.id.searchRecipesDialog_txt_allergens)).setText(R.string.no_allergens);
                             stringBuilder.setLength(0);
                         } else {
                             ((TextView) findViewById(R.id.searchRecipesDialog_txt_allergens)).setText(stringBuilder);
@@ -118,7 +89,7 @@ public class SearchRecipesDialog extends Dialog {
                 builderDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ((TextView) findViewById(R.id.searchRecipesDialog_txt_allergens)).setText("No Allergens");
+                        ((TextView) findViewById(R.id.searchRecipesDialog_txt_allergens)).setText(R.string.no_allergens);
                     }
                 });
                 AlertDialog alert = builderDialog.create();
@@ -155,17 +126,4 @@ public class SearchRecipesDialog extends Dialog {
             }
         });
     }
-
-/*    private TextView createNewTextView(String text) {
-        final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        final TextView textView = new TextView(context);
-        textView.setLayoutParams(lparams);
-        textView.setTextSize(18);
-        textView.setText(text);
-        return textView;
-    }*/
-
-
-
 }

@@ -14,6 +14,7 @@ public class Recipe {
     private String Instructions;
     private ArrayList<String> allergens;
     private String imageUri;
+    private float rating;
 
 
     public Recipe(String name) {
@@ -43,7 +44,7 @@ public class Recipe {
     }
 
     public void setIngredientList(ArrayList<RecipeIngredientEntry> recipeIngredientEntries) {
-        ingredientList = ingredientList;
+        ingredientList = recipeIngredientEntries;
     }
 
     public void addIngredient(RecipeIngredientEntry recipeIngredientEntry){
@@ -87,5 +88,13 @@ public class Recipe {
         return
                 Boolean.FALSE;
 
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }

@@ -11,12 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.pressBack;
-import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.action.ViewActions.*;
 import static android.support.test.espresso.assertion.ViewAssertions.*;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
@@ -26,18 +22,15 @@ import com.rankin.adam.cookingmaster.R;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.rankin.adam.cookingmaster.activity.CustomMatches.findInRecipeBook;
-import static com.rankin.adam.cookingmaster.activity.CustomMatches.findInShoppingList;
+import static com.rankin.adam.cookingmaster.activity.CustomMatchers.findInRecipeBook;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -134,11 +127,11 @@ public class AddRecipeTestIngredients {
 
         onView(withId(R.id.ingrDialog_btn_save)).perform(closeSoftKeyboard());
 
-        ViewInteraction appCompatButton6 = onView(withText("save"));
+        ViewInteraction appCompatButton6 = onView(withText("Save"));
         appCompatButton6.perform(click());
 
         ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.addRecipeAct_txt_instructions), withText("Just cook it"),
+                allOf(withId(R.id.addRecipeAct_txt_instructions),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content), 0), 9),
@@ -186,54 +179,59 @@ public class AddRecipeTestIngredients {
         textView3.check(matches(withText("cups")));
 
         ViewInteraction appCompatButton9 = onView(
-allOf(withId(R.id.ingrViewDialog_btn_done), withText("Done"),
-childAtPosition(
-childAtPosition(
-withId(android.R.id.content),
-0),
-2),
-isDisplayed()));
+                allOf(withId(R.id.ingrViewDialog_btn_done), withText("Done"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
         appCompatButton9.perform(click());
 
         ViewInteraction appCompatButton10 = onView(
-allOf(withId(R.id.viewRecipeAct_btn_view_allergens), withText("Allergens"),
-childAtPosition(
-childAtPosition(
-withId(android.R.id.content),
-0),
-2),
-isDisplayed()));
+                allOf(withId(R.id.viewRecipeAct_btn_view_allergens), withText("Allergens"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                2),
+                        isDisplayed()));
         appCompatButton10.perform(click());
 
         ViewInteraction textView4 = onView(
-allOf(withId(android.R.id.text1), withText("Peanuts"),
-childAtPosition(
-allOf(withId(R.id.select_dialog_listview),
-childAtPosition(
-withId(R.id.contentPanel),
-0)),
-0),
-isDisplayed()));
+                allOf(withId(android.R.id.text1), withText("Peanuts"),
+                        childAtPosition(
+                                allOf(withId(R.id.select_dialog_listview),
+                                        childAtPosition(
+                                                withId(R.id.contentPanel),
+                                                0)),
+                                0),
+                        isDisplayed()));
         textView4.check(matches(withText("Peanuts")));
 
         ViewInteraction appCompatButton11 = onView(
-allOf(withId(android.R.id.button1), withText("OK"),
-childAtPosition(
-childAtPosition(
-withId(R.id.buttonPanel),
-0),
-3)));
+                allOf(withId(android.R.id.button1), withText("OK"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
         appCompatButton11.perform(scrollTo(), click());
 
         ViewInteraction appCompatButton12 = onView(
-allOf(withId(R.id.viewRecipeAct_btn_delete), withText("DELETE"),
-childAtPosition(
-childAtPosition(
-withId(android.R.id.content),
-0),
-9),
-isDisplayed()));
+                allOf(withId(R.id.viewRecipeAct_btn_delete), withText("DELETE"), childAtPosition(
+                        childAtPosition(withId(android.R.id.content), 0), 9),
+                        isDisplayed()));
         appCompatButton12.perform(click());
+
+        ViewInteraction appCompatButton13 = onView(
+                allOf(withId(android.R.id.button1), withText("Yes"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
+        appCompatButton13.perform(scrollTo(), click());
 
         }
 

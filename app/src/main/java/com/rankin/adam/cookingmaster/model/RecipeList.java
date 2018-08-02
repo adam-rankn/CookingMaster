@@ -27,8 +27,7 @@ public class RecipeList {
     }
 
     public Recipe getRecipe(int position){
-        Recipe recipe = recipeList.get(position);
-        return recipe;
+        return recipeList.get(position);
     }
 
     public int getSize(){

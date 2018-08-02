@@ -1,7 +1,5 @@
 package com.rankin.adam.cookingmaster.activity;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,12 +14,10 @@ import android.widget.Button;
 
 import com.rankin.adam.cookingmaster.activity.dialog.SearchRecipesDialog;
 import com.rankin.adam.cookingmaster.adapter.RecipeBookLayoutAdapter;
-import com.rankin.adam.cookingmaster.controller.RecipeController;
 import com.rankin.adam.cookingmaster.controller.SaveLoadController;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.model.Ingredient;
 import com.rankin.adam.cookingmaster.model.Recipe;
-import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +37,7 @@ public class RecipeBookActivity extends AppCompatActivity {
 
     private SaveLoadController saveLoadController = new SaveLoadController(RecipeBookActivity.this);
 
-    private Boolean isFiltered = Boolean.TRUE;
+    private Boolean isFiltered = Boolean.FALSE;
 
 
 
@@ -49,7 +45,6 @@ public class RecipeBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_book);
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
 
         adapterList.addAll(recipeList.getRecipeList());
 
@@ -89,9 +84,7 @@ public class RecipeBookActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if (requestCode == ADD_RECIPE_REQUEST){
-            if (resultCode == RESULT_OK){
-                recreate();
-            }
+            recreate();
         }
     }
 
@@ -102,16 +95,13 @@ public class RecipeBookActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
     protected void onRestart() {
         super.onRestart();
         invalidateOptionsMenu();
-        recreate();
+        if (recipeController.getDeletedFlag()){
+            recreate();
+            recipeController.setDeletedFlag(Boolean.FALSE);
+        }
     }
 
     @Override

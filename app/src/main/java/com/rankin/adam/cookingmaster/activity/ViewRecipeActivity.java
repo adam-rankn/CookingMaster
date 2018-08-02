@@ -1,5 +1,6 @@
 package com.rankin.adam.cookingmaster.activity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.activity.dialog.IngredientViewDialog;
@@ -25,12 +27,18 @@ public class ViewRecipeActivity extends AppCompatActivity {
     private final int EDIT_RECIPE_FLAG = 1;
     private final int EDIT_RECIPE = 2 ;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO scale ingredients
+
+        //TODO rating bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
 
-        TextView nameText = findViewById(R.id.viewRecipeAct_txt_name);
+        RatingBar rating = findViewById(R.id.viewRecipeAct_rating_bar);
+        rating.setRating(recipeController.getRating());
+        final TextView nameText = findViewById(R.id.viewRecipeAct_txt_name);
         TextView timeText = findViewById(R.id.viewRecipeAct_txt_time);
         TextView instructionsText = findViewById(R.id.viewRecipeAct_edt_instructions);
         ImageView recipeImage = findViewById(R.id.viewRecipeAct_photo);
@@ -42,11 +50,19 @@ public class ViewRecipeActivity extends AppCompatActivity {
         // get image uri String from file, convert to URI
         String recipeUriString = recipeController.getImageUri();
         Uri uri = Uri.parse(recipeUriString);
+        //TODO enlarge image on click
 
         nameText.setText(name);
         timeText.setText(time.toString());
         instructionsText.setText(instructions);
         recipeImage.setImageURI(uri);
+
+        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                recipeController.setRating(v);
+            }
+        });
 
         Button viewIngredientsButton = findViewById(R.id.viewRecipeAct_btn_view_ingredients);
         viewIngredientsButton.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +72,16 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 ingredientViewDialog.show();
             }
         });
+
+        Button cookButton = findViewById(R.id.viewRecipeAct_btn_cook);
+        cookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cookIntent = new Intent(ViewRecipeActivity.this,CookingActivity.class);
+                startActivity(cookIntent);
+            }
+        });
+
 
         Button viewAllergensButton = findViewById(R.id.viewRecipeAct_btn_view_allergens);
         viewAllergensButton.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +99,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
                     }
                 });
-
-
                 builderDialog.setPositiveButton("OK",new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -91,6 +115,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent editRecipeIntent = new Intent(ViewRecipeActivity.this, AddRecipeActivity.class);
+                //Open addRecipeActivity in edit mode
                 editRecipeIntent.putExtra("Flag",EDIT_RECIPE_FLAG);
                 startActivityForResult(editRecipeIntent,EDIT_RECIPE);
             }
@@ -100,13 +125,28 @@ public class ViewRecipeActivity extends AppCompatActivity {
         deleteRecipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recipeController.deleteCurrentRecipe();
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(ViewRecipeActivity.this,R.style.Theme_AppCompat_Dialog_Alert);
+                builder.setTitle(R.string.app_name);
+                builder.setMessage("Do you want to delete '" + nameText.getText().toString()+"'?");
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        recipeController.deleteCurrentRecipe();
+                        recipeController.setDeletedFlag(Boolean.TRUE);
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
-
     }
-
 
     @Override
     protected void onRestart() {
@@ -114,7 +154,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         invalidateOptionsMenu();
         //ensure that the recipes are displayed correctly
         recreate();
-
     }
 
     @Override

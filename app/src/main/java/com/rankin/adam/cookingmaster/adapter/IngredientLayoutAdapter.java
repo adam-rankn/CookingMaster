@@ -23,12 +23,10 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
 
     private ArrayList<RecipeIngredientEntry> ingredientList;
 
-
     public IngredientLayoutAdapter(ArrayList<RecipeIngredientEntry> ingredientList, Context context) {
         this.ingredientList = new ArrayList<>();
         this.ingredientList.addAll(ingredientList);
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView ingredientName;
@@ -74,7 +72,6 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
             holder.unit.setText(unit);
         }
 
-
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +80,6 @@ public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayo
                 notifyItemRemoved(position);
             }
         });
-
     }
 
 

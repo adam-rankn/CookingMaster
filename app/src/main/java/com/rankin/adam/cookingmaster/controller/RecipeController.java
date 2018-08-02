@@ -15,8 +15,12 @@ public class RecipeController {
 
     private Recipe recipe;
     private int position;
+    private Boolean recipeDeleted;
+    private ArrayList<Recipe> pinnedRecipes;
 
     public RecipeController(){
+        recipeDeleted = Boolean.FALSE;
+        pinnedRecipes = new ArrayList<>();
     }
 
     public void addRecipe(Recipe recipe){
@@ -92,6 +96,13 @@ public class RecipeController {
         return recipe.getAllergens();
     }
 
+    public void setRating(float rating){
+        recipe.setRating(rating);
+    }
+
+    public float getRating(){
+        return recipe.getRating();
+    }
 
     public void addIngredient(RecipeIngredientEntry recipeIngredientEntry){
         recipe.addIngredient(recipeIngredientEntry);
@@ -101,12 +112,41 @@ public class RecipeController {
         recipe.removeIngredient(position);
     }
 
-    public void clearRecipes(){
-        //recipeList.deleteAll();
-    }
-
     public ArrayList<Recipe> getRecipesList(){
         return recipeList.getRecipeList();
     }
 
+    public void setDeletedFlag(Boolean bool){
+        this.recipeDeleted = bool;
+    }
+
+    public Boolean getDeletedFlag() {
+        return this.recipeDeleted;
+    }
+
+    public void pinRecipe(Recipe recipe){
+        pinnedRecipes.add(recipe);
+    }
+
+    public void unpinRecipe(Recipe recipe){
+        pinnedRecipes.remove(recipe);
+    }
+
+    public void setPinnedRecipes(ArrayList<Recipe> pinnedRecipes) {
+        this.pinnedRecipes = pinnedRecipes;
+    }
+
+    public ArrayList<Recipe> getPinnedRecipes() {
+        return pinnedRecipes;
+    }
+
+    public Boolean isRecipePinned(Recipe recipe){
+        return pinnedRecipes.contains(recipe);
+    }
+
+    public Integer getPinnedSize(){
+        return pinnedRecipes.size();
+    }
 }
+
+

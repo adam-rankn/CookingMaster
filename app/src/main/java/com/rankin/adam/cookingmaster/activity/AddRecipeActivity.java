@@ -1,6 +1,7 @@
 package com.rankin.adam.cookingmaster.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,13 +11,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -64,7 +65,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
 
-        recipeThumbnail = findViewById(R.id.addRecipeAct_btn_add_image);
+        //recipeThumbnail = findViewById(R.id.addRecipeAct_btn_add_image);
         nameEdit = findViewById(R.id.addRecipeAct_txt_name);
         timeEdit = findViewById(R.id.addRecipeAct_txt_time);
         instructionsEdit = findViewById(R.id.addRecipeAct_txt_instructions);
@@ -79,8 +80,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         final int mode = getIntent().getIntExtra("Flag", 0);
         if (mode == 1){
             loadRecipeData();
-            addButton.setText("Done");
-
+            addButton.setText(R.string.done);
         }
 
         else {
@@ -93,7 +93,6 @@ public class AddRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 if (nameEdit.getText().toString().trim().isEmpty()){
                     nameEdit.setError("Recipe name required");
                 }
@@ -102,6 +101,9 @@ public class AddRecipeActivity extends AppCompatActivity {
                     timeEdit.setError("Recipe Time required");
                 }
 
+                else if (Integer.parseInt(timeEdit.getText().toString())> 2880){
+                    timeEdit.setError("Please enter a time shorter than 2 days");
+                }
 
                 else {
 
@@ -126,9 +128,6 @@ public class AddRecipeActivity extends AppCompatActivity {
                         recipeController.addRecipe(newRecipe);
                     }
 
-                    else if (mode == 1){
-
-                    }
                     finish();
                 }
             }
@@ -141,7 +140,6 @@ public class AddRecipeActivity extends AppCompatActivity {
                 Intent addImgaeIntent = new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(addImgaeIntent, IMAGE_RESULT);
-
             }
         });
 
@@ -197,7 +195,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                             }
                         }
                         if (stringBuilder.toString().trim().equals("")) {
-                            ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText("No Allergens");
+                            ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText(R.string.no_allergens);
                             stringBuilder.setLength(0);
                         } else {
                             ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText(stringBuilder);
@@ -207,17 +205,17 @@ public class AddRecipeActivity extends AppCompatActivity {
                 builderDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText("No Allergens");
+                        ((TextView) findViewById(R.id.addRecipeAct_txt_allergen_list)).setText(R.string.no_allergens);
                     }
                 });
                 AlertDialog alert = builderDialog.create();
                 alert.show();
-
             }
         });
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void loadRecipeData(){
         currentRecipe = recipeController.getCurrentRecipe();
 
@@ -270,7 +268,6 @@ public class AddRecipeActivity extends AppCompatActivity {
             Toast.makeText(this, "Please try again", Toast.LENGTH_LONG)
                     .show();
         }
-
     }
 
     /**
@@ -328,7 +325,7 @@ public class AddRecipeActivity extends AppCompatActivity {
      */
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
         //if length is zero, request was cancelled
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             recipeImage = decodeFile(imageDecode);
@@ -350,8 +347,6 @@ public class AddRecipeActivity extends AppCompatActivity {
                 Uri uri = Uri.fromFile(file);
                 String uriString = uri.toString();
                 recipeController.setImageUri(uriString);
-
-
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
