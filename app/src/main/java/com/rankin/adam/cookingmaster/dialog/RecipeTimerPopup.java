@@ -1,5 +1,6 @@
 package com.rankin.adam.cookingmaster.dialog;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
@@ -34,7 +35,7 @@ public class RecipeTimerPopup extends PopupWindow {
         initialize();
     }
 
-    public void initialize(){
+    private void initialize(){
         Button btnDismiss = popupView.findViewById(R.id.cookTimerPopup_btn_close);
         TextView timerTitleTextView = popupView.findViewById(R.id.cookTimerPopup_txt_title);
         final TextView timerTextView = popupView.findViewById(R.id.cookTimerPopu_txt_timer);
@@ -48,12 +49,16 @@ public class RecipeTimerPopup extends PopupWindow {
         new CountDownTimer(timerSeconds*1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                timerTextView.setText((millisUntilFinished / 1000)/60 +  ":" + (millisUntilFinished / 1000)%60);
-                //here you can have your logic to set text to edittext
+                long seconds = millisUntilFinished / 1000;
+                //format time to HH:MM:SS
+                
+                timerTextView.setText(String.format("%02d:%02d:%02d", seconds / 3600,
+                        (seconds % 3600) / 60, (seconds % 60)));
             }
-
             public void onFinish() {
                 timerTextView.setText("00:00");
+
+                //add blinking animation to the textview when complete
                 Animation anim = new AlphaAnimation(0.0f, 1.0f);
                 anim.setDuration(500); //You can manage the blinking time with this parameter
                 anim.setStartOffset(0);
