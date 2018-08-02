@@ -127,11 +127,11 @@ public class AddRecipeTestIngredients {
 
         onView(withId(R.id.ingrDialog_btn_save)).perform(closeSoftKeyboard());
 
-        ViewInteraction appCompatButton6 = onView(withText("save"));
+        ViewInteraction appCompatButton6 = onView(withText("Save"));
         appCompatButton6.perform(click());
 
         ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.addRecipeAct_txt_instructions), withText("Just cook it"),
+                allOf(withId(R.id.addRecipeAct_txt_instructions),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content), 0), 9),

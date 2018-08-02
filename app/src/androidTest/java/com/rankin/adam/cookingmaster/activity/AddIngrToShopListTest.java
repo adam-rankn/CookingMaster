@@ -217,7 +217,7 @@ public class AddIngrToShopListTest {
         pressBack();
 
         ViewInteraction appCompatButton12 = onView(
-                allOf(withId(R.id.btn_shopping), withText("shopping list")) );
+                allOf(withId(R.id.btn_shopping), withText("Shopping List")) );
         appCompatButton12.perform(click());
 
         onView(withId(R.id.shoppingListAct_recyclerview))
