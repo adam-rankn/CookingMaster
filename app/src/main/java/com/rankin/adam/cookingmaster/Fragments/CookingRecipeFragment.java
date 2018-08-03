@@ -169,7 +169,7 @@ public class CookingRecipeFragment extends Fragment {
                                         .getSystemService(LAYOUT_INFLATER_SERVICE);
                         View popupView = layoutInflater.inflate(R.layout.popup_cook_timer, null);
                         final RecipeTimerPopup popupWindow = new RecipeTimerPopup(
-                                popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT,time,showInstructionsButton);
+                                popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT,time,showInstructionsButton,recipe.getName());
                     }
                 });
                 builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
@@ -280,8 +280,7 @@ public class CookingRecipeFragment extends Fragment {
                     (LayoutInflater)getContext()
                             .getSystemService(LAYOUT_INFLATER_SERVICE);
             View popupView = layoutInflater.inflate(R.layout.popup_cook_timer, null);
-            final RecipeTimerPopup popupWindow = new RecipeTimerPopup(
-                    popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT,time,showInstructionsButton);
+            final RecipeTimerPopup popupWindow = new RecipeTimerPopup(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT,time, showInstructionsButton,recipe.getName());
         }
     }
 }

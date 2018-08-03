@@ -20,13 +20,15 @@ public class RecipeTimerPopup extends PopupWindow {
     Integer time;
     View popupView;
     View anchor;
+    String name;
 
 
-    public RecipeTimerPopup(View contentView, int width, int height, Integer time,View anchor) {
+    public RecipeTimerPopup(View contentView, int width, int height, Integer time, View anchor, String name) {
         super(contentView, width, height);
         this.time = time;
         this.popupView = contentView;
         this.anchor = anchor;
+        this.name = name;
 
         initialize();
     }
@@ -36,7 +38,7 @@ public class RecipeTimerPopup extends PopupWindow {
         TextView timerTitleTextView = popupView.findViewById(R.id.cookTimerPopup_txt_title);
         final TextView timerTextView = popupView.findViewById(R.id.cookTimerPopup_txt_timer);
 
-        timerTitleTextView.setText(recipeController.getName());
+        timerTitleTextView.setText(name);
         timerTextView.setText(Integer.toString(time));
         //timerSeconds = timerMinutes * 60;
 
