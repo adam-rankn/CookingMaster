@@ -1,9 +1,7 @@
 package com.rankin.adam.cookingmaster.dialog;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.CountDownTimer;
-import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -19,14 +17,12 @@ import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeControll
 public class RecipeTimerPopup extends PopupWindow {
 
     int pos;
-    String time;
-    Integer timerMinutes;
-    Integer timerSeconds;
+    Integer time;
     View popupView;
     View anchor;
 
 
-    public RecipeTimerPopup(View contentView, int width, int height, String time,View anchor) {
+    public RecipeTimerPopup(View contentView, int width, int height, Integer time,View anchor) {
         super(contentView, width, height);
         this.time = time;
         this.popupView = contentView;
@@ -38,20 +34,20 @@ public class RecipeTimerPopup extends PopupWindow {
     private void initialize(){
         Button btnDismiss = popupView.findViewById(R.id.cookTimerPopup_btn_close);
         TextView timerTitleTextView = popupView.findViewById(R.id.cookTimerPopup_txt_title);
-        final TextView timerTextView = popupView.findViewById(R.id.cookTimerPopu_txt_timer);
+        final TextView timerTextView = popupView.findViewById(R.id.cookTimerPopup_txt_timer);
 
-        //TODO extract all this into a custom popup class
         timerTitleTextView.setText(recipeController.getName());
-        timerTextView.setText(time);
-        timerMinutes = Integer.parseInt(time);
-        timerSeconds = timerMinutes * 60;
+        timerTextView.setText(Integer.toString(time));
+        //timerSeconds = timerMinutes * 60;
 
-        new CountDownTimer(timerSeconds*1000, 1000) {
+        new CountDownTimer(time*1000, 1000) {
 
+            // we are just doing a countdown timer, so default locale will work
+            @SuppressLint("DefaultLocale")
             public void onTick(long millisUntilFinished) {
                 long seconds = millisUntilFinished / 1000;
                 //format time to HH:MM:SS
-                
+
                 timerTextView.setText(String.format("%02d:%02d:%02d", seconds / 3600,
                         (seconds % 3600) / 60, (seconds % 60)));
             }

@@ -162,7 +162,7 @@ public class CookingRecipeFragment extends Fragment {
                 builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String time = timerEdit.getText().toString();
+                        Integer time = Integer.parseInt(timerEdit.getText().toString())* 60;
 
                         LayoutInflater layoutInflater =
                                 (LayoutInflater)getContext()
@@ -235,9 +235,23 @@ public class CookingRecipeFragment extends Fragment {
         SpannableStringBuilder builder = new SpannableStringBuilder();
         for (String word:splitInstructions){
             //check if the current word is a valid time
+
+            //match XX minutes
             if (word.matches("\\d+")){
                 SpannableString ss = new SpannableString(word);
-                ss.setSpan(new timerClickableSpan(word),0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                Integer time = Integer.parseInt(word)*60;
+                ss.setSpan(new timerClickableSpan(time),0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                builder.append(ss);
+            }
+            //match MM:SS format of timer
+            else if (word.matches("[\\d]\\S[:]\\S[\\d+]")){
+                SpannableString ss = new SpannableString(word);
+
+                //get the time in seconds
+                Integer time = Integer.parseInt(word.substring(0 , word.indexOf(":"))) * 60;
+                time += Integer.parseInt(word.substring(word.indexOf(":")+1,word.length()));
+
+                ss.setSpan(new timerClickableSpan(time),0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 builder.append(ss);
             }
             else {
@@ -253,13 +267,14 @@ public class CookingRecipeFragment extends Fragment {
 
     public class timerClickableSpan extends ClickableSpan {
 
-        String time;
+        Integer time;
 
-        public timerClickableSpan(String time){
+        public timerClickableSpan(Integer time){
             this.time = time;
         }
         @Override
         public void onClick(View view) {
+
             //open timer
             LayoutInflater layoutInflater =
                     (LayoutInflater)getContext()
