@@ -62,6 +62,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO factor out confirmation dialogs
                 new AlertDialog.Builder(ShoppingListActivity.this,R.style.Theme_AppCompat_Dialog_Alert)
                         .setTitle("Clear List")
                         .setMessage("Delete entire list?")

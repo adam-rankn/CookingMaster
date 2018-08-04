@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.rankin.adam.cookingmaster.activity.dialog.SearchRecipesDialog;
+import com.rankin.adam.cookingmaster.dialog.SearchRecipesDialog;
 import com.rankin.adam.cookingmaster.adapter.RecipeBookLayoutAdapter;
 import com.rankin.adam.cookingmaster.controller.SaveLoadController;
 import com.rankin.adam.cookingmaster.R;

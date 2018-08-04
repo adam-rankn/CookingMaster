@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.activity.dialog.IngredientViewDialog;
+import com.rankin.adam.cookingmaster.dialog.IngredientViewDialog;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.controller.SaveLoadController;
 
