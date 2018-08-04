@@ -76,8 +76,11 @@
     <string name="timer">Timer</string>
     <string name="OK">OK</string>
     <string name="Cancel">Cancel</string>
+    <string name="pin">Pin</string>
+    <string name="unpin">Unpin</string>
 
     <!-- Input Validation-->
     <string name="scaleRecipeFactor">Please enter a valid scale factor</string>
     <string name="scaleRecipeDialogTitle">Set recipe scale factor</string>
+
 </resources>

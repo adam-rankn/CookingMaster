@@ -48,7 +48,7 @@ public class CookingRecipeFragment extends Fragment {
     private Button showInstructionsButton;
     private Button scaleButton;
     private Button timerButton;
-    private ImageButton pinRecipeButton;
+    private Button pinRecipeButton;
 
     private TextView instructionsTextView;
     private RecyclerView ingredientsRecyclerView;
@@ -87,8 +87,7 @@ public class CookingRecipeFragment extends Fragment {
 
         if (recipeController.isRecipePinned(recipe)){
             isPinned = Boolean.TRUE;
-            pinRecipeButton.setImageResource(R.drawable.pinpressed);
-            pinRecipeButton.setBackgroundColor(0x00000);
+            pinRecipeButton.setText(R.string.unpin);
         }
 
         //build instructions string with links and set to textView
@@ -131,14 +130,12 @@ public class CookingRecipeFragment extends Fragment {
                     if (!recipeController.isRecipePinned(recipe)) {
                         recipeController.pinRecipe(recipe);
                     }
-                    pinRecipeButton.setImageResource(R.drawable.pinpressed);
-                    pinRecipeButton.setBackgroundColor(0x00000);
+                    pinRecipeButton.setText(R.string.pin);
                 }
 
                 else if (isPinned){
                     isPinned = Boolean.FALSE;
-                    pinRecipeButton.setImageResource(R.drawable.pin);
-                    pinRecipeButton.setBackgroundResource(android.R.drawable.btn_default);
+                    pinRecipeButton.setText(R.string.unpin);
                 }
             }
         });

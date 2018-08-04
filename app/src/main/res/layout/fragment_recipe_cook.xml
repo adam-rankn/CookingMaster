@@ -83,33 +83,37 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        style = '?android:attr/buttonBarStyle'
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <ImageButton
+        <Button
             android:id="@+id/cookRecipeFrag_btn_pin_recipe"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:contentDescription="TODO"
             android:scaleType="fitCenter"
-            android:src="@drawable/pin"
-            android:text="Pin" />
+            android:text="@string/pin"/>
+            <!--
+            style = '?android:attr/buttonBarButtonStyle'
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryBackground"
+            -->
 
         <Button
             android:id="@+id/cookRecipeFrag_btn_scale"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/scale" />
+            android:text="@string/scale"/>
 
         <Button
             android:id="@+id/cookRecipeFrag_btn_start_timer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/timer" />
+            android:text="@string/timer"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
