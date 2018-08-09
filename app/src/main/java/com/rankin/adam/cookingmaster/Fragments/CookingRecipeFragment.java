@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -265,12 +266,19 @@ public class CookingRecipeFragment extends Fragment {
     public class timerClickableSpan extends ClickableSpan {
 
         Integer time;
+        private long lastClickTime = 0;
 
         public timerClickableSpan(Integer time){
             this.time = time;
         }
         @Override
         public void onClick(View view) {
+            // prevent double click opening multiple timers
+            if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
+                return;
+            }
+            lastClickTime = SystemClock.elapsedRealtime();
+
 
             //open timer
             LayoutInflater layoutInflater =

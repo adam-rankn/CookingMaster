@@ -59,7 +59,9 @@ public class SaveLoadController {
             fos.close();
         }  catch (IOException e) {
             Log.e("SaveError","recipes failed to save");
-            throw new RuntimeException();
+            //throw new RuntimeException();
+        }  catch (NullPointerException e){
+            Log.e("SaveError","no recipes to save");
         }
     }
 
@@ -89,7 +91,9 @@ public class SaveLoadController {
             fos.close();
         }  catch (IOException e) {
             Log.e("loadError","shoppingList failed to load");
-            throw new RuntimeException();
-        }
+            //throw new RuntimeException();
+        }  catch (NullPointerException e){
+        Log.e("SaveError","nothing to save");
+    }
     }
 }

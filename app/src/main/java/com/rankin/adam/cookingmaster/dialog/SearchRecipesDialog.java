@@ -1,6 +1,7 @@
 package com.rankin.adam.cookingmaster.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -19,7 +20,7 @@ import java.util.Arrays;
 
 public class SearchRecipesDialog extends Dialog {
 
-    private RecipeBookActivity context;
+    private Context context;
     private Dialog thisDialog;
 
     private ArrayList<String> allergenList;
@@ -29,7 +30,7 @@ public class SearchRecipesDialog extends Dialog {
     private EditText ingredientEdit2;
     private EditText ingredientEdit3;
 
-    public SearchRecipesDialog(RecipeBookActivity context) {
+    public SearchRecipesDialog(Context context) {
         super(context);
         this.context = context;
         thisDialog = this;
@@ -121,7 +122,7 @@ public class SearchRecipesDialog extends Dialog {
                 else {
                     time = Integer.parseInt(timeEdit.getText().toString());
                 }
-                context.filterRecipeList(time,ingredients,allergens);
+                //TODO context.filterRecipeList(time,ingredients,allergens);
                 thisDialog.dismiss();
             }
         });

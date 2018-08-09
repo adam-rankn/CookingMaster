@@ -34,6 +34,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rankin.adam.cookingmaster.activity.MainActivity" />
         </activity>
+        <activity android:name=".activity.RecipeBookActivityFrags">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rankin.adam.cookingmaster.activity.MainActivity" />
+        </activity>
         <activity android:name=".activity.AddRecipeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
