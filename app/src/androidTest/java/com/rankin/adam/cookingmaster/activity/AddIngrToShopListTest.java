@@ -53,7 +53,7 @@ public class AddIngrToShopListTest {
         Integer randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
         String randomString = randomNum.toString();
         ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.btn_recipe_book), withText("RECIPE BOOK"),
+                allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -217,7 +217,7 @@ public class AddIngrToShopListTest {
         pressBack();
 
         ViewInteraction appCompatButton12 = onView(
-                allOf(withId(R.id.btn_shopping), withText("Shopping List")) );
+                allOf(withId(R.id.mainAct_btn_shopping), withText("Shopping List")) );
         appCompatButton12.perform(click());
 
         onView(withId(R.id.shoppingListAct_recyclerview))
@@ -246,7 +246,7 @@ public class AddIngrToShopListTest {
         pressBack();
 
         ViewInteraction appCompatButton13 = onView(
-                allOf(withId(R.id.btn_recipe_book), withText("RECIPE BOOK"),
+                allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),

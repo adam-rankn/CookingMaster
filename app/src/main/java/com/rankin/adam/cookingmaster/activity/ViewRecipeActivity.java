@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.rankin.adam.cookingmaster.activity.dialog.IngredientViewDialog;
+import com.rankin.adam.cookingmaster.dialog.IngredientViewDialog;
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.controller.SaveLoadController;
 
@@ -30,9 +30,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO scale ingredients
 
-        //TODO rating bar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_recipe);
 
@@ -41,7 +39,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
         final TextView nameText = findViewById(R.id.viewRecipeAct_txt_name);
         TextView timeText = findViewById(R.id.viewRecipeAct_txt_time);
         TextView instructionsText = findViewById(R.id.viewRecipeAct_edt_instructions);
-        ImageView recipeImage = findViewById(R.id.viewRecipeAct_photo);
+        final ImageView recipeImage = findViewById(R.id.viewRecipeAct_photo);
+        final ImageView expandedRecipeImage = findViewById(R.id.viewRecipeAct_expanded_photo);
 
         String name = recipeController.getName();
         Integer time = recipeController.getTime();
@@ -50,7 +49,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         // get image uri String from file, convert to URI
         String recipeUriString = recipeController.getImageUri();
         Uri uri = Uri.parse(recipeUriString);
-        //TODO enlarge image on click
 
         nameText.setText(name);
         timeText.setText(time.toString());
@@ -64,7 +62,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             }
         });
 
-        Button viewIngredientsButton = findViewById(R.id.viewRecipeAct_btn_view_ingredients);
+        final Button viewIngredientsButton = findViewById(R.id.viewRecipeAct_btn_view_ingredients);
         viewIngredientsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +81,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         });
 
 
-        Button viewAllergensButton = findViewById(R.id.viewRecipeAct_btn_view_allergens);
+        final Button viewAllergensButton = findViewById(R.id.viewRecipeAct_btn_view_allergens);
         viewAllergensButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +142,36 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
+            }
+        });
+
+
+        //TODO change default img from background to pic to prevent seeing background image in non square pics
+        //enlarge button on image click
+        recipeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandedRecipeImage.setVisibility(View.VISIBLE);
+                recipeImage.setVisibility(View.INVISIBLE);
+                expandedRecipeImage.bringToFront();
+                ((View)expandedRecipeImage.getParent()).invalidate();
+                ((View)expandedRecipeImage.getParent()).requestLayout();
+
+                viewIngredientsButton.setVisibility(View.INVISIBLE);
+                viewAllergensButton.setVisibility(View.INVISIBLE);
+
+            }
+        });
+
+        //shrink image on enlarged image click
+        expandedRecipeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                expandedRecipeImage.setVisibility(View.INVISIBLE);
+                recipeImage.setVisibility(View.VISIBLE);
+
+                viewIngredientsButton.setVisibility(View.VISIBLE);
+                viewAllergensButton.setVisibility(View.VISIBLE);
             }
         });
     }

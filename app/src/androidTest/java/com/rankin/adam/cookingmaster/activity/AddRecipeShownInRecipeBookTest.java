@@ -46,7 +46,7 @@ public class AddRecipeShownInRecipeBookTest {
         String randomString = randomNum.toString();
 
         ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.btn_recipe_book), withText("RECIPE BOOK"),
+                allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),

@@ -2,7 +2,8 @@ package com.rankin.adam.cookingmaster.activity;
 
 
 import android.support.test.espresso.ViewInteraction;
-import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.RootMatchers;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -19,30 +20,28 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.rankin.adam.cookingmaster.activity.CustomMatchers.findInRecipeBook;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class AddRecipeTestName {
+public class wasterTest {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void addRecipeTestName() {
-        Integer randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
-        String randomString = randomNum.toString();
-
+    public void wasterTest() {
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
                         childAtPosition(
@@ -54,7 +53,7 @@ public class AddRecipeTestName {
         appCompatButton.perform(click());
 
         ViewInteraction appCompatButton2 = onView(
-                allOf(withId(R.id.btn_add_recipe), withText("ADD"),
+                allOf(withId(R.id.btn_add_recipe), withText("Add"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -64,16 +63,6 @@ public class AddRecipeTestName {
         appCompatButton2.perform(click());
 
         ViewInteraction appCompatEditText = onView(
-                allOf(withId(R.id.addRecipeAct_txt_name),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
-                        isDisplayed()));
-        appCompatEditText.perform(replaceText("TEST" + randomString), closeSoftKeyboard());
-
-        ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.addRecipeAct_txt_time),
                         childAtPosition(
                                 childAtPosition(
@@ -81,10 +70,39 @@ public class AddRecipeTestName {
                                         0),
                                 3),
                         isDisplayed()));
-        appCompatEditText2.perform(replaceText("45"), closeSoftKeyboard());
+        appCompatEditText.perform(replaceText("1"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText2 = onView(
+                allOf(withId(R.id.addRecipeAct_txt_name),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                5),
+                        isDisplayed()));
+        appCompatEditText2.perform(replaceText("1"), closeSoftKeyboard());
+
+        ViewInteraction appCompatEditText10 = onView(
+                allOf(withId(R.id.addRecipeAct_txt_instructions),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                9),
+                        isDisplayed()));
+
+        ViewInteraction appCompatEditText6 = onView(
+                allOf(withId(R.id.addRecipeAct_txt_instructions),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content), 0), 9),
+                        isDisplayed()));
+        appCompatEditText6.perform(replaceText("cook 55 otk0on4 45 30:00 "));
+        appCompatEditText10.perform(closeSoftKeyboard());
+
 
         ViewInteraction appCompatButton3 = onView(
-                allOf(withId(R.id.addRecipeAct_btn_add_recipe), withText("ADD"),
+                allOf(withId(R.id.addRecipeAct_btn_add_recipe), withText("Add"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -93,10 +111,44 @@ public class AddRecipeTestName {
                         isDisplayed()));
         appCompatButton3.perform(click());
 
-        onView(withId(R.id.recycler_recipe_book))
-                .perform(RecyclerViewActions.actionOnHolderItem(findInRecipeBook("TEST" + randomString), click()));
+        ViewInteraction recyclerView = onView(
+                allOf(withId(R.id.recycler_recipe_book),
+                        childAtPosition(
+                                withClassName(is("android.support.constraint.ConstraintLayout")),
+                                1)));
+        recyclerView.perform(actionOnItemAtPosition(0, click()));
 
+        ViewInteraction appCompatButton4 = onView(
+                allOf(withId(R.id.viewRecipeAct_btn_cook), withText("Cook"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(android.R.id.content),
+                                        0),
+                                10),
+                        isDisplayed()));
+        appCompatButton4.perform(click());
+
+        ViewInteraction appCompatButton5 = onView(
+                allOf(withId(R.id.cookRecipeFrag_btn_show_instructions), withText("Instructions"),
+                        childAtPosition(
+                                allOf(withId(R.id.linearLayout),
+                                        childAtPosition(
+                                                withClassName(is("android.support.constraint.ConstraintLayout")),
+                                                0)),
+                                1),
+                        isDisplayed()));
+        appCompatButton5.perform(click());
+
+        ViewInteraction appCompatButton8 = onView(
+                allOf(withId(R.id.cookRecipeFrag_txt_instructions),
+                        withText(containsString("45"))));
+
+        ViewInteraction appCompatButton7 = onView(ViewMatchers.withContentDescription("1"))
+                .inRoot(RootMatchers.isPlatformPopup());
+        appCompatButton7.perform(click());
     }
+
+
 
     private static Matcher<View> childAtPosition(
             final Matcher<View> parentMatcher, final int position) {

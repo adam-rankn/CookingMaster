@@ -7,30 +7,30 @@
     tools:context="com.rankin.adam.cookingmaster.activity.MainActivity">
 
     <Button
-        android:id="@+id/btn_recipe_book"
+        android:id="@+id/mainAct_btn_recipe_book"
         android:layout_width="348dp"
         android:layout_height="72dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:text="@string/recipe_book"
-        app:layout_constraintBottom_toTopOf="@+id/btn_waste"
+        app:layout_constraintBottom_toTopOf="@+id/mainAct_btn_pantry"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_spices"
+        android:id="@+id/mainAct_btn_spices"
         android:layout_width="157dp"
         android:layout_height="62dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/spices"
-        app:layout_constraintBottom_toTopOf="@+id/btn_options"
+        app:layout_constraintBottom_toTopOf="@+id/mainAct_btn_options"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/btn_shopping"
+        android:id="@+id/mainAct_btn_shopping"
         android:layout_width="157dp"
         android:layout_height="62dp"
         android:layout_marginBottom="8dp"
@@ -41,18 +41,18 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_waste"
+        android:id="@+id/mainAct_btn_pantry"
         android:layout_width="157dp"
         android:layout_height="62dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:text="dunno"
-        app:layout_constraintBottom_toTopOf="@+id/btn_shopping"
+        android:layout_marginStart="16dp"
+        android:text="@string/pantry"
+        app:layout_constraintBottom_toTopOf="@+id/mainAct_btn_shopping"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btn_options"
+        android:id="@+id/mainAct_btn_options"
         android:layout_width="157dp"
         android:layout_height="62dp"
         android:layout_marginBottom="8dp"
@@ -70,8 +70,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:contentDescription="App Logo"
-        app:layout_constraintBottom_toTopOf="@+id/btn_recipe_book"
+        android:contentDescription="@string/app_logo"
+        app:layout_constraintBottom_toTopOf="@+id/mainAct_btn_recipe_book"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"

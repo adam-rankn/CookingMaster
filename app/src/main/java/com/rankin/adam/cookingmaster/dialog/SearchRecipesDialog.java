@@ -1,4 +1,4 @@
-package com.rankin.adam.cookingmaster.activity.dialog;
+package com.rankin.adam.cookingmaster.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

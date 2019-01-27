@@ -31,7 +31,27 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_rating_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_rating_bar"
+        android:contentDescription="recipe photo thumbnail"/>
+
+    <ImageView
+        android:id="@+id/viewRecipeAct_expanded_photo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@mipmap/default_recipe"
+        android:contentDescription="zoomed in photo"
+        android:scaleType="fitCenter"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/viewRecipeAct_txt_instructions_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_txt_name" />
 
     <Button
         android:id="@+id/viewRecipeAct_btn_view_allergens"

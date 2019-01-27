@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        Button recipesButton = findViewById(R.id.btn_recipe_book);
+        Button recipesButton = findViewById(R.id.mainAct_btn_recipe_book);
         recipesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,17 +54,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button spiceButton = findViewById(R.id.btn_spices);
+        Button spiceButton = findViewById(R.id.mainAct_btn_spices);
         spiceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Intent spiceIntent = new Intent(MainActivity.this, Activity.class);
                 //startActivity(spiceIntent);
-                //TODO add a pantry feature
-
+                //TODO this will be changed or removed
             }
         });
-        Button shoppingButton = findViewById(R.id.btn_shopping);
+
+        Button pantryButton = findViewById(R.id.mainAct_btn_pantry);
+        pantryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent pantryIntent = new Intent(MainActivity.this, PantryActivity.class);
+                startActivity(pantryIntent);
+                //TODO add a pantry feature
+            }
+        });
+
+        Button shoppingButton = findViewById(R.id.mainAct_btn_shopping);
         shoppingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,14 +83,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button optionsButton = findViewById(R.id.btn_options);
+        Button optionsButton = findViewById(R.id.mainAct_btn_options);
         optionsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Intent optionsIntent = new Intent(MainActivity.this, Activity.class);
                 //startActivity(optionsIntent);
                 //TODO add options menu
-
             }
         });
     }
