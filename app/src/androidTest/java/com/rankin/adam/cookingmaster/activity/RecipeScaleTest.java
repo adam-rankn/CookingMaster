@@ -27,7 +27,6 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.replaceText;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
@@ -50,7 +49,7 @@ public class RecipeScaleTest {
         String randomString = randomNum.toString();
 
         ViewInteraction appCompatButton = onView(
-                allOf(withId(R.id.btn_recipe_book), withText("RECIPE BOOK"),
+                allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),

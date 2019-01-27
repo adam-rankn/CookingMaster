@@ -145,6 +145,8 @@ public class ViewRecipeActivity extends AppCompatActivity {
             }
         });
 
+
+        //TODO change default img from background to pic to prevent seeing background image in non square pics
         //enlarge button on image click
         recipeImage.setOnClickListener(new View.OnClickListener() {
             @Override
