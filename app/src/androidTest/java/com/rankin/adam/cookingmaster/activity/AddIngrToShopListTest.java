@@ -164,11 +164,6 @@ public class AddIngrToShopListTest {
 
         ViewInteraction appCompatButton8 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_view_ingredients), withText("Ingredients"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
                         isDisplayed()));
         appCompatButton8.perform(click());
 
@@ -264,11 +259,6 @@ public class AddIngrToShopListTest {
 
         ViewInteraction appCompatButton14 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_delete), withText("DELETE"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                9),
                         isDisplayed()));
         appCompatButton14.perform(click());
 

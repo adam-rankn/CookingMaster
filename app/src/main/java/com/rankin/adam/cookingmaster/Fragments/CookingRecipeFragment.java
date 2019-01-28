@@ -199,11 +199,13 @@ public class CookingRecipeFragment extends Fragment {
                 builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (factorEdit.getText().toString().trim().length() == 0) {
+                        if (factorEdit.getText().toString().trim().length() == 0)  {
                             factorEdit.setError(getText(R.string.scaleRecipeFactor));
                         }
-                        Integer scaleFactor = Integer.parseInt(factorEdit.getText().toString());
-                        ingredientViewAdapter.setScaleFactor(scaleFactor);
+                        else {
+                            Integer scaleFactor = Integer.parseInt(factorEdit.getText().toString());
+                            ingredientViewAdapter.setScaleFactor(scaleFactor);
+                        }
                     }
                 });
                 builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
