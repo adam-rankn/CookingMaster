@@ -42,6 +42,8 @@ import junit.framework.Assert;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
 
+import java.util.Objects;
+
 public class CookingRecipeFragment extends Fragment {
 
     private Button showIngredientsButton;
@@ -159,7 +161,12 @@ public class CookingRecipeFragment extends Fragment {
                 builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Integer time = Integer.parseInt(timerEdit.getText().toString())* 60;
+
+                        String timeString = timerEdit.getText().toString();
+                        Integer time = 300;
+                        if (!Objects.equals(timeString, "")) {
+                            time = Integer.parseInt(timeString) * 60;
+                        }
 
                         LayoutInflater layoutInflater =
                                 (LayoutInflater)getContext()
