@@ -156,7 +156,7 @@ public class AddRecipeTestIngredients {
         ViewInteraction appCompatButton8 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_view_ingredients), withText("Ingredients"),
                         childAtPosition(
-                                childAtPosition(withId(android.R.id.content), 0), 3),
+                                childAtPosition(withId(android.R.id.content), 0), 4),
                         isDisplayed()));
         appCompatButton8.perform(click());
 
@@ -194,7 +194,7 @@ public class AddRecipeTestIngredients {
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                2),
+                                3),
                         isDisplayed()));
         appCompatButton10.perform(click());
 
@@ -220,7 +220,7 @@ public class AddRecipeTestIngredients {
 
         ViewInteraction appCompatButton12 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_delete), withText("DELETE"), childAtPosition(
-                        childAtPosition(withId(android.R.id.content), 0), 9),
+                        childAtPosition(withId(android.R.id.content), 0), 10),
                         isDisplayed()));
         appCompatButton12.perform(click());
 
