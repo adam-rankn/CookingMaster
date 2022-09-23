@@ -46,11 +46,6 @@ public class AddRecipeTestIngredients {
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatButton.perform(click());
 
@@ -66,11 +61,6 @@ public class AddRecipeTestIngredients {
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.addRecipeAct_txt_time),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
                         isDisplayed()));
         appCompatEditText2.perform(replaceText("47"), closeSoftKeyboard());
 
@@ -89,19 +79,11 @@ public class AddRecipeTestIngredients {
 
 
         ViewInteraction appCompatButton3 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel), 0), 3)));
+                allOf(withId(android.R.id.button1), withText("OK")));
         appCompatButton3.perform(scrollTo(), click());
 
         ViewInteraction appCompatButton4 = onView(
                 allOf(withId(R.id.addRecipeAct_btn_set_ingredients), withText("SET"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                12),
                         isDisplayed()));
         appCompatButton4.perform(click());
 
@@ -180,42 +162,21 @@ public class AddRecipeTestIngredients {
 
         ViewInteraction appCompatButton9 = onView(
                 allOf(withId(R.id.ingrViewDialog_btn_done), withText("Done"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
                         isDisplayed()));
         appCompatButton9.perform(click());
 
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_view_allergens), withText("Allergens"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
                         isDisplayed()));
         appCompatButton10.perform(click());
 
         ViewInteraction textView4 = onView(
                 allOf(withId(android.R.id.text1), withText("Peanuts"),
-                        childAtPosition(
-                                allOf(withId(R.id.select_dialog_listview),
-                                        childAtPosition(
-                                                withId(R.id.contentPanel),
-                                                0)),
-                                0),
                         isDisplayed()));
         textView4.check(matches(withText("Peanuts")));
 
         ViewInteraction appCompatButton11 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
+                allOf(withId(android.R.id.button1), withText("OK")));
         appCompatButton11.perform(scrollTo(), click());
 
         ViewInteraction appCompatButton12 = onView(

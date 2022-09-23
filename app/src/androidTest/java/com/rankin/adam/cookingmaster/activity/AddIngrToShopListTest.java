@@ -54,92 +54,47 @@ public class AddIngrToShopListTest {
         String randomString = randomNum.toString();
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatButton.perform(click());
 
         ViewInteraction appCompatButton3 = onView(
                 allOf(withId(R.id.btn_add_recipe), withText("ADD"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                4),
                         isDisplayed()));
         appCompatButton3.perform(click());
 
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.addRecipeAct_txt_name),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
                         isDisplayed()));
         appCompatEditText.perform(replaceText("TEST" + randomString), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.addRecipeAct_txt_time),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
                         isDisplayed()));
         appCompatEditText2.perform(replaceText("11"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton4 = onView(
                 allOf(withId(R.id.addRecipeAct_btn_set_ingredients), withText("SET"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                12),
                         isDisplayed()));
         appCompatButton4.perform(click());
 
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.ingrDialog_txt_add_ingredient),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
                         isDisplayed()));
         appCompatEditText3.perform(click());
 
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.ingrDialog_txt_add_ingredient),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
                         isDisplayed()));
         appCompatEditText4.perform(replaceText("TEST" + randomString), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText5 = onView(
                 allOf(withId(R.id.ingrDialog_edt_amount),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
                         isDisplayed()));
         appCompatEditText5.perform(replaceText("77"), closeSoftKeyboard());
 
 
         ViewInteraction appCompatButton5 = onView(
                 allOf(withId(R.id.ingrDialog_btn_add_ingredient), withText("ADD"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
                         isDisplayed()));
         appCompatButton5.perform(click());
 
@@ -151,11 +106,6 @@ public class AddIngrToShopListTest {
 
         ViewInteraction appCompatButton7 = onView(
                 allOf(withId(R.id.addRecipeAct_btn_add_recipe), withText("ADD"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatButton7.perform(click());
 
@@ -163,52 +113,27 @@ public class AddIngrToShopListTest {
                 .perform(RecyclerViewActions.actionOnHolderItem(findInRecipeBook("TEST" + randomString), click()));
 
         ViewInteraction appCompatButton8 = onView(
-                allOf(withId(R.id.viewRecipeAct_btn_view_ingredients), withText("Ingredients"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
+                allOf(withId(R.id.viewRecipeAct_btn_view_ingredients),
                         isDisplayed()));
         appCompatButton8.perform(click());
 
         ViewInteraction appCompatButton9 = onView(
                 allOf(withId(R.id.ingrViewRowLay_btn_add_to_shop), withText("list"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.ingrViewDialog_recyclerView_ingredients),
-                                        0),
-                                1),
                         isDisplayed()));
         appCompatButton9.perform(click());
 
         ViewInteraction appCompatEditText6 = onView(
                 allOf(withId(R.id.addIngrShopListDialog_edit_amount),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
                         isDisplayed()));
         appCompatEditText6.perform(replaceText("12"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.addIngrShopListDialog_btn_add), withText("ADD"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
                         isDisplayed()));
         appCompatButton10.perform(click());
 
         ViewInteraction appCompatButton11 = onView(
                 allOf(withId(R.id.ingrViewDialog_btn_done), withText("Done"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
                         isDisplayed()));
         appCompatButton11.perform(click());
 
@@ -226,32 +151,18 @@ public class AddIngrToShopListTest {
 
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.shoppingListAct_btn_clear), withText("Clear List"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
                         isDisplayed()));
         appCompatButton2.perform(click());
 
         ViewInteraction appCompatButton15 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
+                allOf(withId(android.R.id.button1), withText("OK")
+                        ));
         appCompatButton15.perform(scrollTo(), click());
 
         pressBack();
 
         ViewInteraction appCompatButton13 = onView(
                 allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatButton13.perform(click());
 
@@ -264,13 +175,18 @@ public class AddIngrToShopListTest {
 
         ViewInteraction appCompatButton14 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_delete), withText("DELETE"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                9),
+
                         isDisplayed()));
         appCompatButton14.perform(click());
+
+        ViewInteraction appCompatButton16 = onView(
+                allOf(withId(android.R.id.button1), withText("Yes"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.buttonPanel),
+                                        0),
+                                3)));
+        appCompatButton16.perform(scrollTo(), click());
 
     }
 

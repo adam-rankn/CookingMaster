@@ -151,14 +151,10 @@ public class RecipeScaleTest {
                                 withClassName(is("android.support.constraint.ConstraintLayout")),
                                 1)));
         recyclerView.perform(actionOnItemAtPosition(0, click()));
+//TODO find by string
 
         ViewInteraction appCompatButton7 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_cook), withText("Cook"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                10),
                         isDisplayed()));
         appCompatButton7.perform(click());
 
@@ -184,16 +180,13 @@ public class RecipeScaleTest {
         editText.perform(replaceText("3"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton9 = onView(
-                allOf(withId(android.R.id.button1), withText("OK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
+                allOf(withId(android.R.id.button1), withText("OK")
+                        ));
         appCompatButton9.perform(scrollTo(), click());
 
         onView(withId(R.id.cookRecipeFrag_recycler_ingredients))
                 .perform(RecyclerViewActions.actionOnHolderItem(findInCookingIngredientsList("9"), click()));
+//TODO finish scale check
 
         pressBack();
 
@@ -203,17 +196,12 @@ public class RecipeScaleTest {
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
-                                9),
+                                10),
                         isDisplayed()));
         appCompatButton10.perform(click());
 
         ViewInteraction appCompatButton11 = onView(
-                allOf(withId(android.R.id.button1), withText("Yes"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.buttonPanel),
-                                        0),
-                                3)));
+                allOf(withId(android.R.id.button1), withText("Yes")));
         appCompatButton11.perform(scrollTo(), click());
 
     }
