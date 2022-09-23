@@ -11,7 +11,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <Button
             android:id="@+id/cookRecipeFrag_btn_show_ingredients"
@@ -19,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="0dp"
-            android:text="@string/ingredients"/>
+            android:text="@string/ingredients" />
 
         <Button
             android:id="@+id/cookRecipeFrag_btn_show_instructions"
@@ -27,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="0dp"
-            android:text="@string/instructions"/>
+            android:text="@string/instructions" />
 
     </LinearLayout>
 
@@ -35,12 +37,12 @@
         android:id="@+id/cookRecipeFrag_txt_instructions"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,12 +52,9 @@
         android:id="@+id/cookRecipeFrag_recycler_ingredients"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/cookRecipeFrag_txt_instructions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -66,11 +65,9 @@
         android:id="@+id/cookRecipeFrag_txt_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Recipe Title"
         android:textColor="@android:color/black"
         android:textSize="24sp"
@@ -80,10 +77,10 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
+        style='?android:attr/buttonBarStyle'
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        style = '?android:attr/buttonBarStyle'
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -94,8 +91,8 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            android:text="@string/pin"/>
-            <!--
+            android:text="@string/pin" />
+        <!--
             style = '?android:attr/buttonBarButtonStyle'
             android:textColor="@color/colorPrimaryDark"
             android:background="@color/colorPrimaryBackground"
@@ -106,14 +103,14 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/scale"/>
+            android:text="@string/scale" />
 
         <Button
             android:id="@+id/cookRecipeFrag_btn_start_timer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/timer"/>
+            android:text="@string/timer" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
