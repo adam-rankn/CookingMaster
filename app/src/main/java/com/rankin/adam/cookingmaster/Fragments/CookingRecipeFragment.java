@@ -153,7 +153,7 @@ public class CookingRecipeFragment extends Fragment {
                 final EditText timerEdit = new EditText(getContext());
                 timerEdit.setHint("5");
 
-                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                // Specify the type of input expected
                 timerEdit.setInputType(InputType.TYPE_CLASS_DATETIME);
                 builder.setView(timerEdit);
 
@@ -161,12 +161,19 @@ public class CookingRecipeFragment extends Fragment {
                 builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Integer time;
+                        if (timerEdit.getText().toString().trim().isEmpty()){
+                            time = 300;
+                        }
 
-                        String timeString = timerEdit.getText().toString();
-                        Integer time = 300;
-                        if (!Objects.equals(timeString, "")) {
+                        else {
+                            String timeString = timerEdit.getText().toString();
                             time = Integer.parseInt(timeString) * 60;
                         }
+
+
+
+
 
                         LayoutInflater layoutInflater =
                                 (LayoutInflater)getContext()
