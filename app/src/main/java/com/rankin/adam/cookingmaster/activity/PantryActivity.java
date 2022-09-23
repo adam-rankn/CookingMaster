@@ -1,7 +1,7 @@
 package com.rankin.adam.cookingmaster.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.rankin.adam.cookingmaster.R;
 

@@ -1,8 +1,8 @@
 package com.rankin.adam.cookingmaster.adapter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.rankin.adam.cookingmaster.Fragments.CookingRecipeFragment;
 import com.rankin.adam.cookingmaster.model.Recipe;

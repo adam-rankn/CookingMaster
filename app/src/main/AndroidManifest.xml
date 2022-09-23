@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rankin.adam.cookingmaster">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,7 +21,8 @@
         android:theme="@style/AppTheme"
         android:configChanges="orientation"
         android:fullBackupContent="@xml/backup_descriptor">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"
+                    android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

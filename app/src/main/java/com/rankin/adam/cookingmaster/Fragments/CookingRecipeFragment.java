@@ -3,46 +3,34 @@ package com.rankin.adam.cookingmaster.Fragments;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rankin.adam.cookingmaster.R;
 import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter;
 import com.rankin.adam.cookingmaster.dialog.RecipeTimerPopup;
 import com.rankin.adam.cookingmaster.model.Recipe;
 
-import junit.framework.Assert;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
-
-import java.util.Objects;
 
 public class CookingRecipeFragment extends Fragment {
 

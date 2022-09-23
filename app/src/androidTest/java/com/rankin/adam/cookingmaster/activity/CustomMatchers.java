@@ -1,8 +1,8 @@
 package com.rankin.adam.cookingmaster.activity;
 
-import android.support.test.espresso.matcher.BoundedMatcher;
-import android.support.test.internal.util.Checks;
-import android.support.v7.widget.RecyclerView;
+import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.internal.util.Checks;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
