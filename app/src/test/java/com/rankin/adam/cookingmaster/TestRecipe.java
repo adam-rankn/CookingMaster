@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class TestRecipe {
 
     private Recipe recipe = new Recipe("pie");
-    RecipeIngredientEntry ingredientEntry = new RecipeIngredientEntry(new Ingredient("flour"),1,"cup");
+    RecipeIngredientEntry ingredientEntry = new RecipeIngredientEntry(new Ingredient("flour"), (float)1.0,"cup");
 
 
     public TestRecipe(){

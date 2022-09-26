@@ -184,4 +184,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addRecipeAct_btn_set_ingredients" />
 
+    <Button
+        android:id="@+id/btn_add_from_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add from URL"
+        app:layout_constraintBottom_toBottomOf="@+id/addRecipeAct_btn_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/addRecipeAct_btn_add_recipe"
+        app:layout_constraintStart_toEndOf="@+id/addRecipeAct_btn_cancel"
+        app:layout_constraintTop_toTopOf="@+id/addRecipeAct_btn_cancel" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -101,7 +101,7 @@ public class IngredientAddDialog extends Dialog {
                 RecipeIngredientEntry entry = new RecipeIngredientEntry(ingredient);
 
                 if (amountString.trim().length() != 0){
-                    entry.setAmount(Integer.parseInt(amountString));
+                    entry.setAmount((float) Integer.parseInt(amountString));
                     entry.setUnit(unitSpinner.getSelectedItem().toString());
                 }
 

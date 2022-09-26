@@ -69,7 +69,7 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
         holder.ingredientName.setText(ingredientName);
 
         if (recipeIngredientEntry.getAmount() != null){
-            Integer amount = recipeIngredientEntry.getAmount() * scaleFactor;
+            Float amount = recipeIngredientEntry.getAmount() * scaleFactor;
             String strAmount = amount.toString();
             String unit = recipeIngredientEntry.getUnit();
             holder.ingredientAmount.setText(strAmount);

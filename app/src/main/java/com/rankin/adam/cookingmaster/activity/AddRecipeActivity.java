@@ -12,12 +12,15 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,14 +30,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rankin.adam.cookingmaster.controller.RecipeImportController;
+import com.rankin.adam.cookingmaster.dialog.AddRecipeFromURLDialogue;
 import com.rankin.adam.cookingmaster.dialog.IngredientAddDialog;
 import com.rankin.adam.cookingmaster.R;
+import com.rankin.adam.cookingmaster.dialog.RecipeTimerPopup;
 import com.rankin.adam.cookingmaster.model.Recipe;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +50,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
+import static java.security.AccessController.getContext;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
@@ -152,6 +160,55 @@ public class AddRecipeActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Button addRecipeFromURLButton = findViewById(R.id.btn_add_from_url);
+        addRecipeFromURLButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(AddRecipeActivity.this);
+                builder.setTitle("URL to import from");
+
+                // Set up the input
+                final EditText addURLEdit = new EditText(AddRecipeActivity.this);
+                addURLEdit.setHint("currently works for allrecipes.com");
+
+                // Specify the type of input expected
+                addURLEdit.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(addURLEdit);
+
+                // Set up buttons
+                builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        RecipeImportController recipeImportController = new RecipeImportController(addURLEdit.getText().toString());
+                        Recipe recipe = recipeImportController.getRecipe();
+                        recipeImportController.setRecipeName(addURLEdit.getText().toString());
+
+                        timeEdit.setText("30");
+                        nameEdit.setText(recipeImportController.getRecipe().getName());
+
+                        recipeController.setIngredients(recipeImportController.getIngredients());
+
+
+
+                        LayoutInflater layoutInflater =
+                                (LayoutInflater)getApplicationContext()
+                                        .getSystemService(LAYOUT_INFLATER_SERVICE);
+                        View popupView = layoutInflater.inflate(R.layout.dialog_add_from_url, null);
+                        final AddRecipeFromURLDialogue popupWindow = new AddRecipeFromURLDialogue(AddRecipeActivity.this);
+                    }
+                });
+                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
+
 
         Button ingredientsButton = findViewById(R.id.addRecipeAct_btn_set_ingredients);
         ingredientsButton.setOnClickListener(new View.OnClickListener() {
