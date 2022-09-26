@@ -17,6 +17,9 @@ android {
         }
     }
     namespace 'com.rankin.adam.cookingmaster'
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {

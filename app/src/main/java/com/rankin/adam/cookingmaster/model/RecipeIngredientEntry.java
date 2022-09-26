@@ -7,7 +7,7 @@ package com.rankin.adam.cookingmaster.model;
 public class RecipeIngredientEntry {
 
     private Ingredient ingredient;
-    private Integer amount;
+    private Float amount;
     private String unit;
 
 
@@ -15,7 +15,7 @@ public class RecipeIngredientEntry {
         this.ingredient = ingredient;
     }
 
-    public RecipeIngredientEntry(Ingredient ingredient, Integer amount, String unit) {
+    public RecipeIngredientEntry(Ingredient ingredient, Float amount, String unit) {
         this.ingredient = ingredient;
         this.amount = amount;
         this.unit = unit;
@@ -29,11 +29,11 @@ public class RecipeIngredientEntry {
         this.ingredient = ingredient;
     }
 
-    public Integer getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
