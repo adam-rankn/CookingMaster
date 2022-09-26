@@ -45,11 +45,6 @@ public class AddRecipeFromURLDialogue extends Dialog implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
 
-                String recipeURL = addURLEditText.getText().toString();
-                    RecipeImportController recipeImporter = new RecipeImportController(recipeURL);
-                    Recipe importedRecipe = recipeImporter.getRecipe();
-                    recipeController.addRecipe(importedRecipe);
-
             }
         });
     }

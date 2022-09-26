@@ -34,12 +34,11 @@ public class RecipeImportController {
             e.printStackTrace();
         }
         recipe = new Recipe("imported recipe");
-        new Thread(new Runnable(){
+        recipe.setInstructions("");
+        Thread thread = new Thread(new Runnable(){
             @Override
             public void run() {
-
-                Recipe recipe = new Recipe("imported recipe");
-                try {
+                 try {
                     BufferedReader in = new BufferedReader(new InputStreamReader(recipeURL.openStream()));
                     String input;
                     StringBuffer stringBuffer = new StringBuffer();
@@ -50,12 +49,6 @@ public class RecipeImportController {
                     String htmlData = stringBuffer.toString();
                     List<String> dataList;
                     dataList = Arrays.asList(htmlData.split("<|>"));
-
-                    //List<String> dataList = new ArrayList<>();
-                    //Matcher matcher = Pattern.compile("([^\\\"]\\\\S*|\\\".+?\\\")\\\\s*").matcher(htmlData);
-                    // ""
-                    //while (matcher.find())
-                    //    dataList.add(matcher.group(1).replace("\"", ""));
                     setIngredients(dataList);
                     setRecipeName(recipeURL.toString());
 
@@ -72,7 +65,14 @@ public class RecipeImportController {
                 };
 
             }
-        }).start();
+        });
+        thread.start();
+        try {
+            thread.join(0);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -81,8 +81,22 @@ public class RecipeImportController {
         String name = tokens[tokens.length-1];
         name = name.replace("-"," ");
         recipe.setName(name);
+    }
+
+    public void setRecipeInstructions(String instructions){
+        recipe.setInstructions(instructions);
+    }
+
+    public void addInstructions(String newlines){
+        String old = recipe.getInstructions();
+        old += newlines;
+        recipe.setInstructions(old);
 
 
+    }
+
+    public String getInstructions(){
+        return recipe.getInstructions();
     }
 
     public Recipe getRecipe(){
@@ -93,6 +107,7 @@ public class RecipeImportController {
         int i;
         for (i = 0; i < data.size(); i++) {
             String token = (String) data.get(i);
+
             if (token.contains("data-ingredient=")) {
                 List<String> list = Arrays.asList(token.split("\""));
 
@@ -108,9 +123,10 @@ public class RecipeImportController {
                     } else if (list.get(j).equals(" data-init-quantity=")) {
                         amount = list.get(j + 1);
                     }
+
                 }
                 Ingredient ingredient = new Ingredient(ingredientName);
-                Float f = (float)3.0;
+                Float f = (float) 3.0;
                 try {
                     f = Float.parseFloat(amount);
                 } catch (NumberFormatException e) {
@@ -118,23 +134,11 @@ public class RecipeImportController {
                 }
                 RecipeIngredientEntry recipeIngredientEntry = new RecipeIngredientEntry(ingredient, f, unit);
                 recipe.addIngredient(recipeIngredientEntry);
-
-
-                //ingredientName = ingredientName.replace("data-ingredient=", "");
-                //ingredientName = ingredientName.replace("\"", "");
-
-
-                //String unit;
-                //unit = (String) data.get(i - 1);
-                //unit = unit.replace("data-unit=", "");
-                //unit = unit.replace("\"", "");
-
-                //String amount;
-                //amount = (String) data.get(i - 2);
-                //amount = amount.replace("data-init-quantity=", "");
-                //amount = amount.replace("\"", "");
-
-
+            }
+            else if (token.contains("section-body elementFont__body--paragraphWithin elementFont__body--linkWithin")) {
+                String instructions = data.get(i+5).toString();
+                instructions += "\n";
+                addInstructions(instructions);
             }
         }
     }

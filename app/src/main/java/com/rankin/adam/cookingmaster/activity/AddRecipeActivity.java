@@ -181,14 +181,16 @@ public class AddRecipeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         RecipeImportController recipeImportController = new RecipeImportController(addURLEdit.getText().toString());
-                        Recipe recipe = recipeImportController.getRecipe();
                         recipeImportController.setRecipeName(addURLEdit.getText().toString());
 
                         timeEdit.setText("30");
                         nameEdit.setText(recipeImportController.getRecipe().getName());
+                        String instructions = recipeImportController.getInstructions();
+                        instructionsEdit.setText(instructions);
 
                         recipeController.setIngredients(recipeImportController.getIngredients());
-
+                        recipeController.setInstructions(instructions);
+                        newRecipe.setInstructions(instructions);
 
 
                         LayoutInflater layoutInflater =
