@@ -3,6 +3,8 @@ package com.rankin.adam.cookingmaster.adapter;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,6 +57,7 @@ public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<Ingredient
         }
     }
 
+    @NonNull
     @Override
     public IngredientViewLayoutAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout

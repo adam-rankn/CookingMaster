@@ -27,14 +27,12 @@ public class AddIngredientToShoppingListDialog extends Dialog implements Adapter
 
     private Context viewRecipeContext;
 
-    private TextView ingredientTextView;
     private EditText amountEditText;
-    private Button addButton;
 
     private String unit;
     private Ingredient ingredient;
     private Integer amount;
-    private SaveLoadController saveLoadController;
+    private final SaveLoadController saveLoadController;
 
     public AddIngredientToShoppingListDialog(@NonNull Context context) {
         super(context);
@@ -46,7 +44,7 @@ public class AddIngredientToShoppingListDialog extends Dialog implements Adapter
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_ingredient_to_shopping_list_dialog);
-        getWindow().setLayout(android.view.ViewGroup.LayoutParams.FILL_PARENT,
+        getWindow().setLayout(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
         Spinner unitSpinner = findViewById(R.id.addIngrShopListDialog_spinner_units);
@@ -57,10 +55,10 @@ public class AddIngredientToShoppingListDialog extends Dialog implements Adapter
         unitSpinner.setOnItemSelectedListener(this);
 
         amountEditText = findViewById(R.id.addIngrShopListDialog_edit_amount);
-        ingredientTextView = findViewById(R.id.addIngrShopListDialog_txt_ingredient_name);
+        TextView ingredientTextView = findViewById(R.id.addIngrShopListDialog_txt_ingredient_name);
         ingredientTextView.setText(shoppingListController.getCurrentIngredient().getName());
 
-        addButton = findViewById(R.id.addIngrShopListDialog_btn_add);
+        Button addButton = findViewById(R.id.addIngrShopListDialog_btn_add);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

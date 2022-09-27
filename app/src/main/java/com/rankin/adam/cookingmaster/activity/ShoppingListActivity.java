@@ -21,11 +21,8 @@ import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingListCo
 
 public class ShoppingListActivity extends AppCompatActivity {
 
-    private RecyclerView shoppingListRecyclerView;
-    private LinearLayoutManager shoppingListLinearLayoutManager;
     private ShoppingListLayoutAdapter shoppingListAdapter;
 
-    private ArrayList<ShoppingListEntry> shoppingList;
     SaveLoadController saveLoadController = new SaveLoadController(ShoppingListActivity.this);
 
     @Override
@@ -33,11 +30,11 @@ public class ShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
 
-        shoppingList = new ArrayList<>();
+        ArrayList<ShoppingListEntry> shoppingList = new ArrayList<>();
         shoppingList.addAll(shoppingListController.getShoppingList());
 
-        shoppingListRecyclerView = findViewById(R.id.shoppingListAct_recyclerview);
-        shoppingListLinearLayoutManager = new LinearLayoutManager(this);
+        RecyclerView shoppingListRecyclerView = findViewById(R.id.shoppingListAct_recyclerview);
+        LinearLayoutManager shoppingListLinearLayoutManager = new LinearLayoutManager(this);
         shoppingListRecyclerView.setLayoutManager(shoppingListLinearLayoutManager);
         shoppingListAdapter = new ShoppingListLayoutAdapter(shoppingList, this);
         shoppingListRecyclerView.setAdapter(shoppingListAdapter);
@@ -46,7 +43,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO onlinee grocery ordering integration
+                //TODO online grocery ordering integration
             }
         });
 

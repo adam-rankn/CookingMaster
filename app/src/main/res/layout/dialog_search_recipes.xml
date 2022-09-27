@@ -41,14 +41,14 @@
         android:id="@+id/searchRecipesDialog_edt_max_time"
         android:layout_width="77dp"
         android:layout_height="46dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView10" />
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        android:autofillHints="maximum time" />
 
     <TextView
         android:id="@+id/textView13"
@@ -81,7 +81,6 @@
         android:id="@+id/searchRecipesDialog_txt_allergens"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/none"
         android:textSize="18sp"
@@ -93,44 +92,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searcRecipesDialog_edt_add_ingredient_3" />
+        app:layout_constraintTop_toBottomOf="@+id/searchRecipesDialog_edt_add_ingredient_3" />
 
     <EditText
-        android:id="@+id/searcRecipesDialog_edt_add_ingredient_3"
+        android:id="@+id/searchRecipesDialog_edt_add_ingredient_3"
         android:layout_width="114dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/ingredient"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/searcRecipesDialog_edt_add_ingredient_2"
-        app:layout_constraintTop_toBottomOf="@+id/searcRecipesDialog_edt_add_ingredient_2" />
+        app:layout_constraintStart_toStartOf="@+id/searchRecipesDialog_edt_add_ingredient_2"
+        app:layout_constraintTop_toBottomOf="@+id/searchRecipesDialog_edt_add_ingredient_2"
+        android:autofillHints="" />
 
     <EditText
-        android:id="@+id/searcRecipesDialog_edt_add_ingredient_2"
+        android:id="@+id/searchRecipesDialog_edt_add_ingredient_2"
         android:layout_width="114dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/ingredient"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/searcRecipesDialog_edt_add_ingredient_1"
-        app:layout_constraintTop_toBottomOf="@+id/searcRecipesDialog_edt_add_ingredient_1" />
+        app:layout_constraintStart_toStartOf="@+id/searchRecipesDialog_edt_add_ingredient_1"
+        app:layout_constraintTop_toBottomOf="@+id/searchRecipesDialog_edt_add_ingredient_1"
+        android:autofillHints="" />
 
     <EditText
-        android:id="@+id/searcRecipesDialog_edt_add_ingredient_1"
+        android:id="@+id/searchRecipesDialog_edt_add_ingredient_1"
         android:layout_width="114dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
         android:hint="@string/ingredient"
         android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView13"
-        app:layout_constraintStart_toEndOf="@+id/textView13" />
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        android:autofillHints="" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

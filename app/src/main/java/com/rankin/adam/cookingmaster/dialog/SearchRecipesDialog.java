@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -39,12 +40,12 @@ public class SearchRecipesDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_search_recipes);
-        getWindow().setLayout(android.view.ViewGroup.LayoutParams.FILL_PARENT,
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        ingredientEdit1 = findViewById(R.id.searcRecipesDialog_edt_add_ingredient_1);
-        ingredientEdit2 = findViewById(R.id.searcRecipesDialog_edt_add_ingredient_2);
-        ingredientEdit3 = findViewById(R.id.searcRecipesDialog_edt_add_ingredient_3);
+        ingredientEdit1 = findViewById(R.id.searchRecipesDialog_edt_add_ingredient_1);
+        ingredientEdit2 = findViewById(R.id.searchRecipesDialog_edt_add_ingredient_2);
+        ingredientEdit3 = findViewById(R.id.searchRecipesDialog_edt_add_ingredient_3);
 
         allergenList = new ArrayList<>(Arrays.asList(context.getResources().getStringArray(R.array.allergens)));
         allergensText = findViewById(R.id.searchRecipesDialog_txt_allergens);

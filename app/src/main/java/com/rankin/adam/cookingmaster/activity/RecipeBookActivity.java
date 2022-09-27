@@ -27,8 +27,6 @@ import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeList;
 
 public class RecipeBookActivity extends AppCompatActivity {
 
-    private RecyclerView recipeBookRecyclerView;
-    private LinearLayoutManager recipeBookLinearLayoutManager;
     public RecipeBookLayoutAdapter recipeBookAdapter;
 
     private int ADD_RECIPE_REQUEST = 0;
@@ -48,8 +46,8 @@ public class RecipeBookActivity extends AppCompatActivity {
 
         adapterList.addAll(recipeList.getRecipeList());
 
-        recipeBookRecyclerView = findViewById(R.id.recycler_recipe_book);
-        recipeBookLinearLayoutManager = new LinearLayoutManager(this);
+        RecyclerView recipeBookRecyclerView = findViewById(R.id.recycler_recipe_book);
+        LinearLayoutManager recipeBookLinearLayoutManager = new LinearLayoutManager(this);
         recipeBookRecyclerView.setLayoutManager(recipeBookLinearLayoutManager);
         recipeBookAdapter = new RecipeBookLayoutAdapter(adapterList, this);
         recipeBookRecyclerView.setAdapter(recipeBookAdapter);
@@ -82,8 +80,9 @@ public class RecipeBookActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == ADD_RECIPE_REQUEST){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADD_RECIPE_REQUEST) {
             recreate();
         }
     }
@@ -106,13 +105,11 @@ public class RecipeBookActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     public void filterRecipeList(Integer maxTime, ArrayList<Ingredient> ingredients, ArrayList<String> allergens){

@@ -14,8 +14,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="8dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -38,27 +37,26 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/addRecipeAct_txt_time"
-        app:layout_constraintStart_toEndOf="@+id/addRecipeAct_txt_time"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintStart_toEndOf="@+id/addRecipeAct_txt_time" />
 
     <EditText
         android:id="@+id/addRecipeAct_txt_time"
         android:layout_width="43dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="00"
+        android:hint="@string/zeros"
         android:imeOptions="actionDone"
         android:inputType="number"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
-        app:layout_constraintStart_toStartOf="@+id/addRecipeAct_txt_name" />
+        app:layout_constraintStart_toStartOf="@+id/addRecipeAct_txt_name"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="163dp"
         android:layout_height="38dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="end"
@@ -77,7 +75,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Chicken Gallina"
+        android:hint="@string/default_recipe_name"
         android:inputType="textPersonName"
         android:selectAllOnFocus="true"
         android:singleLine="true"
@@ -85,8 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="16dp" />
+        android:autofillHints="recipe name" />
 
     <TextView
         android:id="@+id/textView6"
@@ -140,7 +137,8 @@
         app:layout_constraintBottom_toTopOf="@+id/addRecipeAct_btn_add_recipe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        android:autofillHints="instructions" />
 
     <Button
         android:id="@+id/addRecipeAct_btn_cancel"
@@ -148,7 +146,6 @@
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -182,13 +179,14 @@
         android:background="@mipmap/default_recipe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addRecipeAct_btn_set_ingredients" />
+        app:layout_constraintTop_toBottomOf="@+id/addRecipeAct_btn_set_ingredients"
+        android:contentDescription="TODO" />
 
     <Button
         android:id="@+id/btn_add_from_url"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add from URL"
+        android:text="@string/add_from_url"
         app:layout_constraintBottom_toBottomOf="@+id/addRecipeAct_btn_cancel"
         app:layout_constraintEnd_toStartOf="@+id/addRecipeAct_btn_add_recipe"
         app:layout_constraintStart_toEndOf="@+id/addRecipeAct_btn_cancel"

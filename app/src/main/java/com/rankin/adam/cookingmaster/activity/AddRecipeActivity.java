@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AlertDialog;
@@ -34,14 +33,12 @@ import com.rankin.adam.cookingmaster.controller.RecipeImportController;
 import com.rankin.adam.cookingmaster.dialog.AddRecipeFromURLDialogue;
 import com.rankin.adam.cookingmaster.dialog.IngredientAddDialog;
 import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.dialog.RecipeTimerPopup;
 import com.rankin.adam.cookingmaster.model.Recipe;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,13 +47,11 @@ import java.util.List;
 import java.util.Locale;
 
 import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
-import static java.security.AccessController.getContext;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
     private List<String> allergenList = new ArrayList<>();
     private Recipe newRecipe;
-    private Recipe currentRecipe;
 
     private int IMAGE_REQUEST_CODE = 0;
     private int IMAGE_RESULT = 1;
@@ -146,9 +141,9 @@ public class AddRecipeActivity extends AppCompatActivity {
         thumbnailButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addImgaeIntent = new Intent(Intent.ACTION_PICK,
+                Intent addImageIntent = new Intent(Intent.ACTION_PICK,
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(addImgaeIntent, IMAGE_RESULT);
+                startActivityForResult(addImageIntent, IMAGE_RESULT);
             }
         });
 
@@ -226,7 +221,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
 
 
-        View openDialog = findViewById(R.id.addRecipeAct_txt_allergen_list);
+        View openDialog = findViewById(allergensText.getId());
         openDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -245,7 +240,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ListView list = ((AlertDialog) dialog).getListView();
-                        // build the comma seperated list
+                        // build the comma separated list
                         StringBuilder stringBuilder = new StringBuilder();
                         for (int i = 0; i < list.getCount(); i++) {
                             boolean checked = list.isItemChecked(i);
@@ -277,7 +272,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void loadRecipeData(){
-        currentRecipe = recipeController.getCurrentRecipe();
+        Recipe currentRecipe = recipeController.getCurrentRecipe();
 
         try {
             String recipeUriString = currentRecipe.getImageUri();
@@ -346,7 +341,7 @@ public class AddRecipeActivity extends AppCompatActivity {
      * @param requestType the indicator for gps or image permission
      */
     private void checkPermission(int requestType) {
-        // access to external storage to get image
+        // access  to external storage to get image
         final String permission = Manifest.permission.READ_EXTERNAL_STORAGE;
         // no permission, ask permission
         if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -391,7 +386,7 @@ public class AddRecipeActivity extends AppCompatActivity {
      */
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[], @NonNull int[] grantResults) {
+                                           @NonNull String[] permissions, @NonNull int[] grantResults) {
         //if length is zero, request was cancelled
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             recipeImage = decodeFile(imageDecode);

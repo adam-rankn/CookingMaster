@@ -2,6 +2,8 @@ package com.rankin.adam.cookingmaster.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +55,7 @@ public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingList
         }
     }
 
+    @NonNull
     @Override
     public ShoppingListLayoutAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout

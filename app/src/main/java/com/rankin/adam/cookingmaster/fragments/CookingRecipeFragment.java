@@ -1,6 +1,5 @@
-package com.rankin.adam.cookingmaster.Fragments;
+package com.rankin.adam.cookingmaster.fragments;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -34,20 +33,15 @@ import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeControll
 
 public class CookingRecipeFragment extends Fragment {
 
-    private Button showIngredientsButton;
     private Button showInstructionsButton;
-    private Button scaleButton;
-    private Button timerButton;
     private Button pinRecipeButton;
 
     private TextView instructionsTextView;
     private RecyclerView ingredientsRecyclerView;
-    private TextView recipeTitleTextView;
 
     private Boolean isPinned = Boolean.FALSE;
 
     private Recipe recipe;
-    private Activity activity;
 
     @Nullable
     @Override
@@ -55,14 +49,15 @@ public class CookingRecipeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recipe_cook,container,false);
 
         Bundle bundle = this.getArguments();
+        assert bundle != null;
         int currentRecipe = bundle.getInt("recipe", -1);
-        activity = getActivity();
 
-        showIngredientsButton = view.findViewById(R.id.cookRecipeFrag_btn_show_ingredients);
+
+        Button showIngredientsButton = view.findViewById(R.id.cookRecipeFrag_btn_show_ingredients);
         showInstructionsButton = view.findViewById(R.id.cookRecipeFrag_btn_show_instructions);
         pinRecipeButton = view.findViewById(R.id.cookRecipeFrag_btn_pin_recipe);
-        scaleButton = view.findViewById(R.id.cookRecipeFrag_btn_scale);
-        timerButton = view.findViewById(R.id.cookRecipeFrag_btn_start_timer);
+        Button scaleButton = view.findViewById(R.id.cookRecipeFrag_btn_scale);
+        Button timerButton = view.findViewById(R.id.cookRecipeFrag_btn_start_timer);
 
         try {
             if (currentRecipe != -1) {
@@ -89,7 +84,7 @@ public class CookingRecipeFragment extends Fragment {
 
         instructionsTextView.setVisibility(View.GONE);
 
-        recipeTitleTextView = view.findViewById(R.id.cookRecipeFrag_txt_title);
+        TextView recipeTitleTextView = view.findViewById(R.id.cookRecipeFrag_txt_title);
         recipeTitleTextView.setText(recipe.getName());
 
         ingredientsRecyclerView = view.findViewById(R.id.cookRecipeFrag_recycler_ingredients);
@@ -113,6 +108,7 @@ public class CookingRecipeFragment extends Fragment {
             }
         });
         pinRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("DuplicateCondition")
             @Override
             public void onClick(View view) {
                 if (!isPinned){
@@ -149,7 +145,7 @@ public class CookingRecipeFragment extends Fragment {
                 builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Integer time;
+                        int time;
                         if (timerEdit.getText().toString().trim().isEmpty()){
                             time = 300;
                         }
@@ -248,7 +244,7 @@ public class CookingRecipeFragment extends Fragment {
 
                 //get the time in seconds
                 Integer time = Integer.parseInt(word.substring(0 , word.indexOf(":"))) * 60;
-                time += Integer.parseInt(word.substring(word.indexOf(":")+1,word.length()));
+                time += Integer.parseInt(word.substring(word.indexOf(":")+1));
 
                 ss.setSpan(new timerClickableSpan(time),0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 builder.append(ss);

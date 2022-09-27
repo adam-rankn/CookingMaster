@@ -35,11 +35,8 @@ public class IngredientAddDialog extends Dialog {
     private EditText ingredientEdit;
     private ArrayList<RecipeIngredientEntry> ingredients;
     private EditText amountEdit;
-    private Spinner unitSpinner;
-
-    private String unit = "lb";
     private Context context;
-
+    private String unit;
 
     public IngredientAddDialog(AddRecipeActivity context) {
         super(context);
@@ -51,7 +48,7 @@ public class IngredientAddDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_ingredients_dialog);
-        getWindow().setLayout(android.view.ViewGroup.LayoutParams.FILL_PARENT,
+        getWindow().setLayout(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
         ingredients = new ArrayList<>();
@@ -88,7 +85,7 @@ public class IngredientAddDialog extends Dialog {
         final IngredientLayoutAdapter ingredientAdapter = new IngredientLayoutAdapter(ingredients, getContext());
         ingredientRecyclerView.setAdapter(ingredientAdapter);
 
-        // TODO add speech recognitionn for ingredients
+        // TODO add speech recognition for ingredients
         Button addIngredientButton = findViewById(R.id.ingrDialog_btn_add_ingredient);
         addIngredientButton.setOnClickListener(new View.OnClickListener() {
 

@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="0dp"
-            android:text="@string/ingredients" />
+            android:text="@string/ingredients"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/cookRecipeFrag_btn_show_instructions"
@@ -29,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="0dp"
-            android:text="@string/instructions" />
+            android:text="@string/instructions"
+            style="?android:attr/buttonBarButtonStyle" />
 
     </LinearLayout>
 
@@ -68,7 +70,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Recipe Title"
+        android:text="@string/recipe_title"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +93,8 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:scaleType="fitCenter"
-            android:text="@string/pin" />
+            android:text="@string/pin"
+            style="?android:attr/buttonBarButtonStyle" />
         <!--
             style = '?android:attr/buttonBarButtonStyle'
             android:textColor="@color/colorPrimaryDark"
@@ -103,14 +106,16 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/scale" />
+            android:text="@string/scale"
+            style="?android:attr/buttonBarButtonStyle" />
 
         <Button
             android:id="@+id/cookRecipeFrag_btn_start_timer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/timer" />
+            android:text="@string/timer"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,11 @@
 package com.rankin.adam.cookingmaster.adapter;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.rankin.adam.cookingmaster.Fragments.CookingRecipeFragment;
+import com.rankin.adam.cookingmaster.fragments.CookingRecipeFragment;
 import com.rankin.adam.cookingmaster.model.Recipe;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class CookingRecipesPagerAdapter extends FragmentStatePagerAdapter {
         return fragmentList.get(position);
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         return fragmentList.get(position);
@@ -50,7 +52,7 @@ public class CookingRecipesPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public int getItemPosition(Object item) {
+    public int getItemPosition(@NonNull Object item) {
         CookingRecipeFragment fragment = (CookingRecipeFragment)item;
         int position = fragmentList.indexOf(fragment);
         if (position >= 0) {

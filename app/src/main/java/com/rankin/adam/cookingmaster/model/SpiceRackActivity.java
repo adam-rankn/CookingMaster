@@ -15,13 +15,11 @@ import com.rankin.adam.cookingmaster.databinding.ActivitySpiceRackBinding;
 
 public class SpiceRackActivity extends AppCompatActivity {
 
-    private ActivitySpiceRackBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivitySpiceRackBinding.inflate(getLayoutInflater());
+        com.rankin.adam.cookingmaster.databinding.ActivitySpiceRackBinding binding = ActivitySpiceRackBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Toolbar toolbar = binding.toolbar;

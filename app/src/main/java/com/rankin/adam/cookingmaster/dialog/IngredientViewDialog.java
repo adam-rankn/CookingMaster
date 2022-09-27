@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.rankin.adam.cookingmaster.activity.ViewRecipeActivity;
@@ -35,17 +36,17 @@ public class IngredientViewDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ingredient_view_dialog);
-        getWindow().setLayout(android.view.ViewGroup.LayoutParams.FILL_PARENT,
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
                 android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
 
         ingredients = new ArrayList<>();
         ingredients.addAll(recipeController.getIngredients());
-        initalize();
+        initialize();
         //TODO add an add all ingr to shop list minus pantry items
 
     }
 
-    private void initalize() {
+    private void initialize() {
 
 
         RecyclerView ingredientViewRecyclerView = findViewById(R.id.ingrViewDialog_recyclerView_ingredients);

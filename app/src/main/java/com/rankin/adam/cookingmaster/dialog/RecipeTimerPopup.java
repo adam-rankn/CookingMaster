@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.R;
 
-import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
-
 public class RecipeTimerPopup extends PopupWindow {
 
     int pos;
@@ -33,6 +31,7 @@ public class RecipeTimerPopup extends PopupWindow {
         initialize();
     }
 
+    @SuppressLint("SetTextI18n")
     private void initialize(){
         Button btnDismiss = popupView.findViewById(R.id.cookTimerPopup_btn_close);
         TextView timerTitleTextView = popupView.findViewById(R.id.cookTimerPopup_txt_title);

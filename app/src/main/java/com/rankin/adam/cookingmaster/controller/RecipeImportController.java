@@ -6,28 +6,19 @@ import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RecipeImportController {
 
     private Recipe recipe;
-    private int position;
-    private Boolean recipeDeleted;
-    private ArrayList<Recipe> pinnedRecipes;
     private URL recipeURL;
 
     public RecipeImportController(String stringURL) {
-        recipeDeleted = Boolean.FALSE;
-        pinnedRecipes = new ArrayList<>();
         try {
             recipeURL = new URL(stringURL);
         } catch (MalformedURLException e) {
@@ -41,28 +32,21 @@ public class RecipeImportController {
                  try {
                     BufferedReader in = new BufferedReader(new InputStreamReader(recipeURL.openStream()));
                     String input;
-                    StringBuffer stringBuffer = new StringBuffer();
+                    StringBuilder stringBuffer = new StringBuilder();
                     while ((input = in.readLine()) != null) {
                         stringBuffer.append(input);
                     }
                     in.close();
                     String htmlData = stringBuffer.toString();
                     List<String> dataList;
-                    dataList = Arrays.asList(htmlData.split("<|>"));
+                    dataList = Arrays.asList(htmlData.split("[<>]"));
                     setIngredients(dataList);
                     setRecipeName(recipeURL.toString());
 
 
-                } catch (MalformedURLException e) {
+                } catch (IOException | NullPointerException e) {
                     e.printStackTrace();
                 }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                catch (NullPointerException e){
-                    e.printStackTrace();
-                };
 
             }
         });
@@ -103,7 +87,7 @@ public class RecipeImportController {
         return recipe;
     }
 
-    public void setIngredients(List data){
+    public void setIngredients(List<String> data){
         int i;
         for (i = 0; i < data.size(); i++) {
             String token = (String) data.get(i);
