@@ -87,6 +87,14 @@ public class RecipeImportController {
         return recipe;
     }
 
+    public void setTime(int time){
+        recipe.setTime(time);
+    }
+
+    public int getTime(){
+        return recipe.getTime();
+    }
+
     public void setIngredients(List<String> data){
         int i;
         for (i = 0; i < data.size(); i++) {
@@ -124,6 +132,14 @@ public class RecipeImportController {
                 instructions += "\n";
                 addInstructions(instructions);
             }
+
+            else if (token.contains("total:")) {
+                String timeString = data.get(i+4);
+                int time = parseTime(timeString);
+                setTime(time);
+            }
+
+
         }
     }
 
@@ -131,8 +147,20 @@ public class RecipeImportController {
         return recipe.getIngredientList();
     }
 
-
-
+    public int parseTime(String timeString){
+        int time = 0;
+        List<String> tokens = Arrays.asList(timeString.split(" "));
+        for (int i = 0; i < tokens.size(); i++) {
+            String token = tokens.get(i);
+            if (token.contains("hr") | token.contains("hour")){
+                time += (Integer.parseInt(tokens.get(i-1))) * 60;
+            }
+            if (token.contains("min")){
+                time += Integer.parseInt(tokens.get(i-1));
+            }
+        }
+        return time;
+    }
 
 
 }

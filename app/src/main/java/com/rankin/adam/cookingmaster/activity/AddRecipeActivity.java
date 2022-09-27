@@ -178,7 +178,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                         RecipeImportController recipeImportController = new RecipeImportController(addURLEdit.getText().toString());
                         recipeImportController.setRecipeName(addURLEdit.getText().toString());
 
-                        timeEdit.setText("30");
+                        int time = recipeImportController.getTime();
+                        timeEdit.setText(Integer.toString(time));
                         nameEdit.setText(recipeImportController.getRecipe().getName());
                         String instructions = recipeImportController.getInstructions();
                         instructionsEdit.setText(instructions);

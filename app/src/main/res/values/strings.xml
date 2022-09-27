@@ -188,6 +188,7 @@
     <string name="paste_url">paste URL</string>
     <string name="recipe_photo_thumbnail">recipe photo thumbnail</string>
     <string name="zoomed_in_photo">zoomed in photo</string>
+    <string name="action_settings">action settings</string>
 
 
 </resources>
