@@ -81,10 +81,7 @@ public class AddRecipeTestIngredients {
                         isDisplayed()));
         appCompatButton4.perform(click());
 
-        ViewInteraction appCompatEditText3 = onView(
-                allOf(withId(R.id.ingrDialog_txt_add_ingredient),
-                        isDisplayed()));
-        appCompatEditText3.perform(click());
+
 
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.ingrDialog_txt_add_ingredient),
@@ -97,9 +94,9 @@ public class AddRecipeTestIngredients {
         appCompatEditText5.perform(replaceText("2"));
 
 
-        ViewInteraction appCompatButton5 = onView(allOf(withId(R.id.ingrDialog_btn_add_ingredient), withText("ADD"),
+        ViewInteraction appCompatButton5 = onView(allOf( withText("ADD"),
                 isDisplayed()));
-        appCompatButton5.perform(closeSoftKeyboard(),click());
+        appCompatButton5.perform(click());
 
         onView(withId(R.id.ingrDialog_btn_save)).perform(closeSoftKeyboard());
 
@@ -112,8 +109,7 @@ public class AddRecipeTestIngredients {
         appCompatEditText6.perform(replaceText("Just cook it good"));
 
         ViewInteraction appCompatEditText7 = onView(
-                allOf(withId(R.id.addRecipeAct_txt_instructions), withText("Just cook it good"),
-                        isDisplayed()));
+                withId(R.id.addRecipeAct_txt_instructions));
         appCompatEditText7.perform(closeSoftKeyboard());
 
 
@@ -134,12 +130,10 @@ public class AddRecipeTestIngredients {
         textView.check(matches(withText("TEST" + randomString)));
 
         ViewInteraction textView2 = onView(allOf(withId(R.id.ingrViewRowLay_txt_amount),
-                withText("2.0"),
                 isDisplayed()));
-        textView2.check(matches(withText("2")));
+        textView2.check(matches(withText("2.0")));
 
         ViewInteraction textView3 = onView(allOf(withId(R.id.ingrViewRowLay_txt_unit),
-                withText("cups"),
                 isDisplayed()));
         textView3.check(matches(withText("cups")));
 
