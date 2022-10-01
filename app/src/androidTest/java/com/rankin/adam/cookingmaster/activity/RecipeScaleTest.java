@@ -48,81 +48,41 @@ public class RecipeScaleTest {
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatButton.perform(click());
 
         ViewInteraction appCompatButton2 = onView(
                 allOf(withId(R.id.btn_add_recipe), withText("Add"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                4),
                         isDisplayed()));
         appCompatButton2.perform(click());
 
         ViewInteraction appCompatEditText = onView(
                 allOf(withId(R.id.addRecipeAct_txt_name),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
                         isDisplayed()));
         appCompatEditText.perform(replaceText("TEST" + randomString), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText2 = onView(
                 allOf(withId(R.id.addRecipeAct_txt_time),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                3),
                         isDisplayed()));
         appCompatEditText2.perform(replaceText("30"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton3 = onView(
                 allOf(withId(R.id.addRecipeAct_btn_set_ingredients), withText("Set"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                12),
                         isDisplayed()));
         appCompatButton3.perform(click());
 
         ViewInteraction appCompatEditText3 = onView(
                 allOf(withId(R.id.ingrDialog_txt_add_ingredient),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                1),
                         isDisplayed()));
         appCompatEditText3.perform(replaceText("TEST" + randomString), closeSoftKeyboard());
 
         ViewInteraction appCompatEditText4 = onView(
                 allOf(withId(R.id.ingrDialog_edt_amount),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                5),
                         isDisplayed()));
         appCompatEditText4.perform(replaceText("3"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton4 = onView(
                 allOf(withId(R.id.ingrDialog_btn_add_ingredient), withText("Add"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                2),
                         isDisplayed()));
         appCompatButton4.perform(click());
 
@@ -135,11 +95,6 @@ public class RecipeScaleTest {
 
         ViewInteraction appCompatButton6 = onView(
                 allOf(withId(R.id.addRecipeAct_btn_add_recipe), withText("Add"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                0),
                         isDisplayed()));
         appCompatButton6.perform(click());
 
@@ -174,7 +129,7 @@ public class RecipeScaleTest {
         appCompatButton9.perform(scrollTo(), click());
 
         onView(withId(R.id.cookRecipeFrag_recycler_ingredients))
-                .perform(RecyclerViewActions.actionOnHolderItem(findInCookingIngredientsList("9"), click()));
+                .perform(RecyclerViewActions.actionOnHolderItem(findInCookingIngredientsList("9.0"), click()));
 //TODO finish scale check
 
         pressBack();

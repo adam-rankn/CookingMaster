@@ -39,7 +39,7 @@ public class RecipeImportController {
                     in.close();
                     String htmlData = stringBuffer.toString();
                     List<String> dataList;
-                    dataList = Arrays.asList(htmlData.split("[<>]"));
+                    dataList = Arrays.asList(htmlData.split("[{}]"));
                     setIngredients(dataList);
                     setRecipeName(recipeURL.toString());
 
@@ -96,9 +96,10 @@ public class RecipeImportController {
     }
 
     public void setIngredients(List<String> data){
+        setTime(30);
         int i;
         for (i = 0; i < data.size(); i++) {
-            String token = (String) data.get(i);
+            String token = data.get(i);
 
             if (token.contains("data-ingredient=")) {
                 List<String> list = Arrays.asList(token.split("\""));

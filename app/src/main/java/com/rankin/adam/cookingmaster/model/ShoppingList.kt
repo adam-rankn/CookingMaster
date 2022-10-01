@@ -1,52 +1,36 @@
-package com.rankin.adam.cookingmaster.model;
+package com.rankin.adam.cookingmaster.model
 
-import java.util.ArrayList;
+import java.util.ArrayList
 
 /**
  * Created by Adam on 15-Jul-18.
  */
+class ShoppingList {
+    var shoppingList: ArrayList<ShoppingListEntry> = ArrayList()
 
-public class ShoppingList {
-
-    private ArrayList<ShoppingListEntry> shoppingList;
-
-    public ShoppingList() {
-        this.shoppingList = new ArrayList<>();
+    fun addEntry(shoppingListEntry: ShoppingListEntry) {
+        shoppingList.add(shoppingListEntry)
     }
 
-    public ArrayList<ShoppingListEntry> getShoppingList() {
-        return shoppingList;
+    fun removeEntry(position: Int) {
+        shoppingList.removeAt(position)
     }
 
-    public void setShoppingList(ArrayList<ShoppingListEntry> ingredientsList) {
-        this.shoppingList = ingredientsList;
+    fun clearShoppingList() {
+        shoppingList.clear()
     }
 
-    public void addEntry(ShoppingListEntry shoppingListEntry){
-        this.shoppingList.add(shoppingListEntry);
-    }
-
-    public void removeEntry(int position){
-        this.shoppingList.remove(position);
-    }
-
-    public void clearShoppingList(){
-        this.shoppingList.clear();
-    }
-
-    public ShoppingListEntry findIngredient(Ingredient ingredient){
+    fun findIngredient(ingredient: Ingredient): ShoppingListEntry? {
         //TODO optimize
-        for (ShoppingListEntry element : shoppingList) {
-            if (element.getIngredient().getName().equals(ingredient.getName())){
-                return element;
+        for (element in shoppingList) {
+            if (element.ingredient.name == ingredient.name) {
+                return element
             }
         }
-        return null;
-
+        return null
     }
 
-    public void increaseAmount(int position,int amount){
-        shoppingList.get(position).addAmount(amount);
-
+    fun increaseAmount(position: Int, amount: Int) {
+        shoppingList[position].addAmount(amount)
     }
 }

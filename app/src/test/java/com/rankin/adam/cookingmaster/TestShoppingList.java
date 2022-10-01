@@ -42,7 +42,7 @@ public class TestShoppingList {
         ShoppingListEntry entry2 = new ShoppingListEntry(moreFlour,1,"lb");
         shoppingListController.addIngredient(entry2);
         ShoppingListEntry combinedEntry = shoppingListController.getShoppingList().get(0);
-        assertEquals((Integer)2,combinedEntry.getAmount());
+        assertEquals((Integer)2,(Integer)combinedEntry.getAmount());
         shoppingListController.clearShoppingList();
     }
 
@@ -68,7 +68,7 @@ public class TestShoppingList {
         shoppingList.clearShoppingList();
         shoppingList.addEntry(entry);
         shoppingList.increaseAmount(0,100);
-        assertEquals((Integer)101,shoppingList.getShoppingList().get(0).getAmount());
+        assertEquals((Integer)101,(Integer)shoppingList.getShoppingList().get(0).getAmount());
 
     }
 

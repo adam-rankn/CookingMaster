@@ -1,281 +1,227 @@
-package com.rankin.adam.cookingmaster.fragments;
+package com.rankin.adam.cookingmaster.fragments
 
-import android.content.DialogInterface;
-import android.os.Bundle;
+import android.content.Context
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.os.Bundle
+import com.rankin.adam.cookingmaster.R
+import com.rankin.adam.cookingmaster.activity.MainActivity
+import android.text.SpannableStringBuilder
+import android.text.method.LinkMovementMethod
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter
+import android.widget.EditText
+import android.content.DialogInterface
+import android.text.InputType
+import com.rankin.adam.cookingmaster.dialog.RecipeTimerPopup
+import androidx.constraintlayout.widget.ConstraintLayout
+import android.text.SpannableString
+import com.rankin.adam.cookingmaster.fragments.CookingRecipeFragment.timerClickableSpan
+import android.text.Spannable
+import android.text.style.ClickableSpan
+import android.view.View
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
+import com.rankin.adam.cookingmaster.model.Recipe
+import java.lang.Boolean
+import java.lang.IndexOutOfBoundsException
 
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.text.InputType;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter;
-import com.rankin.adam.cookingmaster.dialog.RecipeTimerPopup;
-import com.rankin.adam.cookingmaster.model.Recipe;
-
-
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
-
-public class CookingRecipeFragment extends Fragment {
-
-    private Button showInstructionsButton;
-    private Button pinRecipeButton;
-
-    private TextView instructionsTextView;
-    private RecyclerView ingredientsRecyclerView;
-
-    private Boolean isPinned = Boolean.FALSE;
-
-    private Recipe recipe;
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recipe_cook,container,false);
-
-        Bundle bundle = this.getArguments();
-        assert bundle != null;
-        int currentRecipe = bundle.getInt("recipe", -1);
-
-
-        Button showIngredientsButton = view.findViewById(R.id.cookRecipeFrag_btn_show_ingredients);
-        showInstructionsButton = view.findViewById(R.id.cookRecipeFrag_btn_show_instructions);
-        pinRecipeButton = view.findViewById(R.id.cookRecipeFrag_btn_pin_recipe);
-        Button scaleButton = view.findViewById(R.id.cookRecipeFrag_btn_scale);
-        Button timerButton = view.findViewById(R.id.cookRecipeFrag_btn_start_timer);
-
-        try {
+class CookingRecipeFragment : Fragment() {
+    var pinned: kotlin.Boolean = Boolean.FALSE
+        private set
+    private var recipe: Recipe? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_recipe_cook, container, false)
+        val bundle = this.requireArguments()
+        val currentRecipe = bundle.getInt("recipe", -1)
+        val showIngredientsButton =
+            view.findViewById<Button>(R.id.cookRecipeFrag_btn_show_ingredients)
+        val showInstructionsButton = view.findViewById<Button>(R.id.cookRecipeFrag_btn_show_instructions)
+        val pinRecipeButton = view.findViewById<Button>(R.id.cookRecipeFrag_btn_pin_recipe)
+        val scaleButton = view.findViewById<Button>(R.id.cookRecipeFrag_btn_scale)
+        val timerButton = view.findViewById<Button>(R.id.cookRecipeFrag_btn_start_timer)
+        recipe = try {
             if (currentRecipe != -1) {
-                recipe = recipeController.getPinnedRecipes().get(currentRecipe);
+                MainActivity.recipeController.pinnedRecipes[currentRecipe]
             } else {
-                recipe = recipeController.getCurrentRecipe();
+                MainActivity.recipeController.currentRecipe
             }
+        } catch (e: IndexOutOfBoundsException) {
+            MainActivity.recipeController.pinnedRecipes[MainActivity.recipeController.pinnedSize - 1]
         }
-        catch (IndexOutOfBoundsException e){
-            recipe = recipeController.getPinnedRecipes().get(recipeController.getPinnedSize()-1);
-        }
-
-        if (recipeController.isRecipePinned(recipe)){
-            isPinned = Boolean.TRUE;
-            pinRecipeButton.setText(R.string.unpin);
+        if (MainActivity.recipeController.isRecipePinned(recipe)) {
+            pinned = Boolean.TRUE
+            pinRecipeButton.setText(R.string.unpin)
         }
 
         //build instructions string with links and set to textView
-        String instructions = recipe.getInstructions();
-        SpannableStringBuilder builder = highlightTimers(instructions);
-        instructionsTextView = view.findViewById(R.id.cookRecipeFrag_txt_instructions);
-        instructionsTextView.setMovementMethod(LinkMovementMethod.getInstance());
-        instructionsTextView.setText(builder);
-
-        instructionsTextView.setVisibility(View.GONE);
-
-        TextView recipeTitleTextView = view.findViewById(R.id.cookRecipeFrag_txt_title);
-        recipeTitleTextView.setText(recipe.getName());
-
-        ingredientsRecyclerView = view.findViewById(R.id.cookRecipeFrag_recycler_ingredients);
-        LinearLayoutManager ingredientViewLinearLayoutManager = new LinearLayoutManager(getContext());
-        ingredientsRecyclerView.setLayoutManager(ingredientViewLinearLayoutManager);
-        final IngredientViewLayoutAdapter ingredientViewAdapter = new IngredientViewLayoutAdapter(recipe.getIngredientList(), getContext());
-        ingredientsRecyclerView.setAdapter(ingredientViewAdapter);
-
-        showInstructionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                instructionsTextView.setVisibility(View.VISIBLE);
-                ingredientsRecyclerView.setVisibility(View.GONE);
-            }
-        });
-        showIngredientsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ingredientsRecyclerView.setVisibility(View.VISIBLE);
-                instructionsTextView.setVisibility(View.GONE);
-            }
-        });
-        pinRecipeButton.setOnClickListener(new View.OnClickListener() {
-            @SuppressWarnings("DuplicateCondition")
-            @Override
-            public void onClick(View view) {
-                if (!isPinned){
-                    isPinned = Boolean.TRUE;
-                    if (!recipeController.isRecipePinned(recipe)) {
-                        recipeController.pinRecipe(recipe);
+        val instructions = recipe!!.instructions
+        val builder = highlightTimers(instructions)
+        val instructionsTextView = view.findViewById<TextView>(R.id.cookRecipeFrag_txt_instructions)
+        instructionsTextView.movementMethod = LinkMovementMethod.getInstance()
+        instructionsTextView.text = builder
+        instructionsTextView.visibility = View.GONE
+        val recipeTitleTextView = view.findViewById<TextView>(R.id.cookRecipeFrag_txt_title)
+        recipeTitleTextView.text = recipe!!.name
+        val ingredientsRecyclerView = view.findViewById<RecyclerView>(R.id.cookRecipeFrag_recycler_ingredients)
+        val ingredientViewLinearLayoutManager = LinearLayoutManager(context)
+        ingredientsRecyclerView.layoutManager = ingredientViewLinearLayoutManager
+        val ingredientViewAdapter = IngredientViewLayoutAdapter(
+            recipe!!.ingredientList, context
+        )
+        ingredientsRecyclerView.adapter = ingredientViewAdapter
+        showInstructionsButton.setOnClickListener {
+            instructionsTextView.visibility = View.VISIBLE
+            ingredientsRecyclerView.visibility = View.GONE
+        }
+        showIngredientsButton.setOnClickListener {
+            ingredientsRecyclerView.visibility = View.VISIBLE
+            instructionsTextView.visibility = View.GONE
+        }
+        pinRecipeButton.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                if (!pinned) {
+                    pinned = Boolean.TRUE
+                    if (!MainActivity.recipeController.isRecipePinned(recipe)) {
+                        MainActivity.recipeController.pinRecipe(recipe)
                     }
-                    pinRecipeButton.setText(R.string.pin);
-                }
-
-                else if (isPinned){
-                    isPinned = Boolean.FALSE;
-                    pinRecipeButton.setText(R.string.unpin);
+                    pinRecipeButton.setText(R.string.pin)
+                } else if (pinned) {
+                    pinned = Boolean.FALSE
+                    pinRecipeButton.setText(R.string.unpin)
                 }
             }
-        });
+        })
+        timerButton.setOnClickListener {
+            val builder = AlertDialog.Builder(
+                requireContext()
+            )
+            builder.setTitle("Timer duration in minutes")
 
-        timerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            // Set up the input
+            val timerEdit = EditText(context)
+            timerEdit.hint = "5"
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Timer duration in minutes");
+            // Specify the type of input expected
+            timerEdit.inputType = InputType.TYPE_CLASS_DATETIME
+            builder.setView(timerEdit)
 
-                // Set up the input
-                final EditText timerEdit = new EditText(getContext());
-                timerEdit.setHint("5");
-
-                // Specify the type of input expected
-                timerEdit.setInputType(InputType.TYPE_CLASS_DATETIME);
-                builder.setView(timerEdit);
-
-                // Set up buttons
-                builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int time;
-                        if (timerEdit.getText().toString().trim().isEmpty()){
-                            time = 300;
-                        }
-
-                        else {
-                            String timeString = timerEdit.getText().toString();
-                            time = Integer.parseInt(timeString) * 60;
-                        }
-
-
-
-
-
-                        LayoutInflater layoutInflater =
-                                (LayoutInflater)getContext()
-                                        .getSystemService(LAYOUT_INFLATER_SERVICE);
-                        View popupView = layoutInflater.inflate(R.layout.popup_cook_timer, null);
-                        final RecipeTimerPopup popupWindow = new RecipeTimerPopup(
-                                popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT,time,showInstructionsButton,recipe.getName());
-                    }
-                });
-                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                builder.show();
+            // Set up buttons
+            builder.setPositiveButton(R.string.OK) { dialog, which ->
+                val time: Int
+                time = if (timerEdit.text.toString().trim { it <= ' ' }.isEmpty()) {
+                    300
+                } else {
+                    val timeString = timerEdit.text.toString()
+                    timeString.toInt() * 60
+                }
+                val layoutInflater = context
+                    ?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                val popupView = layoutInflater.inflate(R.layout.popup_cook_timer, null)
+                val popupWindow = RecipeTimerPopup(
+                    popupView,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    time,
+                    showInstructionsButton,
+                    recipe!!.name
+                )
             }
-        });
+            builder.setNegativeButton(R.string.Cancel) { dialog, which -> dialog.cancel() }
+            builder.show()
+        }
+        scaleButton.setOnClickListener {
+            val builder = AlertDialog.Builder(
+                requireContext()
+            )
+            builder.setTitle(getText(R.string.scaleRecipeDialogTitle))
 
-        scaleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            // Set up the input
+            val factorEdit = EditText(context)
+            factorEdit.hint = "2"
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(getText(R.string.scaleRecipeDialogTitle));
+            // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+            factorEdit.inputType = InputType.TYPE_CLASS_NUMBER
+            builder.setView(factorEdit)
 
-                // Set up the input
-                final EditText factorEdit = new EditText(getContext());
-                factorEdit.setHint("2");
-
-                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                factorEdit.setInputType(InputType.TYPE_CLASS_NUMBER);
-                builder.setView(factorEdit);
-
-                // Set up buttons
-                builder.setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (factorEdit.getText().toString().trim().length() == 0) {
-                            factorEdit.setError(getText(R.string.scaleRecipeFactor));
-                        }
-                        Integer scaleFactor = Integer.parseInt(factorEdit.getText().toString());
-                        ingredientViewAdapter.setScaleFactor(scaleFactor);
-                    }
-                });
-                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-
-                builder.show();
+            // Set up buttons
+            builder.setPositiveButton(R.string.OK) { dialog, which ->
+                if (factorEdit.text.toString().trim { it <= ' ' }.isEmpty()) {
+                    factorEdit.error = getText(R.string.scaleRecipeFactor)
+                }
+                val scaleFactor = factorEdit.text.toString().toInt()
+                ingredientViewAdapter.setScaleFactor(scaleFactor)
             }
-        });
-
-        return view;
+            builder.setNegativeButton(R.string.Cancel) { dialog, which -> dialog.cancel() }
+            builder.show()
+        }
+        return view
     }
 
-    public Boolean getPinned() {
-        return isPinned;
-    }
-
-    private SpannableStringBuilder highlightTimers(String text){
+    private fun highlightTimers(text: String?): SpannableStringBuilder {
 
         //split on one or more whitespaces
-        String[] splitInstructions = text.split("\\s+");
-
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        for (String word:splitInstructions){
+        val splitInstructions = text!!.split("\\s+").toTypedArray()
+        val builder = SpannableStringBuilder()
+        for (word in splitInstructions) {
             //check if the current word is a valid time
 
             //match XX minutes
-            if (word.matches("\\d+")){
-                SpannableString ss = new SpannableString(word);
-                Integer time = Integer.parseInt(word)*60;
-                ss.setSpan(new timerClickableSpan(time),0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                builder.append(ss);
-            }
-            //match MM:SS format of timer
-            else if (word.matches("[\\d]\\S[:]\\S[\\d+]")){
-                SpannableString ss = new SpannableString(word);
+            if (word.matches("\\d+".toRegex())) {
+                val ss = SpannableString(word)
+                val time = word.toInt() * 60
+                ss.setSpan(
+                    timerClickableSpan(time),
+                    0,
+                    word.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                builder.append(ss)
+            } else if (word.matches("[\\d]\\S[:]\\S[\\d+]".toRegex())) {
+                val ss = SpannableString(word)
 
                 //get the time in seconds
-                Integer time = Integer.parseInt(word.substring(0 , word.indexOf(":"))) * 60;
-                time += Integer.parseInt(word.substring(word.indexOf(":")+1));
-
-                ss.setSpan(new timerClickableSpan(time),0, word.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                builder.append(ss);
-            }
-            else {
-                builder.append(word);
+                var time = word.substring(0, word.indexOf(":")).toInt() * 60
+                time += word.substring(word.indexOf(":") + 1).toInt()
+                ss.setSpan(
+                    timerClickableSpan(time),
+                    0,
+                    word.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                builder.append(ss)
+            } else {
+                builder.append(word)
             }
             //add space
-            builder.append(" ");
-
+            builder.append(" ")
         }
-
-        return builder;
+        return builder
     }
 
-    public class timerClickableSpan extends ClickableSpan {
-
-        Integer time;
-
-        public timerClickableSpan(Integer time){
-            this.time = time;
-        }
-        @Override
-        public void onClick(View view) {
+    inner class timerClickableSpan(var time: Int?) : ClickableSpan() {
+        override fun onClick(view: View) {
+            val showInstructionsButton = view.findViewById<Button>(R.id.cookRecipeFrag_btn_show_instructions)
 
             //open timer
-            LayoutInflater layoutInflater =
-                    (LayoutInflater)getContext()
-                            .getSystemService(LAYOUT_INFLATER_SERVICE);
-            View popupView = layoutInflater.inflate(R.layout.popup_cook_timer, null);
-            final RecipeTimerPopup popupWindow = new RecipeTimerPopup(popupView, ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT,time, showInstructionsButton,recipe.getName());
+            val layoutInflater = context
+                ?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val popupView = layoutInflater.inflate(R.layout.popup_cook_timer, null)
+            val popupWindow = RecipeTimerPopup(
+                popupView,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                time!!,
+                showInstructionsButton!!,
+                recipe!!.name
+            )
         }
     }
 }

@@ -1,100 +1,34 @@
-package com.rankin.adam.cookingmaster.model;
+package com.rankin.adam.cookingmaster.model
 
-import java.util.ArrayList;
+import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry
+import com.rankin.adam.cookingmaster.model.Ingredient
+import java.util.ArrayList
 
 /**
  * Created by Adam on 26-Jun-18.
  */
+class Recipe(var name: String) {
+    var time: Int? = null
+    var ingredientList: ArrayList<RecipeIngredientEntry>? = ArrayList()
+    var instructions: String? = null
+    var allergens: ArrayList<String>? = ArrayList()
+    var imageUri: String? = null
+    var rating = 0f
 
-public class Recipe {
-
-    private String Name;
-    private Integer Time;
-    private ArrayList<RecipeIngredientEntry> ingredientList;
-    private String Instructions;
-    private ArrayList<String> allergens;
-    private String imageUri;
-    private float rating;
-
-
-    public Recipe(String name) {
-        Name = name;
-        ingredientList = new ArrayList<>();
-        allergens = new ArrayList<>();
+    fun addIngredient(recipeIngredientEntry: RecipeIngredientEntry) {
+        ingredientList?.add(recipeIngredientEntry)
     }
 
-    public String getName() {
-        return Name;
+    fun removeIngredient(position: Int) {
+        ingredientList?.removeAt(position)
     }
 
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public Integer getTime() {
-        return Time;
-    }
-
-    public void setTime(Integer time) {
-        Time = time;
-    }
-
-    public ArrayList<RecipeIngredientEntry> getIngredientList() {
-        return ingredientList;
-    }
-
-    public void setIngredientList(ArrayList<RecipeIngredientEntry> recipeIngredientEntries) {
-        ingredientList = recipeIngredientEntries;
-    }
-
-    public void addIngredient(RecipeIngredientEntry recipeIngredientEntry){
-        ingredientList.add(recipeIngredientEntry);
-    }
-
-    public void removeIngredient(int position){
-        ingredientList.remove(position);
-    }
-
-    public String getInstructions() {
-        return Instructions;
-    }
-
-    public void setInstructions(String instructions) {
-        Instructions = instructions;
-    }
-
-    public ArrayList<String> getAllergens() {
-        return allergens;
-    }
-
-    public void setAllergens(ArrayList<String> allergens) {
-        this.allergens = allergens;
-    }
-
-    public String getImageUri() {
-        return imageUri;
-    }
-
-    public void setImageUri(String imageUri) {
-        this.imageUri = imageUri;
-    }
-
-    public Boolean containsIngredient(Ingredient ingredient){
-        for (RecipeIngredientEntry entry : ingredientList) {
-            if (ingredient.getName().equals(entry.getIngredient().getName())){
-                return Boolean.TRUE;
+    fun containsIngredient(ingredient: Ingredient): Boolean {
+        for (entry in ingredientList!!) {
+            if (ingredient.name == entry.ingredient.name) {
+                return java.lang.Boolean.TRUE
             }
         }
-        return
-                Boolean.FALSE;
-
-    }
-
-    public float getRating() {
-        return rating;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
+        return java.lang.Boolean.FALSE
     }
 }

@@ -1,102 +1,86 @@
-package com.rankin.adam.cookingmaster.dialog;
+package com.rankin.adam.cookingmaster.dialog
 
-import android.annotation.SuppressLint;
-import android.os.CountDownTimer;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.Button;
-import android.widget.PopupWindow;
-import android.widget.TextView;
+import android.widget.PopupWindow
+import android.annotation.SuppressLint
+import com.rankin.adam.cookingmaster.R
+import android.widget.TextView
+import android.os.CountDownTimer
+import android.view.animation.Animation
+import android.view.animation.AlphaAnimation
+import android.view.View.OnTouchListener
+import android.view.MotionEvent
+import android.view.View
+import android.widget.Button
 
-import com.rankin.adam.cookingmaster.R;
+class RecipeTimerPopup(
+    var popupView: View,
+    width: Int,
+    height: Int,
+    var time: Int,
+    var anchor: View,
+    var name: String
+) : PopupWindow(
+    popupView, width, height
+) {
+    var pos = 0
 
-public class RecipeTimerPopup extends PopupWindow {
-
-    int pos;
-    Integer time;
-    View popupView;
-    View anchor;
-    String name;
-
-
-    public RecipeTimerPopup(View contentView, int width, int height, Integer time, View anchor, String name) {
-        super(contentView, width, height);
-        this.time = time;
-        this.popupView = contentView;
-        this.anchor = anchor;
-        this.name = name;
-
-        initialize();
+    init {
+        initialize()
     }
 
     @SuppressLint("SetTextI18n")
-    private void initialize(){
-        Button btnDismiss = popupView.findViewById(R.id.cookTimerPopup_btn_close);
-        TextView timerTitleTextView = popupView.findViewById(R.id.cookTimerPopup_txt_title);
-        final TextView timerTextView = popupView.findViewById(R.id.cookTimerPopup_txt_timer);
-
-        timerTitleTextView.setText(name);
-        timerTextView.setText(Integer.toString(time));
+    private fun initialize() {
+        val btnDismiss = popupView.findViewById<Button>(R.id.cookTimerPopup_btn_close)
+        val timerTitleTextView = popupView.findViewById<TextView>(R.id.cookTimerPopup_txt_title)
+        val timerTextView = popupView.findViewById<TextView>(R.id.cookTimerPopup_txt_timer)
+        timerTitleTextView.text = name
+        timerTextView.text = time.toString()
         //timerSeconds = timerMinutes * 60;
-
-        new CountDownTimer(time*1000, 1000) {
-
+        object : CountDownTimer((time * 1000).toLong(), 1000) {
             // we are just doing a countdown timer, so default locale will work
             @SuppressLint("DefaultLocale")
-            public void onTick(long millisUntilFinished) {
-                long seconds = millisUntilFinished / 1000;
+            override fun onTick(millisUntilFinished: Long) {
+                val seconds = millisUntilFinished / 1000
                 //format time to HH:MM:SS
-
-                timerTextView.setText(String.format("%02d:%02d:%02d", seconds / 3600,
-                        (seconds % 3600) / 60, (seconds % 60)));
+                timerTextView.text = String.format(
+                    "%02d:%02d:%02d", seconds / 3600,
+                    seconds % 3600 / 60, seconds % 60
+                )
             }
-            public void onFinish() {
-                timerTextView.setText("00:00");
+
+            override fun onFinish() {
+                timerTextView.text = "00:00"
 
                 //add blinking animation to the textview when complete
-                Animation anim = new AlphaAnimation(0.0f, 1.0f);
-                anim.setDuration(500); //You can manage the blinking time with this parameter
-                anim.setStartOffset(0);
-                anim.setRepeatMode(Animation.REVERSE);
-                anim.setRepeatCount(Animation.INFINITE);
-                timerTextView.startAnimation(anim);
+                val anim: Animation = AlphaAnimation(0.0f, 1.0f)
+                anim.duration = 500 //You can manage the blinking time with this parameter
+                anim.startOffset = 0
+                anim.repeatMode = Animation.REVERSE
+                anim.repeatCount = Animation.INFINITE
+                timerTextView.startAnimation(anim)
             }
-
-        }.start();
-
-        btnDismiss.setOnClickListener(new Button.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }});
-
-        showAsDropDown(anchor, 50, -30);
-
-
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            int orgX, orgY;
-            int offsetX, offsetY;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        orgX = (int) event.getX();
-                        orgY = (int) event.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        offsetX = (int)event.getRawX() - orgX;
-                        offsetY = (int)event.getRawY() - orgY;
-                        update(offsetX, offsetY, -1, -1, true);
-                        break;
+        }.start()
+        btnDismiss.setOnClickListener { dismiss() }
+        showAsDropDown(anchor, 50, -30)
+        popupView.setOnTouchListener(object : OnTouchListener {
+            var orgX = 0
+            var orgY = 0
+            var offsetX = 0
+            var offsetY = 0
+            override fun onTouch(v: View, event: MotionEvent): Boolean {
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        orgX = event.x.toInt()
+                        orgY = event.y.toInt()
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        offsetX = event.rawX.toInt() - orgX
+                        offsetY = event.rawY.toInt() - orgY
+                        update(offsetX, offsetY, -1, -1, true)
+                    }
                 }
-                return true;
-            }});
+                return true
+            }
+        })
     }
-
-
-
 }

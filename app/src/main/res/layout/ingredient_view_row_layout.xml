@@ -23,7 +23,7 @@
         android:layout_width="57dp"
         android:layout_height="34dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:padding="0dp"
         android:paddingBottom="0dp"
@@ -45,11 +45,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="#"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="@+id/ingrViewRowLay_ingredient_name"
+        app:layout_constraintEnd_toStartOf="@+id/ingrViewRowLay_txt_unit"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -61,6 +60,6 @@
         android:layout_marginTop="8dp"
         android:text="@string/units"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ingrViewRowLay_txt_amount"
+        app:layout_constraintEnd_toStartOf="@+id/ingrViewRowLay_btn_add_to_shop"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,51 +1,25 @@
-package com.rankin.adam.cookingmaster.model;
+package com.rankin.adam.cookingmaster.model
+
+import com.rankin.adam.cookingmaster.model.Ingredient
 
 /**
  * Created by Adam on 18-Jul-18.
  */
+class RecipeIngredientEntry {
+    var ingredient: Ingredient
+    var amount: Float? = null
+    var unit: String? = null
 
-public class RecipeIngredientEntry {
-
-    private Ingredient ingredient;
-    private Float amount;
-    private String unit;
-
-
-    public RecipeIngredientEntry(Ingredient ingredient) {
-        this.ingredient = ingredient;
+    constructor(ingredient: Ingredient) {
+        this.ingredient = ingredient
     }
 
-    public RecipeIngredientEntry(Ingredient ingredient, Float amount, String unit) {
-        this.ingredient = ingredient;
-        this.amount = amount;
-        this.unit = unit;
+    constructor(ingredient: Ingredient, amount: Float?, unit: String?) {
+        this.ingredient = ingredient
+        this.amount = amount
+        this.unit = unit
     }
 
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
-    public Float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Float amount) {
-        this.amount = amount;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public String getIngredientName(){
-        return this.ingredient.getName();
-    }
+    val ingredientName: String
+        get() = ingredient.name
 }

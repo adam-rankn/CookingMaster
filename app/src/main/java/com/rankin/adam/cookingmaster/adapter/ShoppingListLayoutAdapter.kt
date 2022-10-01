@@ -1,98 +1,75 @@
-package com.rankin.adam.cookingmaster.adapter;
+package com.rankin.adam.cookingmaster.adapter
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.rankin.adam.cookingmaster.model.ShoppingListEntry;
-import com.rankin.adam.cookingmaster.R;
-
-import java.util.ArrayList;
-
-import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingListController;
-
+import com.rankin.adam.cookingmaster.model.ShoppingListEntry
+import androidx.recyclerview.widget.RecyclerView
+import android.widget.TextView
+import com.rankin.adam.cookingmaster.R
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import android.annotation.SuppressLint
+import android.content.Context
+import android.view.View
+import android.widget.Button
+import com.rankin.adam.cookingmaster.activity.MainActivity
+import java.util.ArrayList
 
 /**
  * Created by Adam on 16-Jul-18.
  */
+class ShoppingListLayoutAdapter(shoppingList: ArrayList<ShoppingListEntry>?, context: Context?) :
+    RecyclerView.Adapter<ShoppingListLayoutAdapter.ViewHolder>() {
+    private val shoppingList: ArrayList<ShoppingListEntry> = ArrayList()
 
-public class ShoppingListLayoutAdapter extends RecyclerView.Adapter<ShoppingListLayoutAdapter.ViewHolder> {
-
-    private ArrayList<ShoppingListEntry> shoppingList;
-
-    public ShoppingListLayoutAdapter(ArrayList<ShoppingListEntry> shoppingList, Context context) {
-        super();
-        this.shoppingList = new ArrayList<>();
-        this.shoppingList.addAll(shoppingList);
+    init {
+        this.shoppingList.addAll(shoppingList!!)
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView ingredientName;
-        private TextView ingredientAmount;
-        private TextView ingredientUnit;
-        private Button deleteButton;
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+        val ingredientName: TextView
+        val ingredientAmount: TextView
+        val ingredientUnit: TextView
+        val deleteButton: Button
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            ingredientName = itemView.findViewById(R.id.shoppingListRowLay_txt_ingredient);
-            ingredientAmount = itemView.findViewById(R.id.shoppingListRowLay_txt_amount);
-            ingredientUnit = itemView.findViewById(R.id.shoppingListRowLay_txt_unit);
-
-            deleteButton = itemView.findViewById(R.id.shoppingListRowLay_btn_delete);
-
+        init {
+            ingredientName = itemView.findViewById(R.id.shoppingListRowLay_txt_ingredient)
+            ingredientAmount = itemView.findViewById(R.id.shoppingListRowLay_txt_amount)
+            ingredientUnit = itemView.findViewById(R.id.shoppingListRowLay_txt_unit)
+            deleteButton = itemView.findViewById(R.id.shoppingListRowLay_btn_delete)
         }
 
-        @Override
-        public void onClick(View view) {
-
-        }
+        override fun onClick(view: View) {}
     }
 
-    @NonNull
-    @Override
-    public ShoppingListLayoutAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout
-                .shopping_list_row_layout, parent, false);
-        return new ShoppingListLayoutAdapter.ViewHolder(inflatedView);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflatedView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.shopping_list_row_layout, parent, false)
+        return ViewHolder(inflatedView)
     }
 
     @SuppressLint("SetTextI18n")
-    @Override
-    public void onBindViewHolder(final ShoppingListLayoutAdapter.ViewHolder holder, final int position) {
-        final ShoppingListEntry shoppingListEntry = shoppingList.get(position);
-
-        holder.ingredientName.setText(shoppingListEntry.getName());
-        holder.ingredientAmount.setText(shoppingListEntry.getAmount().toString());
-        holder.ingredientUnit.setText(shoppingListEntry.getUnit());
-
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteItem(holder.getLayoutPosition());
-                shoppingListController.removeEntry(holder.getLayoutPosition());
-            }
-        });
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val shoppingListEntry = shoppingList[position]
+        holder.ingredientName.text = shoppingListEntry.name
+        holder.ingredientAmount.text = shoppingListEntry.amount.toString()
+        holder.ingredientUnit.text = shoppingListEntry.unit
+        holder.deleteButton.setOnClickListener {
+            deleteItem(holder.layoutPosition)
+            MainActivity.shoppingListController.removeEntry(holder.layoutPosition)
+        }
     }
 
-    @Override
-    public int getItemCount() {
-        return shoppingList.size();
+    override fun getItemCount(): Int {
+        return shoppingList.size
     }
 
-    public void clearList(){
-        shoppingList.clear();
-        notifyDataSetChanged();
+    fun clearList() {
+        shoppingList.clear()
+        notifyDataSetChanged()
     }
 
-    public void deleteItem(int position){
-        shoppingList.remove(position);
-        notifyItemRemoved(position);
+    fun deleteItem(position: Int) {
+        shoppingList.removeAt(position)
+        notifyItemRemoved(position)
     }
 }

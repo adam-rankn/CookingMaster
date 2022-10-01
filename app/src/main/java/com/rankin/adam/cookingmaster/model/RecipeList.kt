@@ -1,44 +1,32 @@
-package com.rankin.adam.cookingmaster.model;
+package com.rankin.adam.cookingmaster.model
 
-import java.util.ArrayList;
+import com.rankin.adam.cookingmaster.activity.MainActivity
+import java.util.ArrayList
 
 /**
  * Created by Adam on 14-Jul-18.
  */
+class RecipeList {
 
-public class RecipeList {
+    var recipeList: ArrayList<Recipe> = ArrayList()
 
-    private ArrayList<Recipe> recipeList;
 
-    public RecipeList() {
-        this.recipeList = new ArrayList<>();
+    fun addRecipe(recipe: Recipe) {
+        recipeList.add(recipe)
     }
 
-    public void addRecipe(Recipe recipe){
-        recipeList.add(recipe);
+    fun editRecipe(position: Int, recipe: Recipe) {
+        recipeList[position] = recipe
     }
 
-    public void editRecipe(int position, Recipe recipe){
-        recipeList.set(position, recipe);
+    fun deleteRecipe(recipe: Recipe) {
+        recipeList.remove(recipe)
     }
 
-    public void deleteRecipe(Recipe recipe){
-        recipeList.remove(recipe);
+    fun getRecipe(position: Int): Recipe {
+        return recipeList[position]
     }
 
-    public Recipe getRecipe(int position){
-        return recipeList.get(position);
-    }
-
-    public int getSize(){
-        return recipeList.size();
-    }
-
-    public ArrayList<Recipe> getRecipeList(){
-        return recipeList;
-    }
-
-    public void setRecipeList(ArrayList<Recipe> recipeList) {
-        this.recipeList = recipeList;
-    }
+    val size: Int
+        get() = recipeList.size
 }

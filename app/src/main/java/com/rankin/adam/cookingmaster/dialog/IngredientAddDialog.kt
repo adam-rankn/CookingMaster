@@ -1,141 +1,101 @@
-package com.rankin.adam.cookingmaster.dialog;
+package com.rankin.adam.cookingmaster.dialog
 
-import android.app.Dialog;
-import android.content.Context;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-
-import com.rankin.adam.cookingmaster.activity.AddRecipeActivity;
-import com.rankin.adam.cookingmaster.adapter.IngredientLayoutAdapter;
-import com.rankin.adam.cookingmaster.model.Ingredient;
-import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
-
-import java.util.ArrayList;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
-import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
+import android.app.Dialog
+import android.content.Context
+import com.rankin.adam.cookingmaster.activity.AddRecipeActivity
+import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry
+import android.os.Bundle
+import android.os.Handler
+import com.rankin.adam.cookingmaster.R
+import com.rankin.adam.cookingmaster.activity.MainActivity
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.rankin.adam.cookingmaster.adapter.IngredientLayoutAdapter
+import com.rankin.adam.cookingmaster.model.Ingredient
+import android.os.Looper
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
+import java.util.ArrayList
 
 /**
  * Created by Adam on 08-Jul-18.
  */
+class IngredientAddDialog(context: AddRecipeActivity) : Dialog(context) {
+    private val thisDialog: IngredientAddDialog = this
+    private var ingredients: ArrayList<RecipeIngredientEntry>? = null
+    private var unit: String? = null
 
-public class IngredientAddDialog extends Dialog {
-    private IngredientAddDialog thisDialog;
-    private EditText ingredientEdit;
-    private ArrayList<RecipeIngredientEntry> ingredients;
-    private EditText amountEdit;
-    private Context context;
-    private String unit;
-
-    public IngredientAddDialog(AddRecipeActivity context) {
-        super(context);
-        this.thisDialog = this;
-        this.context = context;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.add_ingredients_dialog)
+        window!!.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        ingredients = ArrayList()
+        ingredients!!.addAll(MainActivity.recipeController.ingredients)
+        initialize()
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_ingredients_dialog);
-        getWindow().setLayout(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-                android.view.ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        ingredients = new ArrayList<>();
-        ingredients.addAll(recipeController.getIngredients());
-        initialize();
-
-    }
-
-    private void initialize() {
-
-        ingredientEdit = findViewById(R.id.ingrDialog_txt_add_ingredient);
-        amountEdit = findViewById(R.id.ingrDialog_edt_amount);
-
-        final Spinner unitSpinner = findViewById(R.id.ingrDialog_spn_unit);
-        ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.recipe_units_array, android.R.layout.simple_spinner_item);
-        unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        unitSpinner.setAdapter(unitAdapter);
-        unitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                unit = parent.getItemAtPosition(pos).toString();
+    private fun initialize() {
+        val ingredientEdit = findViewById<EditText>(R.id.ingrDialog_txt_add_ingredient)
+        val amountEdit = findViewById<EditText>(R.id.ingrDialog_edt_amount)
+        val unitSpinner = findViewById<Spinner>(R.id.ingrDialog_spn_unit)
+        val unitAdapter = ArrayAdapter.createFromResource(
+            context,
+            R.array.recipe_units_array, android.R.layout.simple_spinner_item
+        )
+        unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        unitSpinner.adapter = unitAdapter
+        unitSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+                unit = parent.getItemAtPosition(pos).toString()
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        RecyclerView ingredientRecyclerView = findViewById(R.id.ingrDialog_recyclerView);
-        LinearLayoutManager ingredientLinearLayoutManager = new LinearLayoutManager(getContext());
-        ingredientRecyclerView.setLayoutManager(ingredientLinearLayoutManager);
-        final IngredientLayoutAdapter ingredientAdapter = new IngredientLayoutAdapter(ingredients, getContext());
-        ingredientRecyclerView.setAdapter(ingredientAdapter);
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+        }
+        val ingredientRecyclerView = findViewById<RecyclerView>(R.id.ingrDialog_recyclerView)
+        val ingredientLinearLayoutManager = LinearLayoutManager(context)
+        ingredientRecyclerView.layoutManager = ingredientLinearLayoutManager
+        val ingredientAdapter = IngredientLayoutAdapter(ingredients, context)
+        ingredientRecyclerView.adapter = ingredientAdapter
 
         // TODO add speech recognition for ingredients
-        Button addIngredientButton = findViewById(R.id.ingrDialog_btn_add_ingredient);
-        addIngredientButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                String ingrString = ingredientEdit.getText().toString();
-                String amountString = amountEdit.getText().toString();
-
-                Ingredient ingredient = new Ingredient(ingrString);
-                RecipeIngredientEntry entry = new RecipeIngredientEntry(ingredient);
-
-                if (amountString.trim().length() != 0){
-                    entry.setAmount((float) Integer.parseInt(amountString));
-                    entry.setUnit(unitSpinner.getSelectedItem().toString());
-                }
-
-                if (ingrString.trim().length() == 0){
-                    ingredientEdit.setError("please enter an ingredient");
-                }
-
-                else {
-                    ingredients.add(entry);
-                    ingredientAdapter.addIngredient(entry);
-
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        public void run() {
-                            ingredientAdapter.notifyDataSetChanged();
-                        }
-                    });
-
-                    recipeController.addIngredient(entry);
-                    ingredientEdit.setText("");
-                    amountEdit.setText("");
-
-                    //close the keyboard
-                    InputMethodManager imm = (InputMethodManager) context.getSystemService(INPUT_METHOD_SERVICE);
-                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-                }
-
+        val addIngredientButton = findViewById<Button>(R.id.ingrDialog_btn_add_ingredient)
+        addIngredientButton.setOnClickListener {
+            val ingrString = ingredientEdit.text.toString()
+            val amountString = amountEdit.text.toString()
+            val ingredient = Ingredient(ingrString)
+            val entry = RecipeIngredientEntry(ingredient)
+            if (amountString.trim { it <= ' ' }.isNotEmpty()) {
+                entry.amount = amountString.toInt().toFloat()
+                entry.unit = unitSpinner.selectedItem.toString()
             }
-        });
+            if (ingrString.trim { it <= ' ' }.isEmpty()) {
+                ingredientEdit.error = "please enter an ingredient"
+            } else {
+                ingredients!!.add(entry)
+                ingredientAdapter.addIngredient(entry)
+                //TODO specific change event
+                Handler(Looper.getMainLooper()).post(Runnable { ingredientAdapter.notifyDataSetChanged() })
+                MainActivity.recipeController.addIngredient(entry)
+                ingredientEdit.setText("")
+                amountEdit.setText("")
 
-        Button saveButton = findViewById(R.id.ingrDialog_btn_save);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recipeController.setIngredients(ingredients);
-                thisDialog.dismiss();
+                //close the keyboard
+                val imm =
+                    context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
             }
-        });
+        }
+        val saveButton = findViewById<Button>(R.id.ingrDialog_btn_save)
+        saveButton.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View) {
+                MainActivity.recipeController.ingredients = ingredients
+                thisDialog.dismiss()
+            }
+        })
     }
-
 }
