@@ -1,6 +1,7 @@
 package com.rankin.adam.cookingmaster.activity;
 
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -39,7 +40,7 @@ import static org.hamcrest.Matchers.allOf;
 public class AddRecipeShownInRecipeBookTest {
 
     @Rule
-    public ActivityScenarioRule<MainActivity> mActivityTestRule = new ActivityScenarioRule<MainActivity>(MainActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
 
     @Test
     public void addRecipeShownInRecipeBookTest() {

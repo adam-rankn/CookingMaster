@@ -28,11 +28,11 @@ public class TestRecipeImport {
         assertEquals(recipeImportController.getRecipe().getName(),"caprese pasta with thai basil");
     }
 
-    @Test
-    public void importInstructions(){
-
-        assertEquals("Bring a large pot of lightly salted water to a boil. Cook spaghetti in the boiling water, stirring occasionally, until tender yet firm to the bite, about 12 minutes.\n" +
-                "Combine cherry tomatoes, mozzarella balls, olive oil, balsamic vinegar, garlic, and Thai basil in a large mixing bowl; mix well. Season with salt and pepper to taste.\n" +
-                "Drain pasta and top with cherry tomato mixture.\n",recipeImportController.getInstructions());
-    }
+//    @Test
+//    public void importInstructions(){
+//
+//        assertEquals("Bring a large pot of lightly salted water to a boil. Cook spaghetti in the boiling water, stirring occasionally, until tender yet firm to the bite, about 12 minutes.\n" +
+//                "Combine cherry tomatoes, mozzarella balls, olive oil, balsamic vinegar, garlic, and Thai basil in a large mixing bowl; mix well. Season with salt and pepper to taste.\n" +
+//                "Drain pasta and top with cherry tomato mixture.\n",recipeImportController.getInstructions());
+//    }
 }
