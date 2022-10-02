@@ -25,7 +25,7 @@ class SearchRecipesDialog(private val context: RecipeBookActivity) : Dialog(
         thisDialog = this
     }
 
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_search_recipes)
         window!!.setLayout(
