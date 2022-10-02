@@ -1,107 +1,86 @@
-package com.rankin.adam.cookingmaster.adapter;
+package com.rankin.adam.cookingmaster.adapter
 
-import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.rankin.adam.cookingmaster.dialog.AddIngredientToShoppingListDialog;
-import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
-import com.rankin.adam.cookingmaster.model.ShoppingListEntry;
-
-import java.util.ArrayList;
-
-import static com.rankin.adam.cookingmaster.activity.MainActivity.shoppingListController;
+import android.content.Context
+import android.os.Handler
+import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry
+import androidx.recyclerview.widget.RecyclerView
+import android.widget.TextView
+import com.rankin.adam.cookingmaster.R
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import com.rankin.adam.cookingmaster.model.ShoppingListEntry
+import com.rankin.adam.cookingmaster.activity.MainActivity
+import com.rankin.adam.cookingmaster.dialog.AddIngredientToShoppingListDialog
+import android.os.Looper
+import android.view.View
+import android.widget.Button
+import java.util.ArrayList
 
 /**
  * Created by Adam on 15-Jul-18.
  */
+class IngredientViewLayoutAdapter(
+    ingredientList: ArrayList<RecipeIngredientEntry>?,
+    context: Context
+) : RecyclerView.Adapter<IngredientViewLayoutAdapter.ViewHolder>() {
+    private val ingredientList: ArrayList<RecipeIngredientEntry> = ArrayList()
+    private val viewRecipeContext: Context
+    private var scaleFactor = 1
 
-public class IngredientViewLayoutAdapter extends RecyclerView.Adapter<IngredientViewLayoutAdapter.ViewHolder> {
-
-    private ArrayList<RecipeIngredientEntry> ingredientList;
-    private Context viewRecipeContext;
-    private Integer scaleFactor = 1;
-
-    public IngredientViewLayoutAdapter(ArrayList<RecipeIngredientEntry> ingredientList, Context context) {
-        this.ingredientList = new ArrayList<>();
-        this.ingredientList.addAll(ingredientList);
-        this.viewRecipeContext = context;
+    init {
+        this.ingredientList.addAll(ingredientList!!)
+        viewRecipeContext = context
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView ingredientName;
-        private Button addToShoppingListButton;
-        private TextView ingredientAmount;
-        private TextView ingredientUnit;
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+        val ingredientName: TextView
+        val addToShoppingListButton: Button
+        val ingredientAmount: TextView
+        val ingredientUnit: TextView
 
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            itemView.setOnClickListener(this);
-            addToShoppingListButton = itemView.findViewById(R.id.ingrViewRowLay_btn_add_to_shop);
-            ingredientName = itemView.findViewById(R.id.ingrViewRowLay_ingredient_name);
-            ingredientAmount = itemView.findViewById(R.id.ingrViewRowLay_txt_amount);
-            ingredientUnit = itemView.findViewById(R.id.ingrViewRowLay_txt_unit);
-        }
-        @Override
-        public void onClick(View view) {
-        }
-    }
-
-    @NonNull
-    @Override
-    public IngredientViewLayoutAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout
-                .ingredient_view_row_layout, parent, false);
-        return new IngredientViewLayoutAdapter.ViewHolder(inflatedView);
-    }
-
-    @Override
-    public void onBindViewHolder(IngredientViewLayoutAdapter.ViewHolder holder, final int position) {
-        final RecipeIngredientEntry recipeIngredientEntry = ingredientList.get(position);
-        String ingredientName = recipeIngredientEntry.getIngredientName();
-        holder.ingredientName.setText(ingredientName);
-
-        if (recipeIngredientEntry.getAmount() != null){
-            Float amount = recipeIngredientEntry.getAmount() * scaleFactor;
-            String strAmount = amount.toString();
-            String unit = recipeIngredientEntry.getUnit();
-            holder.ingredientAmount.setText(strAmount);
-            holder.ingredientUnit.setText(unit);
+        init {
+            itemView.setOnClickListener(this)
+            addToShoppingListButton = itemView.findViewById(R.id.ingrViewRowLay_btn_add_to_shop)
+            ingredientName = itemView.findViewById(R.id.ingrViewRowLay_ingredient_name)
+            ingredientAmount = itemView.findViewById(R.id.ingrViewRowLay_txt_amount)
+            ingredientUnit = itemView.findViewById(R.id.ingrViewRowLay_txt_unit)
         }
 
-        holder.addToShoppingListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShoppingListEntry shoppingListEntry = new ShoppingListEntry(recipeIngredientEntry.getIngredient());
-                shoppingListController.setShoppingListEntry(shoppingListEntry);
-                AddIngredientToShoppingListDialog dialog = new AddIngredientToShoppingListDialog(viewRecipeContext);
-                dialog.show();
-            }
-        });
+        override fun onClick(view: View) {}
     }
 
-    @Override
-    public int getItemCount() {
-        return ingredientList.size();
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflatedView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.ingredient_view_row_layout, parent, false)
+        return ViewHolder(inflatedView)
     }
 
-    public void setScaleFactor(Integer factor){
-        this.scaleFactor = factor;
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            public void run() {
-                notifyDataSetChanged();
-            }
-        });
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val recipeIngredientEntry = ingredientList[position]
+        val ingredientName = recipeIngredientEntry.ingredientName
+        holder.ingredientName.text = ingredientName
+        if (recipeIngredientEntry.amount != null) {
+            val amount = recipeIngredientEntry.amount!! * scaleFactor
+            val strAmount = amount.toString()
+            val unit = recipeIngredientEntry.unit
+            holder.ingredientAmount.text = strAmount
+            holder.ingredientUnit.text = unit
+        }
+        holder.addToShoppingListButton.setOnClickListener {
+            val shoppingListEntry = ShoppingListEntry(recipeIngredientEntry.ingredient)
+            MainActivity.shoppingListController.shoppingListEntry = shoppingListEntry
+            val dialog = AddIngredientToShoppingListDialog(viewRecipeContext)
+            dialog.show()
+        }
     }
 
+    override fun getItemCount(): Int {
+        return ingredientList.size
+    }
+
+    fun setScaleFactor(factor: Int) {
+        scaleFactor = factor
+        Handler(Looper.getMainLooper()).post { notifyDataSetChanged() }
+    }
 }

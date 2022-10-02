@@ -1,33 +1,34 @@
 package com.rankin.adam.cookingmaster.fragments
 
 import android.content.Context
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.os.Bundle
-import com.rankin.adam.cookingmaster.R
-import com.rankin.adam.cookingmaster.activity.MainActivity
+import android.text.InputType
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.method.LinkMovementMethod
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter
-import android.widget.EditText
-import android.content.DialogInterface
-import android.text.InputType
-import com.rankin.adam.cookingmaster.dialog.RecipeTimerPopup
-import androidx.constraintlayout.widget.ConstraintLayout
-import android.text.SpannableString
-import com.rankin.adam.cookingmaster.fragments.CookingRecipeFragment.timerClickableSpan
-import android.text.Spannable
 import android.text.style.ClickableSpan
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.rankin.adam.cookingmaster.R
+import com.rankin.adam.cookingmaster.activity.MainActivity
+import com.rankin.adam.cookingmaster.adapter.IngredientViewLayoutAdapter
+import com.rankin.adam.cookingmaster.dialog.RecipeTimerPopup
 import com.rankin.adam.cookingmaster.model.Recipe
 import java.lang.Boolean
-import java.lang.IndexOutOfBoundsException
+import kotlin.IndexOutOfBoundsException
+import kotlin.Int
+import kotlin.String
+import kotlin.let
 
 class CookingRecipeFragment : Fragment() {
     var pinned: kotlin.Boolean = Boolean.FALSE
@@ -73,9 +74,11 @@ class CookingRecipeFragment : Fragment() {
         val ingredientsRecyclerView = view.findViewById<RecyclerView>(R.id.cookRecipeFrag_recycler_ingredients)
         val ingredientViewLinearLayoutManager = LinearLayoutManager(context)
         ingredientsRecyclerView.layoutManager = ingredientViewLinearLayoutManager
-        val ingredientViewAdapter = IngredientViewLayoutAdapter(
-            recipe!!.ingredientList, context
-        )
+        val ingredientViewAdapter = context?.let {
+            IngredientViewLayoutAdapter(
+                recipe!!.ingredientList, it
+            )
+        }
         ingredientsRecyclerView.adapter = ingredientViewAdapter
         showInstructionsButton.setOnClickListener {
             instructionsTextView.visibility = View.VISIBLE
@@ -115,8 +118,7 @@ class CookingRecipeFragment : Fragment() {
 
             // Set up buttons
             builder.setPositiveButton(R.string.OK) { dialog, which ->
-                val time: Int
-                time = if (timerEdit.text.toString().trim { it <= ' ' }.isEmpty()) {
+                val time: Int = if (timerEdit.text.toString().trim { it <= ' ' }.isEmpty()) {
                     300
                 } else {
                     val timeString = timerEdit.text.toString()
@@ -157,7 +159,7 @@ class CookingRecipeFragment : Fragment() {
                     factorEdit.error = getText(R.string.scaleRecipeFactor)
                 }
                 val scaleFactor = factorEdit.text.toString().toInt()
-                ingredientViewAdapter.setScaleFactor(scaleFactor)
+                ingredientViewAdapter?.setScaleFactor(scaleFactor)
             }
             builder.setNegativeButton(R.string.Cancel) { dialog, which -> dialog.cancel() }
             builder.show()

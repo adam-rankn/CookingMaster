@@ -79,7 +79,7 @@ class IngredientAddDialog(context: AddRecipeActivity) : Dialog(context) {
                 ingredients!!.add(entry)
                 ingredientAdapter.addIngredient(entry)
                 //TODO specific change event
-                Handler(Looper.getMainLooper()).post(Runnable { ingredientAdapter.notifyDataSetChanged() })
+                Handler(Looper.getMainLooper()).post({ ingredientAdapter.notifyDataSetChanged() })
                 MainActivity.recipeController.addIngredient(entry)
                 ingredientEdit.setText("")
                 amountEdit.setText("")

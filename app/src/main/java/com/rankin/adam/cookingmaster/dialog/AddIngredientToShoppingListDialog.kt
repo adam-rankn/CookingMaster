@@ -19,8 +19,6 @@ class AddIngredientToShoppingListDialog(private val viewRecipeContext: Context) 
     viewRecipeContext
 ), AdapterView.OnItemSelectedListener {
     private var unit: String = "lbs"
-    private var ingredient: Ingredient? = null
-    private var amount: Int? = null
     private val saveLoadController: SaveLoadController = SaveLoadController(viewRecipeContext)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +45,7 @@ class AddIngredientToShoppingListDialog(private val viewRecipeContext: Context) 
             if (amountEditText.text.toString().trim { it <= ' ' }.isEmpty()) {
                 amountEditText.error = "please enter a quantity"
             } else {
-                val amountString = amountEditText.getText().toString()
+                val amountString = amountEditText.text.toString()
                 val ingredient = MainActivity.shoppingListController.currentIngredient
                 val amount = amountString.toInt()
                 val shoppingListEntry = ShoppingListEntry(ingredient, amount, unit)

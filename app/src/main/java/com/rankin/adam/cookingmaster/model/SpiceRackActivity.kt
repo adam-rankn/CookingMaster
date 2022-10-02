@@ -1,10 +1,7 @@
 package com.rankin.adam.cookingmaster.model
 
-import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry
-import com.rankin.adam.cookingmaster.model.Ingredient
-import com.rankin.adam.cookingmaster.model.ShoppingListEntry
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.rankin.adam.cookingmaster.databinding.ActivitySpiceRackBinding
 
 class SpiceRackActivity : AppCompatActivity() {

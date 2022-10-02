@@ -42,8 +42,8 @@ class SearchRecipesDialog(private val context: RecipeBookActivity) : Dialog(
 
         // get list of allergens
         allergensText.setOnClickListener {
-            val count = allergenList!!.size
-            val dialogList = allergenList!!.toTypedArray<CharSequence>()
+            val count = allergenList.size
+            val dialogList = allergenList.toTypedArray<CharSequence>()
             val builderDialog = AlertDialog.Builder(
                 context
             )
@@ -86,7 +86,7 @@ class SearchRecipesDialog(private val context: RecipeBookActivity) : Dialog(
         }
         val searchButton = findViewById<Button>(R.id.searchRecipesDialog_btn_search)
         searchButton.setOnClickListener {
-            val ingredients = ArrayList<Ingredient>()
+            val ingredients = ArrayList<Ingredient?>()
             val allergens = ArrayList(
                 listOf(
                     *allergensText.text.toString().split(", ").toTypedArray()

@@ -1,44 +1,21 @@
-package com.rankin.adam.cookingmaster.dialog;
+package com.rankin.adam.cookingmaster.dialog
 
+import android.app.Dialog
+import android.content.Context
+import android.widget.AdapterView
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import com.rankin.adam.cookingmaster.R
 
-import android.app.Dialog;
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-
-import androidx.annotation.NonNull;
-
-import com.rankin.adam.cookingmaster.R;
-
-public class AddRecipeFromURLDialogue extends Dialog implements AdapterView.OnItemSelectedListener {
-
-    public AddRecipeFromURLDialogue(@NonNull Context context) {
-        super(context);
-
-    }
-    protected void OnCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Button saveButton = findViewById(R.id.btn_add_from_url);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+class AddRecipeFromURLDialogue(context: Context) : Dialog(context),
+    AdapterView.OnItemSelectedListener {
+    protected fun OnCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val saveButton = findViewById<Button>(R.id.btn_add_from_url)
+        saveButton.setOnClickListener { }
     }
 
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
+    override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {}
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 }

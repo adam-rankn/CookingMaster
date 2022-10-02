@@ -1,195 +1,127 @@
-package com.rankin.adam.cookingmaster.activity;
+package com.rankin.adam.cookingmaster.activity
 
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.view.View
+import android.widget.*
+import android.widget.RatingBar.OnRatingBarChangeListener
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import com.rankin.adam.cookingmaster.R
+import com.rankin.adam.cookingmaster.controller.SaveLoadController
+import com.rankin.adam.cookingmaster.dialog.IngredientViewDialog
+import java.lang.Boolean
+import kotlin.String
 
-import com.rankin.adam.cookingmaster.dialog.IngredientViewDialog;
-import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.controller.SaveLoadController;
-
-import java.util.ArrayList;
-
-import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
-
-public class ViewRecipeActivity extends AppCompatActivity {
-
-    private final int EDIT_RECIPE_FLAG = 1;
-    private final int EDIT_RECIPE = 2 ;
-
+class ViewRecipeActivity : AppCompatActivity() {
+    private val EDIT_RECIPE_FLAG = 1
+    private val EDIT_RECIPE = 2
     @SuppressLint("SetTextI18n")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_recipe);
-
-        RatingBar rating = findViewById(R.id.viewRecipeAct_rating_bar);
-        rating.setRating(recipeController.getRating());
-        final TextView nameText = findViewById(R.id.viewRecipeAct_txt_name);
-        TextView timeText = findViewById(R.id.viewRecipeAct_txt_time);
-        TextView instructionsText = findViewById(R.id.viewRecipeAct_edt_instructions);
-        final ImageView recipeImage = findViewById(R.id.viewRecipeAct_photo);
-        final ImageView expandedRecipeImage = findViewById(R.id.viewRecipeAct_expanded_photo);
-
-        String name = recipeController.getName();
-        Integer time = recipeController.getTime();
-        String instructions = recipeController.getInstructions();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_view_recipe)
+        val rating = findViewById<RatingBar>(R.id.viewRecipeAct_rating_bar)
+        rating.rating = MainActivity.recipeController.rating
+        val nameText = findViewById<TextView>(R.id.viewRecipeAct_txt_name)
+        val timeText = findViewById<TextView>(R.id.viewRecipeAct_txt_time)
+        val instructionsText = findViewById<TextView>(R.id.viewRecipeAct_edt_instructions)
+        val recipeImage = findViewById<ImageView>(R.id.viewRecipeAct_photo)
+        val expandedRecipeImage = findViewById<ImageView>(R.id.viewRecipeAct_expanded_photo)
+        val name = MainActivity.recipeController.name
+        val time = MainActivity.recipeController.time
+        val instructions = MainActivity.recipeController.instructions
 
         // get image uri String from file, convert to URI
-        String recipeUriString = recipeController.getImageUri();
-        Uri uri = Uri.parse(recipeUriString);
-
-        nameText.setText(name);
-        timeText.setText(time.toString());
-        instructionsText.setText(instructions);
-        recipeImage.setImageURI(uri);
-
-        rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                recipeController.setRating(v);
+        val recipeUriString = MainActivity.recipeController.imageUri
+        val uri = Uri.parse(recipeUriString)
+        nameText.text = name
+        timeText.text = time.toString()
+        instructionsText.text = instructions
+        recipeImage.setImageURI(uri)
+        rating.onRatingBarChangeListener = OnRatingBarChangeListener { ratingBar, v, b ->
+            MainActivity.recipeController.rating = v
+        }
+        val viewIngredientsButton = findViewById<Button>(R.id.viewRecipeAct_btn_view_ingredients)
+        viewIngredientsButton.setOnClickListener {
+            val ingredientViewDialog = IngredientViewDialog(this@ViewRecipeActivity)
+            ingredientViewDialog.show()
+        }
+        val cookButton = findViewById<Button>(R.id.viewRecipeAct_btn_cook)
+        cookButton.setOnClickListener {
+            val cookIntent = Intent(this@ViewRecipeActivity, CookingActivity::class.java)
+            startActivity(cookIntent)
+        }
+        val viewAllergensButton = findViewById<Button>(R.id.viewRecipeAct_btn_view_allergens)
+        viewAllergensButton.setOnClickListener {
+            val allergenList = MainActivity.recipeController.allergens
+            val builderDialog = AlertDialog.Builder(this@ViewRecipeActivity)
+            val arrayAdapter =
+                ArrayAdapter<String>(this@ViewRecipeActivity, android.R.layout.select_dialog_item)
+            arrayAdapter.addAll(allergenList)
+            builderDialog.setAdapter(arrayAdapter) { dialogInterface, i -> }
+            builderDialog.setPositiveButton("OK") { dialog, which -> }
+            val alert = builderDialog.create()
+            alert.show()
+        }
+        val editRecipeButton = findViewById<Button>(R.id.viewRecipeAct_btn_edit)
+        editRecipeButton.setOnClickListener {
+            val editRecipeIntent = Intent(this@ViewRecipeActivity, AddRecipeActivity::class.java)
+            //Open addRecipeActivity in edit mode
+            editRecipeIntent.putExtra("Flag", EDIT_RECIPE_FLAG)
+            startActivityForResult(editRecipeIntent, EDIT_RECIPE)
+        }
+        val deleteRecipeButton = findViewById<Button>(R.id.viewRecipeAct_btn_delete)
+        deleteRecipeButton.setOnClickListener {
+            val builder =
+                AlertDialog.Builder(this@ViewRecipeActivity, R.style.Theme_AppCompat_Dialog_Alert)
+            builder.setTitle(R.string.app_name)
+            builder.setMessage("Do you want to delete '" + nameText.text.toString() + "'?")
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setPositiveButton("Yes") { dialog, id ->
+                MainActivity.recipeController.deleteCurrentRecipe()
+                MainActivity.recipeController.deletedFlag = Boolean.TRUE
+                dialog.dismiss()
+                finish()
             }
-        });
-
-        final Button viewIngredientsButton = findViewById(R.id.viewRecipeAct_btn_view_ingredients);
-        viewIngredientsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IngredientViewDialog ingredientViewDialog = new IngredientViewDialog(ViewRecipeActivity.this);
-                ingredientViewDialog.show();
-            }
-        });
-
-        Button cookButton = findViewById(R.id.viewRecipeAct_btn_cook);
-        cookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent cookIntent = new Intent(ViewRecipeActivity.this,CookingActivity.class);
-                startActivity(cookIntent);
-            }
-        });
-
-
-        final Button viewAllergensButton = findViewById(R.id.viewRecipeAct_btn_view_allergens);
-        viewAllergensButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<String> allergenList = recipeController.getAllergens();
-
-                final AlertDialog.Builder builderDialog = new AlertDialog.Builder(ViewRecipeActivity.this);
-                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(ViewRecipeActivity.this, android.R.layout.select_dialog_item);
-                arrayAdapter.addAll(allergenList);
-
-                builderDialog.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-                builderDialog.setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                AlertDialog alert = builderDialog.create();
-                alert.show();
-
-            }
-        });
-
-        Button editRecipeButton = findViewById(R.id.viewRecipeAct_btn_edit);
-        editRecipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent editRecipeIntent = new Intent(ViewRecipeActivity.this, AddRecipeActivity.class);
-                //Open addRecipeActivity in edit mode
-                editRecipeIntent.putExtra("Flag",EDIT_RECIPE_FLAG);
-                startActivityForResult(editRecipeIntent,EDIT_RECIPE);
-            }
-        });
-
-        Button deleteRecipeButton = findViewById(R.id.viewRecipeAct_btn_delete);
-        deleteRecipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ViewRecipeActivity.this,R.style.Theme_AppCompat_Dialog_Alert);
-                builder.setTitle(R.string.app_name);
-                builder.setMessage("Do you want to delete '" + nameText.getText().toString()+"'?");
-                builder.setIcon(android.R.drawable.ic_dialog_alert);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        recipeController.deleteCurrentRecipe();
-                        recipeController.setDeletedFlag(Boolean.TRUE);
-                        dialog.dismiss();
-                        finish();
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
-        });
+            builder.setNegativeButton("No") { dialog, id -> dialog.dismiss() }
+            val alert = builder.create()
+            alert.show()
+        }
 
 
         //TODO change default img from background to pic to prevent seeing background image in non square pics
         //enlarge button on image click
-        recipeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                expandedRecipeImage.setVisibility(View.VISIBLE);
-                recipeImage.setVisibility(View.INVISIBLE);
-                expandedRecipeImage.bringToFront();
-                ((View)expandedRecipeImage.getParent()).invalidate();
-                ((View)expandedRecipeImage.getParent()).requestLayout();
-
-                viewIngredientsButton.setVisibility(View.INVISIBLE);
-                viewAllergensButton.setVisibility(View.INVISIBLE);
-
-            }
-        });
+        recipeImage.setOnClickListener {
+            expandedRecipeImage.visibility = View.VISIBLE
+            recipeImage.visibility = View.INVISIBLE
+            expandedRecipeImage.bringToFront()
+            (expandedRecipeImage.parent as View).invalidate()
+            (expandedRecipeImage.parent as View).requestLayout()
+            viewIngredientsButton.visibility = View.INVISIBLE
+            viewAllergensButton.visibility = View.INVISIBLE
+        }
 
         //shrink image on enlarged image click
-        expandedRecipeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                expandedRecipeImage.setVisibility(View.INVISIBLE);
-                recipeImage.setVisibility(View.VISIBLE);
-
-                viewIngredientsButton.setVisibility(View.VISIBLE);
-                viewAllergensButton.setVisibility(View.VISIBLE);
-            }
-        });
+        expandedRecipeImage.setOnClickListener {
+            expandedRecipeImage.visibility = View.INVISIBLE
+            recipeImage.visibility = View.VISIBLE
+            viewIngredientsButton.visibility = View.VISIBLE
+            viewAllergensButton.visibility = View.VISIBLE
+        }
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        invalidateOptionsMenu();
+    override fun onRestart() {
+        super.onRestart()
+        invalidateOptionsMenu()
         //ensure that the recipes are displayed correctly
-        recreate();
+        recreate()
     }
 
-    @Override
-    protected void onPause(){
-        super.onPause();
-        SaveLoadController saveLoadController = new SaveLoadController(getApplicationContext());
-        saveLoadController.saveRecipesToFile();
+    override fun onPause() {
+        super.onPause()
+        val saveLoadController = SaveLoadController(applicationContext)
+        saveLoadController.saveRecipesToFile()
     }
-
-
 }

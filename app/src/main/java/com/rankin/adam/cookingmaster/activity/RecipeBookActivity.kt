@@ -1,189 +1,139 @@
-package com.rankin.adam.cookingmaster.activity;
+package com.rankin.adam.cookingmaster.activity
 
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
-import androidx.core.app.NavUtils;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity
+import com.rankin.adam.cookingmaster.adapter.RecipeBookLayoutAdapter
+import com.rankin.adam.cookingmaster.controller.SaveLoadController
+import android.os.Bundle
+import com.rankin.adam.cookingmaster.R
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import android.content.Intent
+import android.os.Handler
+import com.rankin.adam.cookingmaster.dialog.SearchRecipesDialog
+import androidx.core.app.NavUtils
+import com.rankin.adam.cookingmaster.model.Ingredient
+import android.os.Looper
+import android.view.MenuItem
+import android.widget.Button
+import com.rankin.adam.cookingmaster.model.Recipe
+import java.util.*
 
-import com.rankin.adam.cookingmaster.dialog.SearchRecipesDialog;
-import com.rankin.adam.cookingmaster.adapter.RecipeBookLayoutAdapter;
-import com.rankin.adam.cookingmaster.controller.SaveLoadController;
-import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.model.Ingredient;
-import com.rankin.adam.cookingmaster.model.Recipe;
-
-import java.util.ArrayList;
-import java.util.Collections;
-
-import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
-import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeList;
-
-public class RecipeBookActivity extends AppCompatActivity {
-
-    public RecipeBookLayoutAdapter recipeBookAdapter;
-
-    private int ADD_RECIPE_REQUEST = 0;
-
-    private ArrayList<Recipe> adapterList = new ArrayList<>();
-
-    private SaveLoadController saveLoadController = new SaveLoadController(RecipeBookActivity.this);
-
-    private Boolean isFiltered = Boolean.FALSE;
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_book);
-
-        adapterList.addAll(recipeList.getRecipeList());
-
-        RecyclerView recipeBookRecyclerView = findViewById(R.id.recycler_recipe_book);
-        LinearLayoutManager recipeBookLinearLayoutManager = new LinearLayoutManager(this);
-        recipeBookRecyclerView.setLayoutManager(recipeBookLinearLayoutManager);
-        recipeBookAdapter = new RecipeBookLayoutAdapter(adapterList, this);
-        recipeBookRecyclerView.setAdapter(recipeBookAdapter);
-
-        Button returnToMainButton = findViewById(R.id.btn_main);
-        returnToMainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        Button addRecipeButton = findViewById(R.id.btn_add_recipe);
-        addRecipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent addRecipeIntent = new Intent(RecipeBookActivity.this, AddRecipeActivity.class);
-                startActivityForResult(addRecipeIntent,ADD_RECIPE_REQUEST);
-            }
-        });
-
-        Button searchRecipesButton = findViewById(R.id.recipeBookAct_btn_search);
-        searchRecipesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SearchRecipesDialog searchDialog = new SearchRecipesDialog(RecipeBookActivity.this);
-                searchDialog.show();
-            }
-        });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ADD_RECIPE_REQUEST) {
-            recreate();
+class RecipeBookActivity : AppCompatActivity() {
+    var recipeBookAdapter: RecipeBookLayoutAdapter? = null
+    private val addRecipeRequest = 0
+    private val adapterList = ArrayList<Recipe>()
+    private val saveLoadController = SaveLoadController(this@RecipeBookActivity)
+    private var isFiltered = java.lang.Boolean.FALSE
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_recipe_book)
+        adapterList.addAll(MainActivity.recipeList.recipeList)
+        val recipeBookRecyclerView = findViewById<RecyclerView>(R.id.recycler_recipe_book)
+        val recipeBookLinearLayoutManager = LinearLayoutManager(this)
+        recipeBookRecyclerView.layoutManager = recipeBookLinearLayoutManager
+        recipeBookAdapter = RecipeBookLayoutAdapter(adapterList, this)
+        recipeBookRecyclerView.adapter = recipeBookAdapter
+        val returnToMainButton = findViewById<Button>(R.id.btn_main)
+        returnToMainButton.setOnClickListener { finish() }
+        val addRecipeButton = findViewById<Button>(R.id.btn_add_recipe)
+        addRecipeButton.setOnClickListener {
+            val addRecipeIntent = Intent(this@RecipeBookActivity, AddRecipeActivity::class.java)
+            startActivityForResult(addRecipeIntent, addRecipeRequest)
+        }
+        val searchRecipesButton = findViewById<Button>(R.id.recipeBookAct_btn_search)
+        searchRecipesButton.setOnClickListener {
+            val searchDialog = SearchRecipesDialog(this@RecipeBookActivity)
+            searchDialog.show()
         }
     }
 
-    @Override
-    public void onPause(){
-        super.onPause();
-        saveLoadController.saveRecipesToFile();
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        invalidateOptionsMenu();
-        if (recipeController.getDeletedFlag()){
-            recreate();
-            recipeController.setDeletedFlag(Boolean.FALSE);
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == addRecipeRequest) {
+            recreate()
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public override fun onPause() {
+        super.onPause()
+        saveLoadController.saveRecipesToFile()
     }
 
-    public void filterRecipeList(Integer maxTime, ArrayList<Ingredient> ingredients, ArrayList<String> allergens){
-        ArrayList<Recipe> recipes = recipeController.getRecipesList();
-        ArrayList<Recipe> filteredList = new ArrayList<>();
-
-        Boolean filterAllergens = Boolean.FALSE;
-        Boolean filterIngredients = Boolean.FALSE;
-        Boolean filterTime = Boolean.FALSE;
-
-        Boolean addRecipe;
-
-        if (!allergens.isEmpty()){
-            filterAllergens = Boolean.TRUE;
+    override fun onRestart() {
+        super.onRestart()
+        invalidateOptionsMenu()
+        if (MainActivity.recipeController.deletedFlag) {
+            recreate()
+            MainActivity.recipeController.deletedFlag = java.lang.Boolean.FALSE
         }
-        if (!ingredients.isEmpty()){
-            filterIngredients = Boolean.TRUE;
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this)
+            return true
         }
-        if (maxTime > 0){
-            filterTime = Boolean.TRUE;
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun filterRecipeList(
+        maxTime: Int,
+        ingredients: ArrayList<Ingredient?>,
+        allergens: ArrayList<String?>
+    ) {
+        val recipes = MainActivity.recipeController.recipesList
+        val filteredList = ArrayList<Recipe>()
+        var filterAllergens = java.lang.Boolean.FALSE
+        var filterIngredients = java.lang.Boolean.FALSE
+        var filterTime = java.lang.Boolean.FALSE
+        var addRecipe: Boolean
+        if (allergens.isNotEmpty()) {
+            filterAllergens = java.lang.Boolean.TRUE
+        }
+        if (ingredients.isNotEmpty()) {
+            filterIngredients = java.lang.Boolean.TRUE
+        }
+        if (maxTime > 0) {
+            filterTime = java.lang.Boolean.TRUE
         }
 
         //build the filtered list
-        for (Recipe recipe : recipes) {
-            addRecipe = Boolean.TRUE;
-            if (filterTime){
-                if (recipe.getTime() > maxTime){
-                    addRecipe = Boolean.FALSE;
+        for (recipe in recipes) {
+            addRecipe = java.lang.Boolean.TRUE
+            if (filterTime) {
+                if (recipe.time!! > maxTime) {
+                    addRecipe = java.lang.Boolean.FALSE
                 }
             }
-            if (addRecipe && filterAllergens){
-                if (!Collections.disjoint(allergens,recipe.getAllergens())){
-                    addRecipe = Boolean.FALSE;
+            if (addRecipe && filterAllergens) {
+                if (!Collections.disjoint(allergens, recipe.allergens)) {
+                    addRecipe = java.lang.Boolean.FALSE
                 }
             }
-            if (addRecipe && filterIngredients){
-                for (Ingredient ingr : ingredients){
-                    if (!recipe.containsIngredient(ingr)){
-                        addRecipe = Boolean.FALSE;
+            if (addRecipe && filterIngredients) {
+                for (ingr in ingredients) {
+                    if (!recipe.containsIngredient(ingr!!)) {
+                        addRecipe = java.lang.Boolean.FALSE
                     }
                 }
             }
-
-            if (addRecipe){
-                filteredList.add(recipe);
+            if (addRecipe) {
+                filteredList.add(recipe)
             }
         }
-        isFiltered = Boolean.TRUE;
-
-        recipeBookAdapter.setRecipeList(filteredList);
+        isFiltered = java.lang.Boolean.TRUE
+        recipeBookAdapter!!.setRecipeList(filteredList)
         //refresh adapter
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            public void run() {
-                recipeBookAdapter.notifyDataSetChanged();
-            }
-        });
+        Handler(Looper.getMainLooper()).post { recipeBookAdapter!!.notifyDataSetChanged() }
     }
 
-    @Override
-    public void onBackPressed() {
-
-        if (isFiltered){
-            recipeBookAdapter.setRecipeList(adapterList);
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                public void run() {
-                    recipeBookAdapter.notifyDataSetChanged();
-                }
-            });
-            isFiltered = Boolean.FALSE;
+    override fun onBackPressed() {
+        if (isFiltered) {
+            recipeBookAdapter!!.setRecipeList(adapterList)
+            Handler(Looper.getMainLooper()).post { recipeBookAdapter!!.notifyDataSetChanged() }
+            isFiltered = java.lang.Boolean.FALSE
+        } else {
+            super.onBackPressed()
         }
-
-        else{
-            super.onBackPressed();
-        }
-
     }
 }

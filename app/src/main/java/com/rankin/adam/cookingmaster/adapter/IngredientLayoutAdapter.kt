@@ -1,103 +1,80 @@
-package com.rankin.adam.cookingmaster.adapter;
+package com.rankin.adam.cookingmaster.adapter
 
-import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.rankin.adam.cookingmaster.R;
-import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry;
-
-import java.util.ArrayList;
-
-import static com.rankin.adam.cookingmaster.activity.MainActivity.recipeController;
+import android.content.Context
+import com.rankin.adam.cookingmaster.model.RecipeIngredientEntry
+import androidx.recyclerview.widget.RecyclerView
+import android.widget.TextView
+import com.rankin.adam.cookingmaster.R
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
+import com.rankin.adam.cookingmaster.activity.MainActivity
+import java.util.ArrayList
 
 /**
  * Created by Adam on 10-Jul-18.
  */
+class IngredientLayoutAdapter(
+    ingredientList: ArrayList<RecipeIngredientEntry>?,
+    context: Context?
+) : RecyclerView.Adapter<IngredientLayoutAdapter.ViewHolder>() {
+    private val ingredientList: ArrayList<RecipeIngredientEntry> = ArrayList()
 
-public class IngredientLayoutAdapter extends RecyclerView.Adapter<IngredientLayoutAdapter.ViewHolder> {
-
-    private ArrayList<RecipeIngredientEntry> ingredientList;
-
-    public IngredientLayoutAdapter(ArrayList<RecipeIngredientEntry> ingredientList, Context context) {
-        this.ingredientList = new ArrayList<>();
-        this.ingredientList.addAll(ingredientList);
+    init {
+        this.ingredientList.addAll(ingredientList!!)
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView ingredientName;
-        private Button deleteButton;
-        private TextView amount;
-        private TextView unit;
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
+        val ingredientName: TextView
+        val deleteButton: Button
+        val amount: TextView
+        val unit: TextView
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            itemView.setOnClickListener(this);
-            ingredientName = itemView.findViewById(R.id.ingrRow_name);
-            amount = itemView.findViewById(R.id.ingrRow_txt_amount);
-            unit = itemView.findViewById(R.id.ingrRow_txt_unit);
-
-            deleteButton = itemView.findViewById(R.id.ingrDialog_btn_delete_ingredient);
+        init {
+            itemView.setOnClickListener(this)
+            ingredientName = itemView.findViewById(R.id.ingrRow_name)
+            amount = itemView.findViewById(R.id.ingrRow_txt_amount)
+            unit = itemView.findViewById(R.id.ingrRow_txt_unit)
+            deleteButton = itemView.findViewById(R.id.ingrDialog_btn_delete_ingredient)
         }
 
-        @Override
-        public void onClick(View view) {
+        override fun onClick(view: View) {}
+    }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflatedView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.ingredient_row_layout, parent, false)
+        return ViewHolder(inflatedView)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val recipeIngredientEntry = ingredientList[position]
+        val name = recipeIngredientEntry.ingredientName
+        holder.ingredientName.text = name
+        if (recipeIngredientEntry.amount != null) {
+            val amount = recipeIngredientEntry.amount.toString()
+            holder.amount.text = amount
+            val unit = recipeIngredientEntry.unit
+            holder.unit.text = unit
+        }
+        holder.deleteButton.setOnClickListener {
+            MainActivity.recipeController.removeIngredient(position)
+            removeIngredient(position)
+            notifyItemRemoved(position)
         }
     }
 
-    @NonNull
-    @Override
-    public IngredientLayoutAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout
-                .ingredient_row_layout, parent, false);
-        return new IngredientLayoutAdapter.ViewHolder(inflatedView);
+    override fun getItemCount(): Int {
+        return ingredientList.size
     }
 
-    @Override
-    public void onBindViewHolder(IngredientLayoutAdapter.ViewHolder holder, final int position) {
-        final RecipeIngredientEntry recipeIngredientEntry = ingredientList.get(position);
-        String name = recipeIngredientEntry.getIngredientName();
-        holder.ingredientName.setText(name);
-
-        if (recipeIngredientEntry.getAmount() != null) {
-            String amount = recipeIngredientEntry.getAmount().toString();
-            holder.amount.setText(amount);
-
-            String unit = recipeIngredientEntry.getUnit();
-            holder.unit.setText(unit);
-        }
-
-        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recipeController.removeIngredient(position);
-                removeIngredient(position);
-                notifyItemRemoved(position);
-            }
-        });
+    fun addIngredient(ingredient: RecipeIngredientEntry) {
+        ingredientList.add(ingredient)
     }
 
-
-    @Override
-    public int getItemCount() {
-        return ingredientList.size();
-    }
-
-    public void addIngredient(RecipeIngredientEntry ingredient){
-        ingredientList.add(ingredient);
-    }
-
-    public void removeIngredient(int position) {
-        ingredientList.remove(position);
+    fun removeIngredient(position: Int) {
+        ingredientList.removeAt(position)
     }
 }
-
-

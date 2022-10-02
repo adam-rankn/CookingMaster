@@ -1,98 +1,67 @@
-package com.rankin.adam.cookingmaster.activity;
+package com.rankin.adam.cookingmaster.activity
 
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import com.rankin.adam.cookingmaster.R
+import com.rankin.adam.cookingmaster.controller.RecipeController
+import com.rankin.adam.cookingmaster.controller.SaveLoadController
+import com.rankin.adam.cookingmaster.controller.ShoppingListController
+import com.rankin.adam.cookingmaster.model.RecipeList
+import com.rankin.adam.cookingmaster.model.ShoppingList
 
-import com.rankin.adam.cookingmaster.controller.RecipeController;
-import com.rankin.adam.cookingmaster.controller.SaveLoadController;
-import com.rankin.adam.cookingmaster.controller.ShoppingListController;
-import com.rankin.adam.cookingmaster.model.RecipeList;
-import com.rankin.adam.cookingmaster.model.ShoppingList;
-import com.rankin.adam.cookingmaster.R;
-
-public class MainActivity extends AppCompatActivity {
-
-    public static final RecipeList recipeList = new RecipeList();
-    public static final RecipeController recipeController = new RecipeController();
-
-    public static final ShoppingList shoppingList = new ShoppingList();
-    public static final ShoppingListController shoppingListController = new ShoppingListController();
-    private final SaveLoadController saveLoadController = new SaveLoadController(MainActivity.this);
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        if (recipeList.getSize() == 0) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                public void run() {
-                    saveLoadController.loadRecipesFromFile();
-                }
-            });
+class MainActivity : AppCompatActivity() {
+    private val saveLoadController = SaveLoadController(this@MainActivity)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        if (recipeList.size == 0) {
+            Handler(Looper.getMainLooper()).post { saveLoadController.loadRecipesFromFile() }
         }
-
-        if (shoppingListController.getSize() == 0) {
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                public void run() {
-                    saveLoadController.loadShoppingListFromFile();
-                }
-            });
+        if (shoppingListController.size == 0) {
+            Handler(Looper.getMainLooper()).post { saveLoadController.loadShoppingListFromFile() }
         }
-
-        Button recipesButton = findViewById(R.id.mainAct_btn_recipe_book);
-        recipesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent recipeBookIntent = new Intent(MainActivity.this, RecipeBookActivity.class);
-                startActivity(recipeBookIntent);
-            }
-        });
-
-        Button spiceButton = findViewById(R.id.mainAct_btn_spices);
-        spiceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent spiceIntent = new Intent(MainActivity.this, Activity.class);
-                //startActivity(spiceIntent);
-                //TODO this will be changed or removed
-            }
-        });
-
-        Button pantryButton = findViewById(R.id.mainAct_btn_pantry);
-        pantryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent pantryIntent = new Intent(MainActivity.this, PantryActivity.class);
-                startActivity(pantryIntent);
-                //TODO add a pantry feature
-            }
-        });
-
-        Button shoppingButton = findViewById(R.id.mainAct_btn_shopping);
-        shoppingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent shoppingIntent = new Intent(MainActivity.this, ShoppingListActivity.class);
-                startActivity(shoppingIntent);
-            }
-        });
-
-        Button optionsButton = findViewById(R.id.mainAct_btn_options);
-        optionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Intent optionsIntent = new Intent(MainActivity.this, Activity.class);
-                //startActivity(optionsIntent);
-                //TODO add options menu
-            }
-        });
+        val recipesButton = findViewById<Button>(R.id.mainAct_btn_recipe_book)
+        recipesButton.setOnClickListener {
+            val recipeBookIntent = Intent(this@MainActivity, RecipeBookActivity::class.java)
+            startActivity(recipeBookIntent)
+        }
+        val spiceButton = findViewById<Button>(R.id.mainAct_btn_spices)
+        spiceButton.setOnClickListener {
+            //Intent spiceIntent = new Intent(MainActivity.this, Activity.class);
+            //startActivity(spiceIntent);
+            //TODO this will be changed or removed
+        }
+        val pantryButton = findViewById<Button>(R.id.mainAct_btn_pantry)
+        pantryButton.setOnClickListener {
+            val pantryIntent = Intent(this@MainActivity, PantryActivity::class.java)
+            startActivity(pantryIntent)
+            //TODO add a pantry feature
+        }
+        val shoppingButton = findViewById<Button>(R.id.mainAct_btn_shopping)
+        shoppingButton.setOnClickListener {
+            val shoppingIntent = Intent(this@MainActivity, ShoppingListActivity::class.java)
+            startActivity(shoppingIntent)
+        }
+        val optionsButton = findViewById<Button>(R.id.mainAct_btn_options)
+        optionsButton.setOnClickListener {
+            //Intent optionsIntent = new Intent(MainActivity.this, Activity.class);
+            //startActivity(optionsIntent);
+            //TODO add options menu
+        }
     }
 
-
+    companion object {
+        @JvmField
+        val recipeList = RecipeList()
+        @JvmField
+        val recipeController = RecipeController()
+        @JvmField
+        val shoppingList = ShoppingList()
+        @JvmField
+        val shoppingListController = ShoppingListController()
+    }
 }

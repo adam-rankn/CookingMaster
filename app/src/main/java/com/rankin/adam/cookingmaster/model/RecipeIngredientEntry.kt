@@ -1,7 +1,5 @@
 package com.rankin.adam.cookingmaster.model
 
-import com.rankin.adam.cookingmaster.model.Ingredient
-
 /**
  * Created by Adam on 18-Jul-18.
  */

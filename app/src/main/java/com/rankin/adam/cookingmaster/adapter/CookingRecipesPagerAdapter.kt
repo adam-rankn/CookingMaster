@@ -1,64 +1,50 @@
-package com.rankin.adam.cookingmaster.adapter;
+package com.rankin.adam.cookingmaster.adapter
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import com.rankin.adam.cookingmaster.fragments.CookingRecipeFragment
+import com.rankin.adam.cookingmaster.model.Recipe
 
-import com.rankin.adam.cookingmaster.fragments.CookingRecipeFragment;
-import com.rankin.adam.cookingmaster.model.Recipe;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class CookingRecipesPagerAdapter extends FragmentStatePagerAdapter {
-
-    private final List<CookingRecipeFragment> fragmentList = new ArrayList<>();
-    private final List<Recipe> fragmentRecipeList = new ArrayList<>();
-
-
-    public CookingRecipesPagerAdapter(FragmentManager fm) {
-        super(fm);
+class CookingRecipesPagerAdapter(fm: FragmentManager?) : FragmentStatePagerAdapter(
+    fm!!
+) {
+    private val fragmentList: MutableList<CookingRecipeFragment> = ArrayList()
+    private val fragmentRecipeList: MutableList<Recipe> = ArrayList()
+    fun addFragment(fragment: CookingRecipeFragment, recipe: Recipe) {
+        fragmentList.add(fragment)
+        fragmentRecipeList.add(recipe)
     }
 
-    public void addFragment(CookingRecipeFragment fragment, Recipe recipe){
-        fragmentList.add(fragment);
-        fragmentRecipeList.add(recipe);
+    fun getFragment(position: Int): CookingRecipeFragment {
+        return fragmentList[position]
     }
 
-    public CookingRecipeFragment getFragment(int position) {
-        return fragmentList.get(position);
+    override fun getItem(position: Int): Fragment {
+        return fragmentList[position]
     }
 
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        return fragmentList.get(position);
+    override fun getCount(): Int {
+        return fragmentList.size
     }
 
-    @Override
-    public int getCount() {
-        return fragmentList.size();
+    fun getRecipe(position: Int): Recipe {
+        return fragmentRecipeList[position]
     }
 
-    public Recipe getRecipe(int position) {
-        return fragmentRecipeList.get(position);
+    fun removeItemAtPosition(position: Int) {
+        fragmentList.removeAt(position)
+        fragmentRecipeList.removeAt(position)
+        notifyDataSetChanged()
     }
 
-    public void removeItemAtPosition(int position){
-        fragmentList.remove(position);
-        fragmentRecipeList.remove(position);
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemPosition(@NonNull Object item) {
-        CookingRecipeFragment fragment = (CookingRecipeFragment)item;
-        int position = fragmentList.indexOf(fragment);
-        if (position >= 0) {
-            return position;
+    override fun getItemPosition(item: Any): Int {
+        val fragment = item as CookingRecipeFragment
+        val position = fragmentList.indexOf(fragment)
+        return if (position >= 0) {
+            position
         } else {
-            return POSITION_NONE;
+            POSITION_NONE
         }
     }
 }

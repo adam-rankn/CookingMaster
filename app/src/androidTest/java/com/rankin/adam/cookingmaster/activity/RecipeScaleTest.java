@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.rankin.adam.cookingmaster.R;
+import com.rankin.adam.cookingmaster.activity.RecipeBookActivity;
+import com.rankin.adam.cookingmaster.adapter.RecipeBookLayoutAdapter;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -27,6 +29,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -98,10 +101,11 @@ public class RecipeScaleTest {
                         isDisplayed()));
         appCompatButton6.perform(click());
 
-        ViewInteraction recyclerView = onView(
-                allOf(withId(R.id.recycler_recipe_book)));
-        recyclerView.perform(actionOnItemAtPosition(0, click()));
-//TODO find by string
+        ViewInteraction recyclerView = onView(withId(R.id.recycler_recipe_book))
+                .check(matches( withText("TEST" + randomString)));
+        recyclerView.perform(click());
+
+
 
         ViewInteraction appCompatButton7 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_cook), withText("Cook"),
@@ -136,11 +140,6 @@ public class RecipeScaleTest {
 
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.viewRecipeAct_btn_delete), withText("DELETE"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(android.R.id.content),
-                                        0),
-                                10),
                         isDisplayed()));
         appCompatButton10.perform(click());
 

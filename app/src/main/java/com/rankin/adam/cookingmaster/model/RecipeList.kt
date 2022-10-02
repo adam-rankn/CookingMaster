@@ -1,8 +1,5 @@
 package com.rankin.adam.cookingmaster.model
 
-import com.rankin.adam.cookingmaster.activity.MainActivity
-import java.util.ArrayList
-
 /**
  * Created by Adam on 14-Jul-18.
  */
