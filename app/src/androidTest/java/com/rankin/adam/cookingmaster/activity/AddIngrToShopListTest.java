@@ -10,15 +10,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.filters.LargeTest;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.TextView;
 
 import com.rankin.adam.cookingmaster.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,8 +45,8 @@ public class AddIngrToShopListTest {
 
     @Test
     public void addIngrToShopListTest() {
-        Integer randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
-        String randomString = randomNum.toString();
+        int randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
+        String randomString = Integer.toString(randomNum);
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),
                         isDisplayed()));

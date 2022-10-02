@@ -1,22 +1,14 @@
 package com.rankin.adam.cookingmaster.activity;
 
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 
 import com.rankin.adam.cookingmaster.R;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,12 +32,12 @@ import static org.hamcrest.Matchers.allOf;
 public class AddRecipeShownInRecipeBookTest {
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<MainActivity>(MainActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
     public void addRecipeShownInRecipeBookTest() {
-        Integer randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
-        String randomString = randomNum.toString();
+        int randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
+        String randomString = Integer.toString(randomNum);
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),

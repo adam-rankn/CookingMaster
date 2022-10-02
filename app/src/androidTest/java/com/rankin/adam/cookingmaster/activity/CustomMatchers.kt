@@ -1,78 +1,66 @@
-package com.rankin.adam.cookingmaster.activity;
+package com.rankin.adam.cookingmaster.activity
 
-import androidx.test.espresso.matcher.BoundedMatcher;
-import androidx.test.internal.util.Checks;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-import android.widget.TextView;
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.matcher.BoundedMatcher
+import android.widget.TextView
+import androidx.test.internal.util.Checks
+import com.rankin.adam.cookingmaster.R
+import org.hamcrest.Description
+import org.hamcrest.Matcher
 
-import com.rankin.adam.cookingmaster.R;
+object CustomMatchers {
+    @JvmStatic
+    fun findInRecipeBook(subject: String): BoundedMatcher<RecyclerView.ViewHolder?, RecyclerView.ViewHolder> {
+        Checks.checkNotNull(subject)
+        return object : BoundedMatcher<RecyclerView.ViewHolder?, RecyclerView.ViewHolder>(
+            RecyclerView.ViewHolder::class.java
+        ) {
+            override fun matchesSafely(viewHolder: RecyclerView.ViewHolder): Boolean {
+                val subjectTextView =
+                    viewHolder.itemView.findViewById<TextView>(R.id.recipe_row_name)
+                return subject == subjectTextView.text.toString() && subjectTextView.visibility == View.VISIBLE
+            }
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-
-public class CustomMatchers {
-
-    public CustomMatchers() {
+            override fun describeTo(description: Description) {
+                description.appendText("item with subject: $subject")
+            }
+        }
     }
 
-    public static Matcher<RecyclerView.ViewHolder> findInRecipeBook(final String subject) {
-        Checks.checkNotNull(subject);
-        return new BoundedMatcher<RecyclerView.ViewHolder, RecyclerView.ViewHolder>(
-                RecyclerView.ViewHolder.class) {
-
-            @Override
-            protected boolean matchesSafely(RecyclerView.ViewHolder viewHolder) {
-                TextView subjectTextView = viewHolder.itemView.findViewById(R.id.recipe_row_name);
-
-                return ((subject.equals(subjectTextView.getText().toString())
-                        && (subjectTextView.getVisibility() == View.VISIBLE)));
+    @JvmStatic
+    fun findInShoppingList(subject: String): BoundedMatcher<RecyclerView.ViewHolder?, RecyclerView.ViewHolder> {
+        Checks.checkNotNull(subject)
+        return object : BoundedMatcher<RecyclerView.ViewHolder?, RecyclerView.ViewHolder>(
+            RecyclerView.ViewHolder::class.java
+        ) {
+            override fun matchesSafely(viewHolder: RecyclerView.ViewHolder): Boolean {
+                val subjectTextView =
+                    viewHolder.itemView.findViewById<TextView>(R.id.shoppingListRowLay_txt_ingredient)
+                return subject == subjectTextView.text.toString() && subjectTextView.visibility == View.VISIBLE
             }
 
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("item with subject: " + subject);
+            override fun describeTo(description: Description) {
+                description.appendText("item with subject: $subject")
             }
-        };
+        }
     }
 
-    public static Matcher<RecyclerView.ViewHolder> findInShoppingList(final String subject) {
-        Checks.checkNotNull(subject);
-        return new BoundedMatcher<RecyclerView.ViewHolder, RecyclerView.ViewHolder>(
-                RecyclerView.ViewHolder.class) {
-
-            @Override
-            protected boolean matchesSafely(RecyclerView.ViewHolder viewHolder) {
-                TextView subjectTextView = viewHolder.itemView.findViewById(R.id.shoppingListRowLay_txt_ingredient);
-
-                return ((subject.equals(subjectTextView.getText().toString())
-                        && (subjectTextView.getVisibility() == View.VISIBLE)));
+    @JvmStatic
+    fun findInCookingIngredientsList(subject: String): BoundedMatcher<RecyclerView.ViewHolder?, RecyclerView.ViewHolder> {
+        Checks.checkNotNull(subject)
+        return object : BoundedMatcher<RecyclerView.ViewHolder?, RecyclerView.ViewHolder>(
+            RecyclerView.ViewHolder::class.java
+        ) {
+            override fun matchesSafely(viewHolder: RecyclerView.ViewHolder): Boolean {
+                val subjectTextView =
+                    viewHolder.itemView.findViewById<TextView>(R.id.ingrViewRowLay_txt_amount)
+                return subject == subjectTextView.text.toString() && subjectTextView.visibility == View.VISIBLE
             }
 
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("item with subject: " + subject);
+            override fun describeTo(description: Description) {
+                description.appendText("item with subject: $subject")
             }
-        };
-    }
-
-    public static Matcher<RecyclerView.ViewHolder> findInCookingIngredientsList(final String subject) {
-        Checks.checkNotNull(subject);
-        return new BoundedMatcher<RecyclerView.ViewHolder, RecyclerView.ViewHolder>(
-                RecyclerView.ViewHolder.class) {
-
-            @Override
-            protected boolean matchesSafely(RecyclerView.ViewHolder viewHolder) {
-                TextView subjectTextView = viewHolder.itemView.findViewById(R.id.ingrViewRowLay_txt_amount);
-
-                return ((subject.equals(subjectTextView.getText().toString())
-                        && (subjectTextView.getVisibility() == View.VISIBLE)));
-            }
-
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("item with subject: " + subject);
-            }
-        };
+        }
     }
 }

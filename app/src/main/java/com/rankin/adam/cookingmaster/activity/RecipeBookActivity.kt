@@ -1,5 +1,6 @@
 package com.rankin.adam.cookingmaster.activity
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import com.rankin.adam.cookingmaster.adapter.RecipeBookLayoutAdapter
 import com.rankin.adam.cookingmaster.controller.SaveLoadController
@@ -76,6 +77,7 @@ class RecipeBookActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun filterRecipeList(
         maxTime: Int,
         ingredients: ArrayList<Ingredient?>,
@@ -127,6 +129,7 @@ class RecipeBookActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).post { recipeBookAdapter!!.notifyDataSetChanged() }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBackPressed() {
         if (isFiltered) {
             recipeBookAdapter!!.setRecipeList(adapterList)

@@ -2,14 +2,13 @@ package com.rankin.adam.cookingmaster.dialog
 
 import android.app.Dialog
 import android.content.Context
-import com.rankin.adam.cookingmaster.model.Ingredient
-import com.rankin.adam.cookingmaster.controller.SaveLoadController
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.rankin.adam.cookingmaster.R
 import com.rankin.adam.cookingmaster.activity.MainActivity
+import com.rankin.adam.cookingmaster.controller.SaveLoadController
 import com.rankin.adam.cookingmaster.model.ShoppingListEntry
 
 /**

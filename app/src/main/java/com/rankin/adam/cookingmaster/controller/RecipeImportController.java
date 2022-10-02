@@ -15,7 +15,7 @@ import java.util.List;
 
 public class RecipeImportController {
 
-    private Recipe recipe;
+    private final Recipe recipe;
     private URL recipeURL;
 
     public RecipeImportController(String stringURL) {
@@ -26,29 +26,26 @@ public class RecipeImportController {
         }
         recipe = new Recipe("imported recipe");
         recipe.setInstructions("");
-        Thread thread = new Thread(new Runnable(){
-            @Override
-            public void run() {
-                 try {
-                    BufferedReader in = new BufferedReader(new InputStreamReader(recipeURL.openStream()));
-                    String input;
-                    StringBuilder stringBuffer = new StringBuilder();
-                    while ((input = in.readLine()) != null) {
-                        stringBuffer.append(input);
-                    }
-                    in.close();
-                    String htmlData = stringBuffer.toString();
-                    List<String> dataList;
-                    dataList = Arrays.asList(htmlData.split("[{}]"));
-                    setIngredients(dataList);
-                    setRecipeName(recipeURL.toString());
-
-
-                } catch (IOException | NullPointerException e) {
-                    e.printStackTrace();
+        Thread thread = new Thread(() -> {
+             try {
+                BufferedReader in = new BufferedReader(new InputStreamReader(recipeURL.openStream()));
+                String input;
+                StringBuilder stringBuffer = new StringBuilder();
+                while ((input = in.readLine()) != null) {
+                    stringBuffer.append(input);
                 }
+                in.close();
+                String htmlData = stringBuffer.toString();
+                List<String> dataList;
+                dataList = Arrays.asList(htmlData.split("[{}]"));
+                setIngredients(dataList);
+                setRecipeName(recipeURL.toString());
 
+
+            } catch (IOException | NullPointerException e) {
+                e.printStackTrace();
             }
+
         });
         thread.start();
         try {
@@ -119,7 +116,7 @@ public class RecipeImportController {
 
                 }
                 Ingredient ingredient = new Ingredient(ingredientName);
-                Float f = (float) 3.0;
+                float f = (float) 3.0;
                 try {
                     f = Float.parseFloat(amount);
                 } catch (NumberFormatException e) {
@@ -129,7 +126,7 @@ public class RecipeImportController {
                 recipe.addIngredient(recipeIngredientEntry);
             }
             else if (token.contains("section-body elementFont__body--paragraphWithin elementFont__body--linkWithin")) {
-                String instructions = data.get(i+5).toString();
+                String instructions = data.get(i+5);
                 instructions += "\n";
                 addInstructions(instructions);
             }

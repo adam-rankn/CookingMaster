@@ -50,7 +50,7 @@ class SearchRecipesDialog(private val context: RecipeBookActivity) : Dialog(
             builderDialog.setTitle("Select Allergens")
             val isChecked = BooleanArray(count)
             builderDialog.setMultiChoiceItems(dialogList, isChecked,
-                OnMultiChoiceClickListener { dialog, whichButton, isChecked -> })
+                { dialog, whichButton, isChecked -> })
             builderDialog.setPositiveButton("OK", object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     val list = (dialog as AlertDialog).listView

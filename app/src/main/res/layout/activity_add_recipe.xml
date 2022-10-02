@@ -180,7 +180,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addRecipeAct_btn_set_ingredients"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/recipe_image" />
 
     <Button
         android:id="@+id/btn_add_from_url"

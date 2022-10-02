@@ -1,5 +1,6 @@
 package com.rankin.adam.cookingmaster.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.InputType
@@ -34,6 +35,7 @@ class CookingRecipeFragment : Fragment() {
     var pinned: kotlin.Boolean = Boolean.FALSE
         private set
     private var recipe: Recipe? = null
+    @SuppressLint("InflateParams")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

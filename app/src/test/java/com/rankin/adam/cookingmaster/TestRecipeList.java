@@ -2,7 +2,6 @@ package com.rankin.adam.cookingmaster;
 
 import org.junit.Test;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import com.rankin.adam.cookingmaster.model.Recipe;
@@ -14,10 +13,6 @@ public class TestRecipeList {
     Recipe recipe1 = new Recipe("pie");
     Recipe recipe2 = new Recipe("cake");
     Recipe recipe3 = new Recipe("piecake");
-
-    public void TestRecipeImport(){
-
-    }
 
     @Test
     public void addGetRecipe(){

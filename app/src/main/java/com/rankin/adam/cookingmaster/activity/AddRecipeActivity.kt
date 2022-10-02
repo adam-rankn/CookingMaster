@@ -13,6 +13,7 @@ import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +43,6 @@ class AddRecipeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_recipe)
 
-        val recipeThumbnail = findViewById<ImageButton>(R.id.addRecipeAct_btn_add_image)
         val nameEdit = findViewById<EditText>(R.id.addRecipeAct_txt_name)
         val timeEdit = findViewById<EditText>(R.id.addRecipeAct_txt_time)
         val instructionsEdit = findViewById<EditText>(R.id.addRecipeAct_txt_instructions)
@@ -129,8 +129,8 @@ class AddRecipeActivity : AppCompatActivity() {
                 newRecipe!!.instructions = instructions
                 val layoutInflater = applicationContext
                     .getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-                val popupView = layoutInflater.inflate(R.layout.dialog_add_from_url, null)
-                val popupWindow = AddRecipeFromURLDialogue(this@AddRecipeActivity)
+                layoutInflater.inflate(R.layout.dialog_add_from_url,null)
+                AddRecipeFromURLDialogue(this@AddRecipeActivity)
             }
             builder.setNegativeButton(R.string.Cancel) { dialog, which -> dialog.cancel() }
             builder.show()
@@ -165,17 +165,15 @@ class AddRecipeActivity : AppCompatActivity() {
                     }
                 }
                 if (stringBuilder.toString().trim { it <= ' ' } == "") {
-                    (findViewById<View>(R.id.addRecipeAct_txt_allergen_list) as TextView).setText(R.string.no_allergens)
+                    allergensText.text = (R.string.no_allergens.toString())
                     stringBuilder.setLength(0)
                 } else {
-                    (findViewById<View>(R.id.addRecipeAct_txt_allergen_list) as TextView).text =
+                    allergensText.text =
                         stringBuilder
                 }
             }
             builderDialog.setNegativeButton("Cancel") { dialog, which ->
-                (findViewById<View>(R.id.addRecipeAct_txt_allergen_list) as TextView).setText(
-                    R.string.no_allergens
-                )
+                allergensText.setText(R.string.no_allergens)
             }
             val alert = builderDialog.create()
             alert.show()

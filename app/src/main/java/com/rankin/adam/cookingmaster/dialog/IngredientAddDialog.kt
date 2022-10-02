@@ -62,7 +62,6 @@ class IngredientAddDialog(context: AddRecipeActivity) : Dialog(context) {
         val ingredientAdapter = IngredientLayoutAdapter(ingredients, context)
         ingredientRecyclerView.adapter = ingredientAdapter
 
-        // TODO add speech recognition for ingredients
         val addIngredientButton = findViewById<Button>(R.id.ingrDialog_btn_add_ingredient)
         addIngredientButton.setOnClickListener {
             val ingrString = ingredientEdit.text.toString()
@@ -79,7 +78,7 @@ class IngredientAddDialog(context: AddRecipeActivity) : Dialog(context) {
                 ingredients!!.add(entry)
                 ingredientAdapter.addIngredient(entry)
                 //TODO specific change event
-                Handler(Looper.getMainLooper()).post({ ingredientAdapter.notifyDataSetChanged() })
+                Handler(Looper.getMainLooper()).post { ingredientAdapter.notifyDataSetChanged() }
                 MainActivity.recipeController.addIngredient(entry)
                 ingredientEdit.setText("")
                 amountEdit.setText("")

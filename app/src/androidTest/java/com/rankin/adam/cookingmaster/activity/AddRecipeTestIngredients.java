@@ -7,9 +7,6 @@ import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -19,9 +16,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.*;
 
 import com.rankin.adam.cookingmaster.R;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,8 +35,8 @@ public class AddRecipeTestIngredients {
 
     @Test
     public void addRecipeTestIngredients() {
-        Integer randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
-        String randomString = randomNum.toString();
+        int randomNum = ThreadLocalRandom.current().nextInt(100000, 1000000);
+        String randomString = Integer.toString(randomNum);
 
         ViewInteraction appCompatButton = onView(
                 allOf(withId(R.id.mainAct_btn_recipe_book), withText("RECIPE BOOK"),

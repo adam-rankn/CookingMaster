@@ -4,7 +4,6 @@ import com.rankin.adam.cookingmaster.controller.RecipeImportController;
 
 import org.junit.Test;
 
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class TestRecipeImport {
