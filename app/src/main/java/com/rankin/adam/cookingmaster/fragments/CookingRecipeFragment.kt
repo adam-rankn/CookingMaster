@@ -32,7 +32,7 @@ import kotlin.String
 import kotlin.let
 
 class CookingRecipeFragment : Fragment() {
-    var pinned: kotlin.Boolean = Boolean.FALSE
+    var pinned: kotlin.Boolean = Boolean.TRUE
         private set
     private var recipe: Recipe? = null
     @SuppressLint("InflateParams")

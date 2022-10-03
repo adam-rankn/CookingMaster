@@ -22,18 +22,21 @@ class CookingActivity : AppCompatActivity() {
         setupViewPager(viewPager)
         val prevButton = findViewById<Button>(R.id.cookingAct_btn_prev)
         val nextButton = findViewById<Button>(R.id.cookingAct_btn_next)
+
         prevButton.setOnClickListener {
-            removeCurrentRecipeIfUnpinned()
+
 
             //go to prev recipe
-            val prevRecipe = viewPager.currentItem - 1
             val size = cookingRecipesPagerAdapter!!.count
+            val prevRecipe = viewPager.currentItem - 1
+
             viewPager.currentItem = prevRecipe
         }
         nextButton.setOnClickListener {
-            removeCurrentRecipeIfUnpinned()
-            val nextRecipe = viewPager.currentItem + 1
+            //removeCurrentRecipeIfUnpinned()
             val size = cookingRecipesPagerAdapter!!.count
+
+            var nextRecipe =  viewPager.currentItem + 1
 
             //if (nextRecipe > size - 1){
             //    nextRecipe = 0;
@@ -63,8 +66,8 @@ class CookingActivity : AppCompatActivity() {
         viewPager.currentItem = currentPos
     }
 
-    fun removeCurrentRecipeIfUnpinned() {
-        val index = viewPager!!.currentItem
+    private fun removeCurrentRecipeIfUnpinned() {
+          val index = viewPager!!.currentItem
         val adapter = viewPager!!.adapter as CookingRecipesPagerAdapter?
         val fragment = adapter!!.getFragment(index)
         if (!fragment.pinned) {
