@@ -27,14 +27,14 @@ class ShoppingListLayoutAdapter(shoppingList: ArrayList<ShoppingListEntry>?, con
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         val ingredientName: TextView
-        val ingredientAmount: TextView
-        val ingredientUnit: TextView
         val deleteButton: Button
+        val ingredientNote: TextView
 
         init {
             ingredientName = itemView.findViewById(R.id.shoppingListRowLay_txt_ingredient)
-            ingredientAmount = itemView.findViewById(R.id.shoppingListRowLay_txt_amount)
-            ingredientUnit = itemView.findViewById(R.id.shoppingListRowLay_txt_unit)
+            ingredientNote = itemView.findViewById(R.id.shoppingListRowLay_txt_note)
+            //ingredientAmount = itemView.findViewById(R.id.shoppingListRowLay_txt_amount)
+            //ingredientUnit = itemView.findViewById(R.id.shoppingListRowLay_txt_unit)
             deleteButton = itemView.findViewById(R.id.shoppingListRowLay_btn_delete)
         }
 
@@ -51,8 +51,9 @@ class ShoppingListLayoutAdapter(shoppingList: ArrayList<ShoppingListEntry>?, con
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shoppingListEntry = shoppingList[position]
         holder.ingredientName.text = shoppingListEntry.name
-        holder.ingredientAmount.text = shoppingListEntry.amount.toString()
-        holder.ingredientUnit.text = shoppingListEntry.unit
+        holder.ingredientNote.text = shoppingListEntry.note
+        //holder.ingredientAmount.text = shoppingListEntry.amount.toString()
+        //holder.ingredientUnit.text = shoppingListEntry.unit
         holder.deleteButton.setOnClickListener {
             deleteItem(holder.layoutPosition)
             MainActivity.shoppingListController.removeEntry(holder.layoutPosition)
@@ -63,6 +64,7 @@ class ShoppingListLayoutAdapter(shoppingList: ArrayList<ShoppingListEntry>?, con
         return shoppingList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun clearList() {
         shoppingList.clear()
         notifyDataSetChanged()

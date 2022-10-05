@@ -1,5 +1,6 @@
 package com.rankin.adam.cookingmaster.dialog
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -20,6 +21,7 @@ class AddIngredientToShoppingListDialog(private val viewRecipeContext: Context) 
     private var unit: String = "lbs"
     private val saveLoadController: SaveLoadController = SaveLoadController(viewRecipeContext)
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_ingredient_to_shopping_list_dialog)
@@ -27,39 +29,46 @@ class AddIngredientToShoppingListDialog(private val viewRecipeContext: Context) 
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        val unitSpinner = findViewById<Spinner>(R.id.addIngrShopListDialog_spinner_units)
-        val unitAdapter = ArrayAdapter.createFromResource(
-            viewRecipeContext,
-            R.array.units_array, android.R.layout.simple_spinner_item
-        )
-        unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        unitSpinner.adapter = unitAdapter
-        unitSpinner.onItemSelectedListener = this
-        val amountEditText = findViewById<EditText>(R.id.addIngrShopListDialog_edit_amount)
-        val ingredientTextView =
+
+        val noteEdit = findViewById<EditText>(R.id.addIngrShopListDialog_edt_note)
+        val ingredientTxt = findViewById<TextView>(R.id.addIngrShopListDialog_txt_ingredient_name)
+        ingredientTxt.text  = MainActivity.shoppingListController.currentIngredient.name
+        /* val unitSpinner = findViewById<Spinner>(R.id.addIngrShopListDialog_spinner_units)
+         val unitAdapter = ArrayAdapter.createFromResource(
+        //   viewRecipeContext,
+         /   R.array.units_array, android.R.layout.simple_spinner_item
+         )
+         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+         unitSpinner.adapter = unitAdapter
+         unitSpinner.onItemSelectedListener = this
+         val amountEditText = findViewById<EditText>(R.id.addIngrShopListDialog_edit_amount)
+         val ingredientTextView =
             findViewById<TextView>(R.id.addIngrShopListDialog_txt_ingredient_name)
-        ingredientTextView.text = MainActivity.shoppingListController.currentIngredient.name
+         ingredientTextView.text = MainActivity.shoppingListController.currentIngredient.name
+          */
         val addButton = findViewById<Button>(R.id.addIngrShopListDialog_btn_add)
+
+
         addButton.setOnClickListener {
-            if (amountEditText.text.toString().trim { it <= ' ' }.isEmpty()) {
-                amountEditText.error = "please enter a quantity"
-            } else {
-                val amountString = amountEditText.text.toString()
-                val ingredient = MainActivity.shoppingListController.currentIngredient
-                val amount = amountString.toInt()
-                val shoppingListEntry = ShoppingListEntry(ingredient, amount, unit)
-                MainActivity.shoppingListController.addIngredient(shoppingListEntry)
-                saveLoadController.saveShoppingListToFile()
-                dismiss()
-            }
+
+            val note = noteEdit.text.toString()
+            val ingredient = MainActivity.shoppingListController.currentIngredient
+            //val amount = amountString.toInt()
+            val shoppingListEntry = ShoppingListEntry(ingredient)
+            shoppingListEntry.note = note
+            MainActivity.shoppingListController.addIngredient(shoppingListEntry)
+            saveLoadController.saveShoppingListToFile()
+            dismiss()
         }
+
+
     }
 
     override fun onItemSelected(
         parent: AdapterView<*>, view: View,
         pos: Int, id: Long
     ) {
-        unit = parent.getItemAtPosition(pos).toString()
+        //unit = parent.getItemAtPosition(pos).toString()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}

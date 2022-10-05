@@ -29,18 +29,18 @@ class MainActivity : AppCompatActivity() {
             val recipeBookIntent = Intent(this@MainActivity, RecipeBookActivity::class.java)
             startActivity(recipeBookIntent)
         }
-        val spiceButton = findViewById<Button>(R.id.mainAct_btn_spices)
-        spiceButton.setOnClickListener {
+        //val spiceButton = findViewById<Button>(R.id.mainAct_btn_spices)
+        //spiceButton.setOnClickListener {
             //Intent spiceIntent = new Intent(MainActivity.this, Activity.class);
             //startActivity(spiceIntent);
             //TODO this will be changed or removed
-        }
-        val pantryButton = findViewById<Button>(R.id.mainAct_btn_pantry)
-        pantryButton.setOnClickListener {
-            val pantryIntent = Intent(this@MainActivity, PantryActivity::class.java)
-            startActivity(pantryIntent)
+        //}
+        //val pantryButton = findViewById<Button>(R.id.mainAct_btn_pantry)
+        //pantryButton.setOnClickListener {
+         //   val pantryIntent = Intent(this@MainActivity, PantryActivity::class.java)
+         //   startActivity(pantryIntent)
             //TODO add a pantry feature
-        }
+        //}
         val shoppingButton = findViewById<Button>(R.id.mainAct_btn_shopping)
         shoppingButton.setOnClickListener {
             val shoppingIntent = Intent(this@MainActivity, ShoppingListActivity::class.java)

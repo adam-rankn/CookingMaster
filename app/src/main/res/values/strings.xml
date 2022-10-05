@@ -190,6 +190,7 @@
     <string name="zoomed_in_photo">zoomed in photo</string>
     <string name="action_settings">action settings</string>
     <string name="recipe_image">recipe image</string>
+    <string name="note">note</string>
 
 
 </resources>

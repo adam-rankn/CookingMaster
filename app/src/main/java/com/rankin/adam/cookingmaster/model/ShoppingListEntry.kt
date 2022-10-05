@@ -8,6 +8,7 @@ class ShoppingListEntry {
     var ingredient: Ingredient
     var amount: Int
     var unit: String
+    var note: String = ""
 
     constructor(ingredient: Ingredient, amount: Int, unit: String) {
         this.ingredient = ingredient

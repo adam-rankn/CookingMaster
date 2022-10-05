@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     tools:context="com.rankin.adam.cookingmaster.activity.ViewRecipeActivity">
 
+
+    <ImageView
+        android:id="@+id/checkered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/recipe_book_background"
+        android:tileMode="repeat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/outside_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/checkered"
+        app:layout_constraintStart_toStartOf="@+id/checkered"
+        app:layout_constraintTop_toTopOf="@+id/checkered"
+        app:layout_constraintBottom_toBottomOf="@+id/checkered"
+        android:layout_margin="8dp"
+        android:background="@color/material_dynamic_neutral90"/>
+
+
     <TextView
         android:id="@+id/viewRecipeAct_txt_name"
         android:layout_width="wrap_content"
@@ -130,7 +155,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_txt_instructions_header"
         app:layout_constraintVertical_bias="1.0"
-        tools:text="cooking instructions" />
+        tools:text="cooking instructions"
+        android:background="@color/material_dynamic_neutral90"/>/>
 
     <Button
         android:id="@+id/viewRecipeAct_btn_edit"
@@ -181,5 +207,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewRecipeAct_txt_time" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

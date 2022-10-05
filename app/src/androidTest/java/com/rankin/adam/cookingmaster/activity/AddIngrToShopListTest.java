@@ -117,10 +117,6 @@ public class AddIngrToShopListTest {
                         isDisplayed()));
         appCompatButton9.perform(click());
 
-        ViewInteraction appCompatEditText6 = onView(
-                allOf(withId(R.id.addIngrShopListDialog_edit_amount),
-                        isDisplayed()));
-        appCompatEditText6.perform(replaceText("12"), closeSoftKeyboard());
 
         ViewInteraction appCompatButton10 = onView(
                 allOf(withId(R.id.addIngrShopListDialog_btn_add), withText("ADD"),

@@ -2,35 +2,78 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:radius="12dp" >
 
-    <ImageView
-        android:id="@+id/recipe_book_row_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:scaleType="fitXY"
-        android:layout_marginTop="8dp"
-        android:background="@mipmap/default_recipe"
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/recipe_image" />
+        android:radius="24dp" >
+        >
 
-    <TextView
-        android:id="@+id/recipe_row_name"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/recipe_name"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recipe_book_row_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/checkered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/checkered_background"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds ="true"
+            android:layout_alignTop="@+id/recipe_content"
+            android:layout_alignBottom="@id/recipe_content"
+            android:layout_alignStart="@id/recipe_content"
+            android:layout_alignEnd="@id/recipe_content"
+            android:radius="24dp"
+            />
+
+
+
+        <LinearLayout
+            android:id="@id/recipe_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:radius="24dp" >>
+
+            <ImageView
+                android:id="@+id/recipe_book_row_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:scaleType="fitXY"
+                android:layout_marginTop="8dp"
+                android:background="@mipmap/default_recipe"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/recipe_image" />
+
+            <TextView
+                android:id="@+id/recipe_row_name"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/recipe_name"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recipe_book_row_image"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@color/material_dynamic_neutral90"
+                android:layout_margin="8dp"
+                android:radius="12dp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
